@@ -10,11 +10,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Funcionario extends AbstractPessoa{
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer funcionario_id;
-    private String funcao;
-    private Double salario;
+    private Integer user_id;
+    private String email;
+    private String senha;
 }

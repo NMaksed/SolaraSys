@@ -18,6 +18,6 @@ public class MoradorServiceImpl implements MoradorService{
     }
     @Override
     public List<Morador> getMorador() {
-        return MoradorRepository.findAll();
+        return moradorRepository.findAll();
     }
 }

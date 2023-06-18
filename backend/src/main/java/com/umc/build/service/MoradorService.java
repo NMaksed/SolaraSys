@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface MoradorService {
+
     public Morador salvarMorador(Morador morador);
     public List<Morador> getMorador();
 }

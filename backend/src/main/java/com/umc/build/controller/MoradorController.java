@@ -1,7 +1,6 @@
 package com.umc.build.controller;
 
 import com.umc.build.model.Morador;
-import com.umc.build.repository.MoradorRepository;
 import com.umc.build.service.MoradorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
