@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Condominio {
 
-    private Integer identificador;
+    private Integer id;
     private Boolean piscina;
     private Boolean churrasqueira;
     private Boolean salao;

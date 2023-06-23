@@ -14,7 +14,7 @@ public class Morador extends AbstractPessoa{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_morador;
+    private Integer id;
     private Boolean morador; //morador dono
     private Boolean moradorVinculado;
     private Boolean exame;

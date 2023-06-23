@@ -14,4 +14,6 @@ public class AbstractPessoa {
     private String cpf;
     private String rg;
     private String cep;
+    private boolean funcionario;
+    private boolean morador;
 }

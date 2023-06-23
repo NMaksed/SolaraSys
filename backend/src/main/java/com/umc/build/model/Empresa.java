@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class Empresa {
 
-    private String identificador;
-    private String nome_condominio;
+    private String id;
+    private String nome;
     private String enderecoCompleto;
     private Integer numero;
     private String cidade;

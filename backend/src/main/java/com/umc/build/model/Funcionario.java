@@ -14,7 +14,7 @@ public class Funcionario extends AbstractPessoa{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer funcionario_id;
+    private Integer id;
     private String funcao;
     private Double salario;
 }
