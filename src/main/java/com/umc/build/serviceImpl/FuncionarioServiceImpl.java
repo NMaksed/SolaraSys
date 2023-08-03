@@ -1,7 +1,8 @@
-package com.umc.build.service;
+package com.umc.build.serviceImpl;
 
 import com.umc.build.model.Funcionario;
 import com.umc.build.repository.FuncionarioRepository;
+import com.umc.build.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

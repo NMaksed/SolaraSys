@@ -8,5 +8,5 @@ public interface AbstractPessoaService {
 
     public AbstractPessoa salvarPessoa(AbstractPessoa pessoa);
     public List<AbstractPessoa> getPessoa();
-
+    public AbstractPessoa buscarPorCpf(String cpf);
 }

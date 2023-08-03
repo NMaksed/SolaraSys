@@ -2,6 +2,7 @@ package com.umc.build.controller;
 
 import com.umc.build.model.Condominio;
 import com.umc.build.service.CondominioService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +14,9 @@ public class CondominioController {
     public CondominioService condominioService;
 
     @PostMapping("salvarCondominio")
-    public String add(@RequestBody Condominio condominio) {
+    public ResponseEntity<String> add(@RequestBody Condominio condominio) {
         condominioService.salvarCondominio(condominio);
-        return "Novo Condomínio adicionar";
+        return ResponseEntity.ok("Novo condomínio adicionado!");
     }
 
     @GetMapping("getCondominio")

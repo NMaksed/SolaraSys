@@ -7,6 +7,7 @@ import com.umc.build.service.AbstractPessoaService;
 import com.umc.build.service.FuncionarioService;
 import com.umc.build.service.MoradorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,30 +18,57 @@ import java.util.List;
 public class PessoaController {
 
     @Autowired
-    public MoradorService moradorService;
+    private MoradorService moradorService;
     @Autowired
-    public FuncionarioService funcionarioService;
+    private FuncionarioService funcionarioService;
     @Autowired
-    public AbstractPessoaService pessoaService;
+    private AbstractPessoaService pessoaService;
+
 
     @PostMapping("moradorAdicionar")
-    public ResponseEntity<String> salvarMorador(@RequestBody Morador morador) {
-        //Primeiro salvamos a pessoa
-        if (morador.getPessoa() != null) {
-            AbstractPessoa pessoa = pessoaService.salvarPessoa(morador.getPessoa());
-            morador.setPessoa(pessoa);
-        }
+    public ResponseEntity<String> salvarMorador(@RequestBody Morador moradorDto) {
+        try {
+            //Verifica se a pessoa já existe
+            AbstractPessoa pessoa = pessoaService.buscarPorCpf(moradorDto.getCpf());
 
-        //Salva o morador
-        moradorService.salvarMorador(morador);
+            if (pessoa == null) {
+                pessoa = new AbstractPessoa();
+                pessoa.setNome(moradorDto.getNome());
+                pessoa.setIdade(moradorDto.getIdade());
+                pessoa.setRg(moradorDto.getRg());
+                pessoa.setCpf(moradorDto.getCpf());
+                pessoa.setCep(moradorDto.getCep());
 
-        return ResponseEntity.ok("Morador Salvo com sucesso!");
+                pessoa = pessoaService.salvarPessoa(pessoa);
+            }
+                Morador morador = new Morador();
+                morador.setMorador(true);
+                morador.setMoradorVinculado(moradorDto.getMoradorVinculado());
+                morador.setMorador(moradorDto.getMorador());
+                morador.setExame(moradorDto.getExame());
+                morador.setPessoa(pessoa);
+
+                morador = moradorService.salvarMorador(morador);
+                return ResponseEntity.ok("Morador criado com sucesso!");
+            } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Morador: " + e.getMessage());
+            }
     }
 
+
+
     @PostMapping("funcionarioAdicionar")
-    public String add(@RequestBody Funcionario funcionario) {
+    public ResponseEntity<String> add(@RequestBody Funcionario funcionario) {
+        AbstractPessoa pessoa = new AbstractPessoa();
+        if (funcionario.getPessoa() != null) {
+            if (pessoa.getCpf() == funcionario.getPessoa().getCpf()) {
+                pessoa = pessoaService.salvarPessoa(funcionario.getPessoa());
+                funcionario.setPessoa(pessoa);
+            }
+        }
         funcionarioService.salvarFuncionario(funcionario);
-        return "Funcionario adicionado";
+        return ResponseEntity.ok("Funcionario adicionado!");
     }
 
     @GetMapping("getMorador")
