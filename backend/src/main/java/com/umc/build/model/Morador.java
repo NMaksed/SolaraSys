@@ -1,15 +1,13 @@
 package com.umc.build.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "morador")
 public class Morador extends AbstractPessoa{
 
     @Id
@@ -18,4 +16,7 @@ public class Morador extends AbstractPessoa{
     private Boolean morador; //morador dono
     private Boolean moradorVinculado;
     private Boolean exame;
+    @ManyToOne
+    @JoinColumn(name = "pessoa_codigo")
+    private AbstractPessoa pessoa;
 }

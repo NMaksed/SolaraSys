@@ -8,7 +8,8 @@ import lombok.Setter;
 public class Predio {
 
     private Integer id;
-    private Integer moradorId;
     private Integer numero;
+    private String referencia;
+    private Integer andar;
 
 }
