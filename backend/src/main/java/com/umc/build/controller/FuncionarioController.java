@@ -1,7 +1,7 @@
 package com.umc.build.controller;
 
 import com.umc.build.model.Funcionario;
-import com.umc.build.service.FuncionarioService;
+import com.umc.build.serviceImpl.FuncionarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class FuncionarioController {
 
     @Autowired
-    public FuncionarioService funcionarioService;
+    public FuncionarioServiceImpl funcionarioService;
 
     @PostMapping("/salvar")
     public String add(@RequestBody Funcionario funcionario) {

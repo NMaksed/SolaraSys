@@ -3,9 +3,9 @@ package com.umc.build.controller;
 import com.umc.build.model.AbstractPessoa;
 import com.umc.build.model.Funcionario;
 import com.umc.build.model.Morador;
-import com.umc.build.service.AbstractPessoaService;
-import com.umc.build.service.FuncionarioService;
-import com.umc.build.service.MoradorService;
+import com.umc.build.serviceImpl.AbstractPessoaServiceImpl;
+import com.umc.build.serviceImpl.FuncionarioServiceImpl;
+import com.umc.build.serviceImpl.MoradorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,40 +15,32 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pessoa")
+@CrossOrigin
 public class PessoaController {
 
     @Autowired
-    private MoradorService moradorService;
+    private MoradorServiceImpl moradorService;
     @Autowired
-    private FuncionarioService funcionarioService;
+    private FuncionarioServiceImpl funcionarioService;
     @Autowired
-    private AbstractPessoaService pessoaService;
+    private AbstractPessoaServiceImpl pessoaService;
 
+
+    @PostMapping("registro")
+    public ResponseEntity<String> registroPessoa(@RequestBody AbstractPessoa pessoa) {
+        try {
+            pessoaService.salvarPessoa(pessoa);
+            return ResponseEntity.ok("Pessoa registrada com sucesso!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Morador: " + e.getMessage());
+        }
+    }
 
     @PostMapping("moradorAdicionar")
-    public ResponseEntity<String> salvarMorador(@RequestBody Morador moradorDto) {
+    public ResponseEntity<String> salvarMorador(@RequestBody Morador morador) {
         try {
-            //Verifica se a pessoa já existe
-            AbstractPessoa pessoa = pessoaService.buscarPorCpf(moradorDto.getCpf());
-
-            if (pessoa == null) {
-                pessoa = new AbstractPessoa();
-                pessoa.setNome(moradorDto.getNome());
-                pessoa.setIdade(moradorDto.getIdade());
-                pessoa.setRg(moradorDto.getRg());
-                pessoa.setCpf(moradorDto.getCpf());
-                pessoa.setCep(moradorDto.getCep());
-
-                pessoa = pessoaService.salvarPessoa(pessoa);
-            }
-                Morador morador = new Morador();
-                morador.setMorador(true);
-                morador.setMoradorVinculado(moradorDto.getMoradorVinculado());
-                morador.setMorador(moradorDto.getMorador());
-                morador.setExame(moradorDto.getExame());
-                morador.setPessoa(pessoa);
-
-                morador = moradorService.salvarMorador(morador);
+                moradorService.salvarMorador(morador);
                 return ResponseEntity.ok("Morador criado com sucesso!");
             } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -1,7 +1,7 @@
 package com.umc.build.controller;
 
 import com.umc.build.model.Condominio;
-import com.umc.build.service.CondominioService;
+import com.umc.build.serviceImpl.CondominioServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/condominio")
 public class CondominioController {
 
-    public CondominioService condominioService;
+    public CondominioServiceImpl condominioService;
 
     @PostMapping("salvarCondominio")
     public ResponseEntity<String> add(@RequestBody Condominio condominio) {

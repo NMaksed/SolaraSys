@@ -1,7 +1,7 @@
 package com.umc.build.controller;
 
 import com.umc.build.model.Morador;
-import com.umc.build.service.MoradorService;
+import com.umc.build.serviceImpl.MoradorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class MoradorController {
 
     @Autowired
-    public MoradorService moradorService;
+    public MoradorServiceImpl moradorService;
 
     @PostMapping("/salvar")
     public String add(@RequestBody Morador morador) {

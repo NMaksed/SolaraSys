@@ -1,13 +1,12 @@
 import './App.css';
 import Navbar from './components/Appbar'
-import Cadastro from './pages/Main/Cadastro'
-import MoradorCadastro from './pages/Morador/Cadastro';
+import CadastroPessoa from './pages/Pessoa/Cadastro';
 
 function App() {
   return (
     <div className="App">
       <Navbar/>
-      <MoradorCadastro/>
+      <CadastroPessoa/>
     </div>
   );
 }
