@@ -22,9 +22,9 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Cadastro de Morador
+            Registro de Pessoa
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Menu</Button>
         </Toolbar>
       </AppBar>
     </Box>

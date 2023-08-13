@@ -31,22 +31,22 @@ export default function CadastroPessoa() {
       <Container style={styles.container}>
         <Paper elevation={3} style={styles.paper} >
           <TextField id="nome" label="Nome" variant="outlined" style={styles.text}
-            value={nome} fullWidth
+            value={nome} fullWidth required
             onChange={(e) => setNome(e.target.value)} />
           <TextField id="idade" label="Idade" variant="outlined" style={styles.text}
-            value={idade} fullWidth
+            value={idade} fullWidth required
             onChange={(e) => setIdade(e.target.value)} />
           <TextField id="cpf" label="CPF" variant="outlined" style={styles.text}
-            value={cpf} fullWidth
+            value={cpf} fullWidth required
             onChange={(e) => setCpf(e.target.value)} />
           <TextField id="rg" label="RG" variant="outlined" style={styles.text}
-            value={rg} fullWidth
+            value={rg} fullWidth required
             onChange={(e) => setRg(e.target.value)} />
           <TextField id="cep" label="CEP" variant="outlined" style={styles.text}
-            value={cep} fullWidth
+            value={cep} fullWidth 
             onChange={(e) => setCep(e.target.value)} />
           <Button variant="contained" onClick={handleClick}>
-            Receba
+            Salvar
           </Button>
         </Paper>
       </Container>
