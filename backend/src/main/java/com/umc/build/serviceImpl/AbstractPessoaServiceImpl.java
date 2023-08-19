@@ -12,10 +12,11 @@ public class AbstractPessoaServiceImpl {
 
     @Autowired
     private AbstractPessoaRepository repository;
-    @Autowired
-    private MoradorServiceImpl moradorService;
 
-    public AbstractPessoa salvarPessoa(AbstractPessoa pessoa) { return repository.save(pessoa); }
+
+    public AbstractPessoa salvarPessoa(AbstractPessoa pessoa) {
+        return repository.save(pessoa);
+    }
 
     public List<AbstractPessoa> getPessoa() { return repository.findAll(); }
 

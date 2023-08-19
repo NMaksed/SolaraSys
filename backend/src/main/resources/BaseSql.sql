@@ -5,7 +5,7 @@ nome VARCHAR(255) NOT NULL,
 idade INT NOT NULL,
 cpf VARCHAR(11) NOT NULL,
 rg VARCHAR(20) NOT NULL,
-cep VARCHAR(10) NOT NULL
+cep VARCHAR(10)
 )
     ENGINE = InnoDB;
 /* ------------- PESSOA ---------------*/

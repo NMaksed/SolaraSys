@@ -6,7 +6,7 @@ import Header from './components/header';
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <Navbar/>
       <CadastroPessoa/>
     </div>
   );

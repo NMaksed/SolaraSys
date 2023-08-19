@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "morador")
-public class Morador extends AbstractPessoa{
+public class Morador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
