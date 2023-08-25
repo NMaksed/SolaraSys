@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Condominio extends Predio{
+public class Condominio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,4 +15,9 @@ public class Condominio extends Predio{
     private Boolean piscina;
     private Boolean churrasqueira;
     private Boolean salao;
+    @OneToOne
+    @JoinColumn(name = "predio_codigo")
+    private Predio predio;
+
+
 }
