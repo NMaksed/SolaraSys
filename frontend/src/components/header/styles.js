@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     height: 90px;
     display: flex;
-    background-color: #1565c0;
+    background-color: #2074d4;
     box-shadow: 0 0 20px 3px;
 
     > svg {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import { Container, Paper } from '@mui/material';
-import styles from './style';
+import styles from './styles';
 import Button from '@mui/material/Button';
 
 
