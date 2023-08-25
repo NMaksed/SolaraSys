@@ -1,12 +1,13 @@
 import './App.css';
-import Navbar from './components/Appbar'
-import Cadastro from './components/Cadastro'
+import Navbar from './pages/Pessoa/Cadastro/Appbar'
+import CadastroPessoa from './pages/Pessoa/Cadastro';
+import Header from './components/header';
 
 function App() {
   return (
     <div className="App">
       <Navbar/>
-      <Cadastro/>
+      <CadastroPessoa/>
     </div>
   );
 }
