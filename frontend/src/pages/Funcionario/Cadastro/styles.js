@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
     width: 200,
   },
   botao: {
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    flexDirection: 'column',
+    display: "flex", 
+    justifyContent: "center", 
+    alignItems: "center",
+    marginTop: 100,
   } 
 });
 

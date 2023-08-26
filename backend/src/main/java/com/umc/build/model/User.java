@@ -4,9 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "usuario")
 public class User {
 
     @Id
@@ -14,7 +18,9 @@ public class User {
     private Integer userId;
     private String email;
     private String senha;
-    @ManyToOne
-    @JoinColumn (name= "funcionario_id")
+    @OneToOne(mappedBy = "user")
     private Funcionario funcionario;
+    @ManyToOne
+    @JoinColumn(name = "usuario")
+    private Empresa empresa;
 }

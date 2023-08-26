@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "morador")
 public class Morador {
 
@@ -16,7 +17,10 @@ public class Morador {
     private Boolean morador; //morador dono
     private Boolean moradorVinculado;
     private Boolean exame;
-    @ManyToOne
-    @JoinColumn(name = "pessoa_codigo")
+    @OneToOne
+    @JoinColumn(name = "pessoa_morador_codigo")
     private AbstractPessoa pessoa;
+    @ManyToOne
+    @JoinColumn(name = "predio_morador_codigo")
+    private Predio predio;
 }

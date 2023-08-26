@@ -30,9 +30,8 @@ export default function Navbar() {
             {sidebar && <Sidebar active={setSidebar} />}
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Registro de Pessoa
+            Registro de Funcionario
           </Typography>
-          <Button color="inherit">Menu</Button>
         </Toolbar>
       </AppBar>
     </Box>

@@ -17,8 +17,8 @@ CREATE TABLE morador (
  morador bit,
  morador_vinculado bit,
  exame bit,
- pessoa_codigo INT NOT NULL,
- FOREIGN KEY(pessoa_codigo) REFERENCES pessoa(id)
+ pessoa_morador_codigo INT(11) NOT NULL,
+ predio_morador_codigo INT(11) NOT NULL
 )
     ENGINE = InnoDB;
 /*------------- MORADOR ---------------*/
@@ -27,20 +27,19 @@ CREATE TABLE morador (
 /* ------------- FUNCIONARIO ---------------*/
 CREATE TABLE funcionario (
  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
- funcao VARCHAR(255),
- salario DOUBLE,
- pessoa_codigo INT NOT NULL,
- FOREIGN KEY(pessoa_codigo) REFERENCES pessoa(id)
+ funcao VARCHAR(255) NOT NULL,
+ salario DOUBLE NOT NULL DEFAULT 0,
+ pessoa_funcionario_codigo INT(11) NOT NULL,
+ usuario_funcionario_codigo INT(11) NOT NULL
 )
     ENGINE = InnoDB;
+
 /* ------------- PREDIO ---------------*/
 CREATE TABLE predio (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-numero INT,
-referencia INT,
-andar INT,
-morador_codigo INT NOT NULL,
-FOREIGN KEY(morador_codigo) REFERENCES morador(id)
+numero INT(11) NOT NULL,
+andar INT(11) NOT NULL,
+condominio_predio_codigo INT(11) NOT NULL
 )
     ENGINE = InnoDB;
 /*------------- PREDIO ---------------*/
@@ -49,12 +48,11 @@ FOREIGN KEY(morador_codigo) REFERENCES morador(id)
 /*------------- EMPRESA ---------------*/
 CREATE TABLE empresa (
  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
- nomeCondominio VARCHAR(255),
- endereco VARCHAR(255),
- numero INT,
- cidade VARCHAR(255),
- rua VARCHAR(255),
- cnpj VARCHAR(255)
+ endereco VARCHAR(255) NOT NULL,
+ numero INT NOT NULL,
+ cidade VARCHAR(255) NOT NULL,
+ rua VARCHAR(255) NOT NULL,
+ cnpj VARCHAR(255) NOT NULL
 )
     ENGINE = InnoDB;
 /* ------------- EMPRESA ---------------*/
@@ -66,20 +64,42 @@ id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 piscina bit,
 churrasqueira bit,
 salao bit,
-predio_codigo INT NOT NULL,
-FOREIGN KEY(predio_codigo) REFERENCES predio(id)
+avisos VARCHAR(255),
+empresa_condominio_codigo INT(11) NOT NULL
 )
     ENGINE = InnoDB;
 /*------------- CONDOMINIO ---------------*/
 
 
-/*------------- USER ---------------*/
-CREATE TABLE `user` (
+/*------------- USUARIO ---------------*/
+CREATE TABLE `usuario` (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 email VARCHAR(255) NOT NULL,
 senha VARCHAR(255) NOT NULL,
-funcionario_id INT NOT NULL,
-FOREIGN KEY(funcionario_id) REFERENCES funcionario(id)
+funcionario_usuario_codigo INT(11) NOT NULL,
+empresa_usuario_codigo INT(11) NOT NULL
 )
     ENGINE = InnoDB;
-/* ------------- USER ---------------*/
+/* ------------- USUARIO ---------------*/
+
+/*----------------- ALTER TABLE ---------------------*/
+ALTER TABLE morador ADD CONSTRAINT pessoa_morador_codigo
+    FOREIGN KEY(pessoa_morador_codigo) REFERENCES pessoa(id);
+ALTER TABLE morador ADD CONSTRAINT predio_morador_codigo
+    FOREIGN KEY(predio_morador_codigo) REFERENCES predio(id);
+/*----------------------------------------------------------*/
+ALTER TABLE condominio ADD CONSTRAINT empresa_condominio_codigo
+    FOREIGN KEY(empresa_condominio_codigo) REFERENCES empresa(id);
+/*----------------------------------------------------------*/
+ALTER TABLE usuario ADD CONSTRAINT funcionario_usuario_codigo
+    FOREIGN KEY(funcionario_usuario_codigo) REFERENCES funcionario(id);
+ALTER TABLE usuario ADD CONSTRAINT empresa_usuario_codigo
+    FOREIGN KEY(empresa_usuario_codigo) REFERENCES empresa(id);
+/*----------------------------------------------------------*/
+ALTER TABLE funcionario ADD CONSTRAINT pessoa_funcionario_codigo
+FOREIGN KEY (pessoa_funcionario_codigo) REFERENCES pessoa(id);
+ALTER TABLE funcionario ADD CONSTRAINT usuario_funcionario_codigo
+FOREIGN KEY (usuario_funcionario_codigo) REFERENCES usuario(id);
+/*----------------------------------------------------------*/
+ALTER TABLE predio ADD CONSTRAINT condominio_predio_codigo
+FOREIGN KEY (condominio_predio_codigo) REFERENCES condominio(id);
