@@ -1,6 +1,7 @@
 package com.umc.build.model;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,14 +18,24 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String nome;
+    @Getter(AccessLevel.NONE)
     private String enderecoCompleto;
     private Integer numero;
     private String cidade;
     private String rua;
     private String cnpj;
+    private String cep;
+    private String uf;
     @OneToMany(mappedBy = "empresa")
     private List<Condominio> condominio;
     @OneToMany(mappedBy = "empresa")
     private List<User> user;
+
+    public String getEnderecoCompleto() {
+        StringBuilder stb = new StringBuilder();
+        stb.append(getRua()).append(",").append(getNumero()).append(" - ")
+            .append(getCidade()).append(",").append(getUf()).append(" - ").append(getCep());
+        return enderecoCompleto = String.valueOf(stb);
+    }
 
 }

@@ -52,7 +52,9 @@ CREATE TABLE empresa (
  numero INT NOT NULL,
  cidade VARCHAR(255) NOT NULL,
  rua VARCHAR(255) NOT NULL,
- cnpj VARCHAR(255) NOT NULL
+ cnpj VARCHAR(255) NOT NULL,
+ uf VARCHAR(255) NOT NULL,
+ cep VARCHAR(10) NOT NULL
 )
     ENGINE = InnoDB;
 /* ------------- EMPRESA ---------------*/
