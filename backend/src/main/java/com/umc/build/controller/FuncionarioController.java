@@ -23,27 +23,11 @@ public class FuncionarioController {
     @PostMapping("/salvar")
     public ResponseEntity<String> add(@RequestBody Funcionario funcionarioDTO) {
         try {
-            AbstractPessoa pessoa = pessoaService.buscarPorCpf(funcionarioDTO.getPessoa().getCpf());
-
-
-            // Se a pessoa não existir, cria uma nova pessoa
-            if (pessoa == null) {
-                pessoa = new AbstractPessoa();
-                pessoa.setNome(funcionarioDTO.getPessoa().getNome());
-                pessoa.setIdade(funcionarioDTO.getPessoa().getIdade());
-                pessoa.setCep(funcionarioDTO.getPessoa().getCep());
-                pessoa.setRg(funcionarioDTO.getPessoa().getRg());
-                pessoa.setCpf(funcionarioDTO.getPessoa().getCpf());
-
-                pessoa = pessoaService.salvarPessoa(pessoa);
+            funcionarioService.validadePessoaFuncionario(funcionarioDTO.getPessoa().getCpf());
+            if (funcionarioDTO.getPessoa().getCpf() == null) {
+                funcionarioService.builderPessoaFuncionario(funcionarioDTO);
             }
-            // Cria o funcionario e associa à pessoa existente ou recém-criada
-            Funcionario funcionario = new Funcionario();
-            funcionario.setFuncao(funcionarioDTO.getFuncao());
-            funcionario.setSalario(funcionario.getSalario());
-            funcionario.setPessoa(pessoa);
-
-            funcionarioService.salvarFuncionario(funcionario);
+            funcionarioService.salvarFuncionario(funcionarioDTO);
             return ResponseEntity.ok("Novo funcionário adicionado!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

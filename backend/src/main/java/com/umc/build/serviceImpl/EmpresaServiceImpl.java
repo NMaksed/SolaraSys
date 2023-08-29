@@ -25,6 +25,8 @@ public class EmpresaServiceImpl {
             empresa.setNumero(empresaDTO.getNumero());
             empresa.setCep(empresaDTO.getCep());
             empresa.setEnderecoCompleto(empresa.getEnderecoCompleto());
+
+            empresa = salvarEmpresa(empresaDTO);
         }
     }
 

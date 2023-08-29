@@ -23,29 +23,11 @@ public class MoradorController {
     @PostMapping("/salvar")
     public ResponseEntity<String> add(@RequestBody Morador moradorDTO) {
         try {
-            AbstractPessoa pessoa = pessoaService.buscarPorCpf(moradorDTO.getPessoa().getCpf());
-
-            // Se a pessoa não existir, cria uma nova pessoa
-            if (pessoa == null) {
-                pessoa = new AbstractPessoa();
-                pessoa.setNome(moradorDTO.getPessoa().getNome());
-                pessoa.setIdade(moradorDTO.getPessoa().getIdade());
-                pessoa.setCep(moradorDTO.getPessoa().getCep());
-                pessoa.setRg(moradorDTO.getPessoa().getRg());
-                pessoa.setCpf(moradorDTO.getPessoa().getCpf());
-
-                pessoa = pessoaService.salvarPessoa(pessoa);
+            moradorService.validadePessoaMorador(moradorDTO.getPessoa().getCpf());
+            if (moradorDTO.getPessoa() == null) {
+                moradorService.builderPessoaMorador(moradorDTO);
             }
-
-            // Cria o morador e associa à pessoa existente ou recém-criada
-            Morador morador = new Morador();
-            morador.setMorador(true);
-            morador.setMoradorVinculado(moradorDTO.getMoradorVinculado());
-            morador.setExame(moradorDTO.getExame());
-            morador.setPessoa(pessoa);
-
-            moradorService.salvarMorador(morador);
-
+            moradorService.salvarMorador(moradorDTO);
             return ResponseEntity.ok("Novo funcionário adicionado!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
