@@ -3,9 +3,9 @@ CREATE TABLE pessoa (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 nome VARCHAR(255) NOT NULL,
 idade INT NOT NULL,
-cpf VARCHAR(11) NOT NULL,
-rg VARCHAR(20) NOT NULL,
-cep VARCHAR(10)
+cpf VARCHAR(12) NOT NULL,
+rg VARCHAR(22) NOT NULL,
+cep VARCHAR(12)
 )
     ENGINE = InnoDB;
 /* ------------- PESSOA ---------------*/
@@ -14,8 +14,8 @@ cep VARCHAR(10)
 /*------------- MORADOR ---------------*/
 CREATE TABLE morador (
  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
- morador bit,
- morador_vinculado bit,
+ representante bit,
+ atribuido bit,
  exame bit,
  pessoa_morador_codigo INT(11) NOT NULL,
  predio_morador_codigo INT(11) NOT NULL
@@ -37,8 +37,11 @@ CREATE TABLE funcionario (
 /* ------------- PREDIO ---------------*/
 CREATE TABLE predio (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nome VARCHAR(255) NOT NULL,
 numero INT(11) NOT NULL,
 andar INT(11) NOT NULL,
+numeroCasa INT(11) NOT NULL,
+referencia VARCHAR(255),
 condominio_predio_codigo INT(11) NOT NULL
 )
     ENGINE = InnoDB;
@@ -48,13 +51,14 @@ condominio_predio_codigo INT(11) NOT NULL
 /*------------- EMPRESA ---------------*/
 CREATE TABLE empresa (
  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
- endereco VARCHAR(255) NOT NULL,
+ nome VARCHAR(255) NOT NULL,
  numero INT NOT NULL,
  cidade VARCHAR(255) NOT NULL,
  rua VARCHAR(255) NOT NULL,
- cnpj VARCHAR(255) NOT NULL,
+ cnpj VARCHAR(22) NOT NULL,
  uf VARCHAR(255) NOT NULL,
- cep VARCHAR(10) NOT NULL
+ cep VARCHAR(12) NOT NULL,
+ data_registro DATE NOT NULL
 )
     ENGINE = InnoDB;
 /* ------------- EMPRESA ---------------*/
@@ -63,11 +67,13 @@ CREATE TABLE empresa (
 /*------------- CONDOMINIO ---------------*/
 CREATE TABLE condominio (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nome VARCHAR(255) NOT NULL,
 piscina bit,
 churrasqueira bit,
 salao bit,
 avisos VARCHAR(255),
-empresa_condominio_codigo INT(11) NOT NULL
+empresa_condominio_codigo INT(11) NOT NULL,
+data_registro DATE NOT NULL
 )
     ENGINE = InnoDB;
 /*------------- CONDOMINIO ---------------*/

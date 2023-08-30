@@ -14,8 +14,8 @@ public class Morador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Boolean morador; //morador dono
-    private Boolean moradorVinculado;
+    private Boolean representante;
+    private Boolean atribuido;
     private Boolean exame;
     @OneToOne
     @JoinColumn(name = "pessoa_morador_codigo")

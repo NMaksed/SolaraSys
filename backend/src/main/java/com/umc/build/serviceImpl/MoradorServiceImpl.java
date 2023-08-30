@@ -41,8 +41,8 @@ public class MoradorServiceImpl{
         pessoa = pessoaService.salvarPessoa(moradorDTO.getPessoa());
 
         Morador morador = new Morador();
-        morador.setMorador(true);
-        morador.setMoradorVinculado(moradorDTO.getMoradorVinculado());
+        morador.setRepresentante(morador.getRepresentante());
+        morador.setAtribuido(moradorDTO.getAtribuido());
         morador.setExame(moradorDTO.getExame());
         morador.setPessoa(pessoa);
     }

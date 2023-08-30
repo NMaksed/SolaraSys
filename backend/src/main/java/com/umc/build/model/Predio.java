@@ -18,6 +18,8 @@ public class Predio {
     private Integer id;
     private Integer numero;
     private Integer andar;
+    private Integer numeroCasa;
+    private String referencia;
     @OneToMany(mappedBy = "predio")
     private List<Morador> morador;
     @ManyToOne

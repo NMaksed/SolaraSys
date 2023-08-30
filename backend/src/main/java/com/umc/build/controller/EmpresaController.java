@@ -11,24 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(name = "/empresa")
+@RequestMapping("/empresa")
 public class EmpresaController {
     @Autowired
     private EmpresaServiceImpl empresaService;
 
-    @PostMapping(name = "/salvar")
+    @PostMapping("/salvar")
     public ResponseEntity<String> salvarEmpresa(@RequestBody Empresa empresaDTO) {
         try {
-            Empresa empresa = empresaService.validateEmpresa(empresaDTO.getCnpj());
-            if (empresa == null) {
-                empresaService.builderEmpresa(empresaDTO);
-            }
             empresaService.salvarEmpresa(empresaDTO);
-
             return ResponseEntity.ok("Nova empresa adicionada!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao criar Morador: " + e.getMessage());
+                    .body("Erro ao criar Empresa: " + e.getMessage());
         }
     }
 }

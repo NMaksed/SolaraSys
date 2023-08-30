@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -18,6 +19,7 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String nome;
+    @Transient
     @Getter(AccessLevel.NONE)
     private String enderecoCompleto;
     private Integer numero;
@@ -26,16 +28,26 @@ public class Empresa {
     private String cnpj;
     private String cep;
     private String uf;
+
+    private LocalDate dataRegistro;
     @OneToMany(mappedBy = "empresa")
     private List<Condominio> condominio;
     @OneToMany(mappedBy = "empresa")
     private List<User> user;
 
     public String getEnderecoCompleto() {
-        StringBuilder stb = new StringBuilder();
-        stb.append(getRua()).append(",").append(getNumero()).append(" - ")
-            .append(getCidade()).append(",").append(getUf()).append(" - ").append(getCep());
-        return enderecoCompleto = String.valueOf(stb);
+        if (getRua() != null && getNumero() != null && getCidade() != null &&
+            getUf() != null && getCep() != null) {
+            StringBuilder stb = new StringBuilder();
+            stb.append(getRua()).append(",").append(getNumero()).append(" - ")
+                    .append(getCidade()).append(",").append(getUf()).append(" - ").append(getCep());
+            return enderecoCompleto = String.valueOf(stb);
+        }
+        return null;
+    }
+    @PrePersist
+    public void setDataRegistro() {
+        this.dataRegistro = LocalDate.now();
     }
 
 }
