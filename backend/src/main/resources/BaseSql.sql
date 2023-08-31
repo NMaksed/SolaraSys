@@ -5,7 +5,8 @@ nome VARCHAR(255) NOT NULL,
 idade INT NOT NULL,
 cpf VARCHAR(12) NOT NULL,
 rg VARCHAR(22) NOT NULL,
-cep VARCHAR(12)
+cep VARCHAR(12),
+visitante_apartamento_codigo INT(11)
 )
     ENGINE = InnoDB;
 /* ------------- PESSOA ---------------*/
@@ -17,8 +18,10 @@ CREATE TABLE morador (
  representante bit,
  atribuido bit,
  exame bit,
+ data_registro DATE NOT NULL,
  pessoa_morador_codigo INT(11) NOT NULL,
- predio_morador_codigo INT(11) NOT NULL
+ predio_morador_codigo INT(11) NOT NULL,
+ apartamento_morador_codigo INT(11) NOT NULL
 )
     ENGINE = InnoDB;
 /*------------- MORADOR ---------------*/
@@ -29,6 +32,9 @@ CREATE TABLE funcionario (
  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
  funcao VARCHAR(255) NOT NULL,
  salario DOUBLE NOT NULL DEFAULT 0,
+ horaEntrada TIME NOT NULL,
+ horaSaida TIME NOT NULL,
+ data_registro DATE NOT NULL,
  pessoa_funcionario_codigo INT(11) NOT NULL,
  usuario_funcionario_codigo INT(11) NOT NULL
 )
@@ -40,8 +46,9 @@ id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 nome VARCHAR(255) NOT NULL,
 numero INT(11) NOT NULL,
 andar INT(11) NOT NULL,
-numeroCasa INT(11) NOT NULL,
+numeroApartamento INT(11) NOT NULL,
 referencia VARCHAR(255),
+data_registro DATE NOT NULL,
 condominio_predio_codigo INT(11) NOT NULL
 )
     ENGINE = InnoDB;
@@ -78,12 +85,19 @@ data_registro DATE NOT NULL
     ENGINE = InnoDB;
 /*------------- CONDOMINIO ---------------*/
 
-
+/*------------- APARTAMENTO ---------------*/
+CREATE TABLE apartamento (
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+numero INT(11) NOT NULL,
+predio_apartamento_codigo INT NOT NULL
+)
+    ENGINE = InnoDB;
 /*------------- USUARIO ---------------*/
 CREATE TABLE `usuario` (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 email VARCHAR(255) NOT NULL,
 senha VARCHAR(255) NOT NULL,
+data_registro DATE NOT NULL,
 funcionario_usuario_codigo INT(11) NOT NULL,
 empresa_usuario_codigo INT(11) NOT NULL
 )
@@ -95,6 +109,8 @@ ALTER TABLE morador ADD CONSTRAINT pessoa_morador_codigo
     FOREIGN KEY(pessoa_morador_codigo) REFERENCES pessoa(id);
 ALTER TABLE morador ADD CONSTRAINT predio_morador_codigo
     FOREIGN KEY(predio_morador_codigo) REFERENCES predio(id);
+ALTER TABLE morador ADD CONSTRAINT apartamento_morador_codigo
+FOREIGN KEY(apartamento_morador_codigo) REFERENCES predio(id);
 /*----------------------------------------------------------*/
 ALTER TABLE condominio ADD CONSTRAINT empresa_condominio_codigo
     FOREIGN KEY(empresa_condominio_codigo) REFERENCES empresa(id);
@@ -111,3 +127,9 @@ FOREIGN KEY (usuario_funcionario_codigo) REFERENCES usuario(id);
 /*----------------------------------------------------------*/
 ALTER TABLE predio ADD CONSTRAINT condominio_predio_codigo
 FOREIGN KEY (condominio_predio_codigo) REFERENCES condominio(id);
+/*----------------------------------------------------------*/
+ALTER TABLE apartamento ADD CONSTRAINT predio_apartamento_codigo
+FOREIGN KEY (predio_apartamento_codigo) REFERENCES predio(id);
+/*----------------------------------------------------------*/
+ALTER TABLE pessoa ADD CONSTRAINT visitante_apartamento_codigo
+FOREIGN KEY (visitante_apartamento_codigo) REFERENCES pessoa(id)

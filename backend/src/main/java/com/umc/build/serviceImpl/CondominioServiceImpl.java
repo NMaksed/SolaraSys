@@ -22,7 +22,7 @@ public class CondominioServiceImpl{
     }
 
     public List<Condominio> getCondominio() { return condominioRepository.findAll(); }
-    public void validateEmpresaCondominio(Condominio condominioDTO) {
-        empresaRepository.findByCnpj(condominioDTO.getEmpresa().getCnpj());
+    public void validateEmpresaCondominio(Empresa empresa) {
+        empresaRepository.findByCnpj(empresa.getCnpj());
     }
 }

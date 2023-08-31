@@ -28,7 +28,6 @@ public class Empresa {
     private String cnpj;
     private String cep;
     private String uf;
-
     private LocalDate dataRegistro;
     @OneToMany(mappedBy = "empresa")
     private List<Condominio> condominio;

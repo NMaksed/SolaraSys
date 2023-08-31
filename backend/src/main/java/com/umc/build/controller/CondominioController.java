@@ -2,6 +2,7 @@ package com.umc.build.controller;
 
 import com.umc.build.model.Condominio;
 import com.umc.build.serviceImpl.CondominioServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +12,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/condominio")
 public class CondominioController {
-
+    @Autowired
     public CondominioServiceImpl condominioService;
 
     @PostMapping("salvar")
     public ResponseEntity<String> add(@RequestBody Condominio condominio) {
         try {
-            condominioService.validateEmpresaCondominio(condominio);
+            condominioService.validateEmpresaCondominio(condominio.getEmpresa());
             if (condominio.getEmpresa() == null) {
                 throw new Exception("Empresa não encontrada");
             }

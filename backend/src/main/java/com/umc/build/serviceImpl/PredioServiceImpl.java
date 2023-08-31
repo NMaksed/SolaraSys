@@ -7,6 +7,7 @@ import com.umc.build.repository.PredioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,6 +20,7 @@ public class PredioServiceImpl {
 
     public void salvarPredio(Predio predio) { predioRepository.save(predio); }
     public List<Predio> getPredio() { return predioRepository.findAll(); }
-  //  public void validadePredioCondominio(Predio predioDTO) { return condominioRepository.}
-
+    public void validatePredioCondominio(LocalDate dataRegistro) {
+        condominioRepository.findCondominioByDataRegistro(dataRegistro);
+    }
 }

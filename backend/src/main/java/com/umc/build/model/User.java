@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -18,9 +19,15 @@ public class User {
     private Integer userId;
     private String email;
     private String senha;
+    private LocalDate dataRegistro;
     @OneToOne(mappedBy = "user")
     private Funcionario funcionario;
     @ManyToOne
     @JoinColumn(name = "usuario")
     private Empresa empresa;
+
+    @PrePersist
+    public void setDataRegistro() {
+        this.dataRegistro = LocalDate.now();
+    }
 }

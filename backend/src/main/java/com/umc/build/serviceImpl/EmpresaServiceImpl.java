@@ -12,7 +12,9 @@ public class EmpresaServiceImpl {
     @Autowired
     private EmpresaRepository empresaRepository;
 
-    public Empresa salvarEmpresa(Empresa empresa) { return empresaRepository.save(empresa); }
+    public void salvarEmpresa(Empresa empresa) {
+        empresaRepository.save(empresa);
+    }
     public List<Empresa> getEmpresa() { return empresaRepository.findAll(); }
     public Empresa validateEmpresa(String cnpj) { return empresaRepository.findByCnpj(cnpj); }
     public void builderEmpresa(Empresa empresaDTO) {
