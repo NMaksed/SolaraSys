@@ -16,12 +16,9 @@ public class CondominioController {
     public CondominioServiceImpl condominioService;
 
     @PostMapping("salvar")
-    public ResponseEntity<String> add(@RequestBody Condominio condominio) {
+    public ResponseEntity<String> add(@RequestBody Condominio condominio, @RequestParam("id") Integer empresaId) {
         try {
-            condominioService.validateEmpresaCondominio(condominio.getEmpresa());
-            if (condominio.getEmpresa() == null) {
-                throw new Exception("Empresa não encontrada");
-            }
+            condominioService.validateEmpresaCondominiobyId(empresaId);
             condominioService.salvarCondominio(condominio);
             return ResponseEntity.ok("Novo condomínio adicionado!");
         } catch (Exception e) {

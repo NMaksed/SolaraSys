@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CondominioServiceImpl{
@@ -22,7 +23,11 @@ public class CondominioServiceImpl{
     }
 
     public List<Condominio> getCondominio() { return condominioRepository.findAll(); }
-    public void validateEmpresaCondominio(Empresa empresa) {
-        empresaRepository.findByCnpj(empresa.getCnpj());
+    public void validateEmpresaCondominiobyId(Integer id) throws Exception {
+        Optional<Empresa> empresaOptional = empresaRepository.findById(id);
+
+        if (empresaOptional.isEmpty()) {
+            throw new Exception("Empresa: " + id + " não existe!");
+        }
     }
 }
