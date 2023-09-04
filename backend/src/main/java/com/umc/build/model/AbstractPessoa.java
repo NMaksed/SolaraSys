@@ -23,6 +23,12 @@ public class AbstractPessoa {
     private String rg;
     private String cep;
     @ManyToOne
-    @JoinColumn(name = "visitante_apartamento_codigo")
+    @JoinColumn(name = "apartamento_visitante_codigo")
     private Apartamento apartamento;
+    @ManyToOne
+    @JoinColumn(name = "condominio_pessoa_codigo")
+    private Condominio condominio;
+    @ManyToOne
+    @JoinColumn(name = "empresa_pessoa_codigo")
+    private Empresa empresa;
 }

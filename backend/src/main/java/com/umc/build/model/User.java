@@ -23,8 +23,11 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Funcionario funcionario;
     @ManyToOne
-    @JoinColumn(name = "usuario")
+    @JoinColumn(name = "empresa_usuario_codigo")
     private Empresa empresa;
+    @ManyToOne
+    @JoinColumn(name = "condominio_usuario_codigo")
+    private Condominio condominio;
 
     @PrePersist
     public void setDataRegistro() {

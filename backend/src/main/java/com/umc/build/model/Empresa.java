@@ -33,6 +33,14 @@ public class Empresa {
     private List<Condominio> condominio;
     @OneToMany(mappedBy = "empresa")
     private List<User> user;
+    @OneToMany(mappedBy = "empresa")
+    private List<Apartamento> apartamentos;
+    @OneToMany(mappedBy = "empresa")
+    private List<Predio> predio;
+    @OneToMany(mappedBy = "empresa")
+    private List<Funcionario> funcionario;
+    @OneToMany(mappedBy = "empresa")
+    private List<Morador> morador;
 
     public String getEnderecoCompleto() {
         if (getRua() != null && getNumero() != null && getCidade() != null &&

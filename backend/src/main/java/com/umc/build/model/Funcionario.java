@@ -29,6 +29,12 @@ public class Funcionario {
     @OneToOne
     @JoinColumn(name = "usuario_funcionario_codigo")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "empresa_funcionario_codigo")
+    private Empresa empresa;
+    @ManyToOne
+    @JoinColumn(name = "condominio_funcionario_codigo")
+    private Condominio condominio;
 
     @PrePersist
     public void setDataRegistro() {

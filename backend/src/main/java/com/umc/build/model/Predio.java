@@ -29,6 +29,9 @@ public class Predio {
     private Condominio condominio;
     @OneToMany(mappedBy = "predio")
     private List<Apartamento> apartamento;
+    @ManyToOne
+    @JoinColumn(name = "empresa_predio_codigo")
+    private Empresa empresa;
 
     @PrePersist
     public void setDataRegistro() {

@@ -22,6 +22,12 @@ public class Apartamento {
     private List<Morador> morador;
     @OneToMany(mappedBy = "apartamento")
     private List<AbstractPessoa> pessoa;
+    @ManyToOne
+    @JoinColumn(name = "condominio_apartamento_codigo")
+    private Condominio condominio;
+    @ManyToOne
+    @JoinColumn(name = "empresa_apartamento_codigo")
+    private Empresa empresa;
     @JoinColumn(name = "predio_apartamento_codigo")
     @ManyToOne
     private Predio predio;

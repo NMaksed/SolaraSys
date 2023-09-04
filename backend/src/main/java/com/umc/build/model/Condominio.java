@@ -29,6 +29,12 @@ public class Condominio {
     @ManyToOne
     @JoinColumn(name = "empresa_condominio_codigo")
     private Empresa empresa;
+    @OneToMany(mappedBy = "condominio")
+    private List<User> usuario;
+    @OneToMany(mappedBy = "condominio")
+    private List<Funcionario> funcionarios;
+    @OneToMany(mappedBy = "condominio")
+    private List<Apartamento> apartamento;
 
     @PrePersist
     public void setDataRegistro() {
