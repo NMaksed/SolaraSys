@@ -17,7 +17,7 @@ public class Empresa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
     private String nome;
     @Transient
     @Getter(AccessLevel.NONE)

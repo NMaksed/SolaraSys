@@ -15,10 +15,10 @@ public class CondominioController {
     @Autowired
     public CondominioServiceImpl condominioService;
 
-    @PostMapping("salvar")
+    @PostMapping("/salvar{id}")
     public ResponseEntity<String> add(@RequestBody Condominio condominio, @RequestParam("id") Integer empresaId) {
         try {
-            condominioService.validateEmpresaCondominiobyId(empresaId);
+            condominioService.validateEmpresaCondominiobyId(condominio.getEmpresa().getId());
             condominioService.salvarCondominio(condominio);
             return ResponseEntity.ok("Novo condomínio adicionado!");
         } catch (Exception e) {

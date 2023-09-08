@@ -19,6 +19,7 @@ public class EmpresaController {
     @PostMapping("/salvar")
     public ResponseEntity<String> salvarEmpresa(@RequestBody Empresa empresaDTO) {
         try {
+            empresaService.validateEmpresa(empresaDTO.getCnpj());
             empresaService.salvarEmpresa(empresaDTO);
             return ResponseEntity.ok("Nova empresa adicionada!");
         } catch (Exception e) {

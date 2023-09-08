@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmpresaServiceImpl {
@@ -16,7 +17,13 @@ public class EmpresaServiceImpl {
         empresaRepository.save(empresa);
     }
     public List<Empresa> getEmpresa() { return empresaRepository.findAll(); }
-    public Empresa validateEmpresa(String cnpj) { return empresaRepository.findByCnpj(cnpj); }
+    public void validateEmpresa(String cnpj) throws Exception {
+        Optional<Empresa> empresaOptional = empresaRepository.findByCnpj(cnpj);
+
+        if (!empresaOptional.isEmpty()) {
+            throw new Exception("Empresa: " + cnpj + " já cadastrada!");
+        }
+    }
     public void builderEmpresa(Empresa empresaDTO) {
            Empresa empresa = new Empresa();
             empresa.setNome(empresaDTO.getNome());
