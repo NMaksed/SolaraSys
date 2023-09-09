@@ -19,10 +19,7 @@ public class ApartamentoController {
     @PostMapping("/salvar")
     public ResponseEntity<String> salvar(@RequestBody Apartamento apartamento) {
         try {
-            apartamentoService.validateApartamentoPredio(apartamento.getPredio().getDataRegistro());
-            if (apartamento.getPredio() == null) {
-                throw new Exception("Predio inexistente");
-            }
+            apartamentoService.validateApartamentoPredio(apartamento.getPredio().getId());
             apartamentoService.salvarApartamento(apartamento);
             return ResponseEntity.ok("Novo apartamento adicionado!");
         } catch (Exception e) {

@@ -16,14 +16,17 @@ public class EmpresaServiceImpl {
     public void salvarEmpresa(Empresa empresa) {
         empresaRepository.save(empresa);
     }
+
     public List<Empresa> getEmpresa() { return empresaRepository.findAll(); }
+
     public void validateEmpresa(String cnpj) throws Exception {
         Optional<Empresa> empresaOptional = empresaRepository.findByCnpj(cnpj);
 
-        if (!empresaOptional.isEmpty()) {
+        if (empresaOptional.isPresent()) {
             throw new Exception("Empresa: " + cnpj + " já cadastrada!");
         }
     }
+
     public void builderEmpresa(Empresa empresaDTO) {
            Empresa empresa = new Empresa();
             empresa.setNome(empresaDTO.getNome());

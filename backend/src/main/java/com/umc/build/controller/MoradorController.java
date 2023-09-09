@@ -21,9 +21,10 @@ public class MoradorController {
     public AbstractPessoaServiceImpl pessoaService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<String> add(@RequestBody Morador moradorDTO) {
+    public ResponseEntity<String> add(@RequestBody Morador moradorDTO, @RequestParam("id") Integer apartamentoId) {
         try {
-            moradorService.validadePessoaMorador(moradorDTO.getPessoa().getCpf());
+            moradorService.validateApartamentoMorador(apartamentoId);
+            moradorService.validatePessoaMorador(moradorDTO.getPessoa().getCpf());
             if (moradorDTO.getPessoa() == null) {
                 moradorService.builderPessoaMorador(moradorDTO);
             }

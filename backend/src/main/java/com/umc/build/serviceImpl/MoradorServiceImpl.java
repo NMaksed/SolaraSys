@@ -1,13 +1,16 @@
 package com.umc.build.serviceImpl;
 
 import com.umc.build.model.AbstractPessoa;
+import com.umc.build.model.Apartamento;
 import com.umc.build.model.Morador;
 import com.umc.build.repository.AbstractPessoaRepository;
+import com.umc.build.repository.ApartamentoRepository;
 import com.umc.build.repository.MoradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MoradorServiceImpl{
@@ -18,6 +21,8 @@ public class MoradorServiceImpl{
     private AbstractPessoaRepository pessoaRepository;
     @Autowired
     private AbstractPessoaServiceImpl pessoaService;
+    @Autowired
+    private ApartamentoRepository apartamentoRepository;
 
     public void salvarMorador(Morador morador) {
          moradorRepository.save(morador);
@@ -27,7 +32,16 @@ public class MoradorServiceImpl{
         return moradorRepository.findAll();
     }
 
-    public void validadePessoaMorador(String cpf) { pessoaRepository.findByCpf(cpf); }
+    public void validatePessoaMorador(String cpf) {
+        pessoaRepository.findByCpf(cpf);
+    }
+    public void validateApartamentoMorador(Integer id) throws Exception{
+        Optional<Apartamento> apartamentoOptional = apartamentoRepository.findById(id);
+
+        if (apartamentoOptional.isEmpty()) {
+            throw new Exception("Apartamento: " + id + " não existe!");
+        }
+    }
 
     public void builderPessoaMorador(Morador moradorDTO) {
         AbstractPessoa pessoa = new AbstractPessoa();

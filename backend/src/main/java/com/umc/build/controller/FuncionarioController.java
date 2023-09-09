@@ -21,9 +21,11 @@ public class FuncionarioController {
     public AbstractPessoaServiceImpl pessoaService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<String> add(@RequestBody Funcionario funcionarioDTO) {
+    public ResponseEntity<String> add(@RequestBody Funcionario funcionarioDTO, @RequestParam("id") Integer empresaId, @RequestParam("id") Integer condominioId) {
         try {
-            funcionarioService.validadePessoaFuncionario(funcionarioDTO.getPessoa().getCpf());
+            funcionarioService.validateEmpresaFuncionario(empresaId);
+            funcionarioService.validateCondominioFuncionario(condominioId);
+            funcionarioService.validatePessoaFuncionario(funcionarioDTO.getPessoa().getCpf());
             if (funcionarioDTO.getPessoa().getCpf() == null) {
                 funcionarioService.builderPessoaFuncionario(funcionarioDTO);
             }

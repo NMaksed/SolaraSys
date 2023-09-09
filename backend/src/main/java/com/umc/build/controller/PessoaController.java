@@ -22,6 +22,7 @@ public class PessoaController {
     @PostMapping("registro")
     public ResponseEntity<String> registroPessoa(@RequestBody AbstractPessoa pessoa) {
         try {
+
             pessoaService.salvarPessoa(pessoa);
             return ResponseEntity.ok("Pessoa registrada com sucesso!");
         } catch (Exception e) {
