@@ -23,4 +23,4 @@ const Sidebar = ({ active }) => {
     )
 }
 
-export default Sidebar
+export default Sidebar;
