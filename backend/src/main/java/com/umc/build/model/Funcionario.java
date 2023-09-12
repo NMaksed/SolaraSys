@@ -11,7 +11,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "funcionario")
 public class Funcionario {
 

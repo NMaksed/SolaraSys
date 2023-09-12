@@ -11,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "empresa")
 public class Empresa {
 
@@ -46,8 +45,8 @@ public class Empresa {
         if (getRua() != null && getNumero() != null && getCidade() != null &&
             getUf() != null && getCep() != null) {
             StringBuilder stb = new StringBuilder();
-            stb.append(getRua()).append(",").append(getNumero()).append(" - ")
-                    .append(getCidade()).append(",").append(getUf()).append(" - ").append(getCep());
+            stb.append(getRua()).append(", ").append(getNumero()).append(" - ")
+                    .append(getCidade()).append(", ").append(getUf()).append(" - ").append(getCep());
             return enderecoCompleto = String.valueOf(stb);
         }
         return null;

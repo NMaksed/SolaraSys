@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "predio")
 public class Predio {
 
