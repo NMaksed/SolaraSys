@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS condominio;
+USE condominio;
+
 /* ------------- PESSOA --------------- */
 CREATE TABLE pessoa (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
