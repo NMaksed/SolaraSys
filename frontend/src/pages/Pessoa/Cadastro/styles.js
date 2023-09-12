@@ -1,29 +1,21 @@
 
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
-    flex: 1,
-    padding: 10,
-
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '90vh',
   },
   paper: {
-    padding: 10,
-    margin: 20,
-    height: 200,
-    width: "auto",
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    flexDirection: 'column',
+    padding: '20px',
+    maxWidth: '400px',
+    width: '100%',
   },
-  text: {
-    padding: 10,
-    width: 200,
+  textInput: {
+    marginBottom: '16px',
   },
-  text: {
-    padding: 10,
-    width: 200,
-  }
-});
+};
 
 export default styles;
