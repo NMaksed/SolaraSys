@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
 public class AbstractPessoa {
 
