@@ -29,7 +29,7 @@ export default function PessoaCadastro() {
       });
       if (response.ok) {
         console.log('Novo Funcionário Adicionado');
-        exibirMensagemTemporaria('${nome} adicionado(a) com sucesso', 5000);
+        exibirMensagemTemporaria('Funcionário adicionado com sucesso', 5000);
         // Limpar os campos após o envio bem-sucedido, se necessário
         setNome('');
         setIdade('');

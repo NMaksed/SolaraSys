@@ -13,7 +13,6 @@ export default function EmpresaCadastro() {
   const [cnpj, setCnpj] = useState('');
   const [uf, setUf] = useState('');
   const [cep, setCep] = useState('');
-  const [dataRegistro, setDataRegistro] = useState(getCurrentDate());
   const [mensagem, setMensagem] = useState('');
 
   const [nomeError, setNomeError] = useState('');
@@ -23,7 +22,6 @@ export default function EmpresaCadastro() {
   const [cnpjError, setCnpjError] = useState('');
   const [ufError, setUfError] = useState('');
   const [cepError, setCepError] = useState('');
-  const [dataRegistroError, setDataRegistroError] = useState('');
 
   const enviarDadosFuncionario = async (data) => {
         try {
@@ -34,7 +32,7 @@ export default function EmpresaCadastro() {
         });
         if (response.ok) {
             console.log('Novo Empresa Adicionado');
-            exibirMensagemTemporaria('Empresa @nome adicionado(a) com sucesso', 5000);
+            exibirMensagemTemporaria('Empresa adicionado(a) com sucesso', 5000);
             // Limpar os campos após o envio bem-sucedido, se necessário
             setNome('');
             setNumero('');
@@ -43,7 +41,6 @@ export default function EmpresaCadastro() {
             setCnpj('');
             setUf('');
             setCep('');
-            setDataRegistro(getCurrentDate());
         } else {
             console.error('Erro ao adicionar empresa');
             exibirMensagemTemporaria('96#Erro ao adicionar empresa', 5000);
@@ -123,27 +120,13 @@ export default function EmpresaCadastro() {
         } else {
         setCepError('');
         }
-
-        if (dataRegistro.trim() === '') {
-            setDataRegistroError('Data de Registro é obrigatória');
-            valid = false;
-        } else {
-            setDataRegistroError('');
-        }
-
         if (valid) {
-            const data = { nome, numero, cidade, rua, cnpj, uf, cep, data_registro: dataRegistro };
+            const data = { nome, numero, cidade, rua, cnpj, uf, cep };
+            console.log(data)
             enviarDadosFuncionario(data);
         }
     };
 
-    function getCurrentDate() {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
 
     return (
         <Container style={styles.container}>
@@ -192,11 +175,6 @@ export default function EmpresaCadastro() {
                 {() => <TextField style={styles.textInput} id="cep" label="CEP" variant="outlined" fullWidth required  error={!!cepError} helperText={cepError}/>}
             </ReactInputMask>
 
-            <TextField style={styles.textInput}
-            label="Data de Registro" value={dataRegistro} type="date"  variant="outlined"
-            onChange={(e) => setDataRegistro(e.target.value)}
-            fullWidth required error={!!dataRegistroError} helperText={dataRegistroError}
-            />
 
             <Button style={styles.button} variant="contained" onClick={handleClick}>
                 Salvar
