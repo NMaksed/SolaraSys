@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
-import Navbar from './pages/Pessoa/Cadastro/Appbar';
+import Navbar from './components/header/Appbar';
 import PessoaCadastro from './pages/Pessoa/Cadastro';
 import EmpresaCadastro from './pages/Empresa/Cadastro';
 import FuncionarioCadastro from './pages/Funcionario/Cadastro';
+import ConsultaPessoa from './pages/Pessoa/Consulta';
 
 function App() {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -20,6 +21,8 @@ function App() {
         return <EmpresaCadastro />;
       case 'FuncionarioCadastro':
         return <FuncionarioCadastro />;
+        case "ConsultaPessoa":
+          return <ConsultaPessoa/>
       default:
         return null;
     }
@@ -37,6 +40,9 @@ function App() {
         </button>
         <button onClick={() => handleComponentChange('FuncionarioCadastro')}>
           Cadastrar Funcionário
+        </button>
+        <button onClick={() => handleComponentChange("ConsultaPessoa")}>
+        Consultar Pessoa
         </button>
       </div>
       {renderActiveComponent()}
