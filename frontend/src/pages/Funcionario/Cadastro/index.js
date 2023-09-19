@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { Container, Paper } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
 import Button from '@mui/material/Button';
-import styles from './styles';
+import styles from '../../../components/form_style';
 
 
 export default function FuncionarioCadastro() {
@@ -129,14 +129,14 @@ export default function FuncionarioCadastro() {
     <>
       <Container style={styles.container}>
         <Paper elevation={3} style={styles.paper} >
-          <TextField style={styles.text} 
+          <TextField style={styles.textInput} 
             id="nome" variant="outlined" 
             type="text" label="Nome" value={nome}
             onChange={(e) => setNome(e.target.value)} 
             fullWidth required error={!!nomeError} helperText={nomeError} 
             />
 
-          <TextField style={styles.text}
+          <TextField style={styles.textInput}
             id="idade" variant="outlined" 
             type="number" label="Idade" value={idade}
             onChange={(e) => setIdade(e.target.value)}
@@ -147,31 +147,31 @@ export default function FuncionarioCadastro() {
             mask="999.999.999-99"
             onChange={(e) => setCpf(e.target.value)}
             type="number" label="CPF" value={cpf}>
-            {() => <TextField style={styles.text} id="cpf" label="CPF" variant="outlined" fullWidth required error={!!cpfError} helperText={cpfError}/>}
+            {() => <TextField style={styles.textInput} id="cpf" label="CPF" variant="outlined" fullWidth required error={!!cpfError} helperText={cpfError}/>}
           </ReactInputMask>
 
           <ReactInputMask
             mask="99.999.999-9"
             onChange={(e) => setRg(e.target.value)}
             type="number" label="RG" value={rg}>
-            { () => <TextField style={styles.text} id="rg" label="RG" variant="outlined"  fullWidth required error={!!rgError} helperText={rgError}/> }
+            { () => <TextField style={styles.textInput} id="rg" label="RG" variant="outlined"  fullWidth required error={!!rgError} helperText={rgError}/> }
           </ReactInputMask>
           
           <ReactInputMask
             mask="99999-999"
             onChange={(e) => setCep(e.target.value)}
             type="number" value={cep}>
-            { () => <TextField style={styles.text} id="cep" label="CEP" variant="outlined" fullWidth required error={!!cepError} helperText={cepError}/> }
+            { () => <TextField style={styles.textInput} id="cep" label="CEP" variant="outlined" fullWidth required error={!!cepError} helperText={cepError}/> }
           </ReactInputMask>
 
-          <TextField style={styles.text} 
+          <TextField style={styles.textInput} 
             id="funcao" variant="outlined" 
             type="text" label="Função" value={funcao} 
             onChange={(e) => setFuncao(e.target.value)} 
             fullWidth required error={!!funcaoError} helperText={funcaoError} 
           />
 
-          <TextField style={styles.text}
+          <TextField style={styles.textInput}
             id="salario" variant="outlined" 
             type="number" label="Salário" value={salario} 
             onChange={(e) => setSalario(e.target.value)} 

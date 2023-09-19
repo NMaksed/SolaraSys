@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { Container, Paper } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
 import Button from '@mui/material/Button';
-import styles from './style';
+import styles from '../../../components/form_style';
 
 export default function EmpresaCadastro() {
   const [nome, setNome] = useState('');
