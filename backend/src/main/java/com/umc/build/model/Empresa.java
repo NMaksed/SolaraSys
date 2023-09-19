@@ -1,5 +1,6 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,16 +29,22 @@ public class Empresa {
     private String cep;
     private String uf;
     private LocalDate dataRegistro;
+    @JsonIgnore
     @OneToMany(mappedBy = "empresa")
     private List<Condominio> condominio;
+    @JsonIgnore
     @OneToMany(mappedBy = "empresa")
     private List<User> user;
+    @JsonIgnore
     @OneToMany(mappedBy = "empresa")
     private List<Apartamento> apartamentos;
+    @JsonIgnore
     @OneToMany(mappedBy = "empresa")
     private List<Predio> predio;
+    @JsonIgnore
     @OneToMany(mappedBy = "empresa")
     private List<Funcionario> funcionario;
+    @JsonIgnore
     @OneToMany(mappedBy = "empresa")
     private List<Morador> morador;
 
