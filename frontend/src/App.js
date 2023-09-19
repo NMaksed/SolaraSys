@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
+import Button from '@mui/material/Button';
 import Navbar from './components/header/Appbar';
 import PessoaCadastro from './pages/Pessoa/Cadastro';
 import EmpresaCadastro from './pages/Empresa/Cadastro';
 import FuncionarioCadastro from './pages/Funcionario/Cadastro';
 import ConsultaEmpresa from './pages/Empresa/Consulta';
-
+import Login from './pages/Main/login';
 
 function App() {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -22,8 +23,10 @@ function App() {
         return <EmpresaCadastro />;
       case 'FuncionarioCadastro':
         return <FuncionarioCadastro />;
-        case "ConsultaEmpresa":
-          return <ConsultaEmpresa/>
+      case "ConsultaEmpresa":
+        return <ConsultaEmpresa/>
+      case "Login":
+        return <Login/>
       default:
         return null;
     }
@@ -33,20 +36,24 @@ function App() {
     <div className="App">
       <Navbar texto="Cadastro de Entidades" />
       <div className="button-container">
-        <button onClick={() => handleComponentChange('PessoaCadastro')}>
+        <Button onClick={() => handleComponentChange('PessoaCadastro')}>
           Cadastrar Pessoa
-        </button>
-        <button onClick={() => handleComponentChange('EmpresaCadastro')}>
+        </Button>
+        <Button onClick={() => handleComponentChange('EmpresaCadastro')}>
           Cadastrar Empresa
-        </button>
-        <button onClick={() => handleComponentChange('FuncionarioCadastro')}>
+        </Button>
+        <Button onClick={() => handleComponentChange('FuncionarioCadastro')}>
           Cadastrar Funcionário
-        </button>
-        <button onClick={() => handleComponentChange("ConsultaEmpresa")}>
-        Consultar Empresa
-        </button>
+        </Button>
+        <Button onClick={() => handleComponentChange("ConsultaEmpresa")}>
+          Consultar Empresa
+        </Button>
+        <Button onClick={() => handleComponentChange("Login")}>
+          Login
+        </Button>
       </div>
       {renderActiveComponent()}
+      
     </div>
   );
 }
