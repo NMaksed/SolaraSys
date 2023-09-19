@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Container, Paper } from '@mui/material';
+import { Container, Paper, Button } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
-import Button from '@mui/material/Button';
 import styles from '../../../components/form_style';
 
 export default function PessoaCadastro() {
@@ -105,7 +104,6 @@ export default function PessoaCadastro() {
   };
   
   return (
-    <>
     <Container style={styles.container}>
       <Paper style={styles.paper}>
         <TextField style={styles.textInput}
@@ -115,7 +113,7 @@ export default function PessoaCadastro() {
           fullWidth required error={!!nomeError} helperText={nomeError}
         />
 
-        <TextField style={styles.textInput} 
+        <TextField style={styles.textInput} // NAO SE GUARDA IDADE EM BANDO DE DADOS 
           type="number" label="Idade" value={idade} 
           onChange={(e) => setIdade(e.target.value)}
           fullWidth required error={!!idadeError} helperText={idadeError}
@@ -147,6 +145,5 @@ export default function PessoaCadastro() {
         </Button> {mensagem && <div>{mensagem}</div>}
       </Paper>
     </Container>
-    </>
   );
-} 
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Container, Paper, Button } from '@mui/material';
+import { Container, Paper, Button, FormControl } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
 import styles from '../../../components/form_style';
 import MenuItemCondominio from '../../../components/MenuItem/MenuItemCondominio';
@@ -146,121 +146,120 @@ export default function FuncionarioCadastro() {
 
   return (
     <Container style={styles.container}>
-      <Paper elevation={3} style={styles.paper}>
-        <TextField
-          style={styles.textInput}
-          id="nome"
-          variant="outlined"
-          type="text"
-          label="Nome"
-          value={formData.nome}
-          onChange={(e) => handleChange(e, 'nome')}
-          fullWidth
-          required
-          error={!!errors.nome}
-          helperText={errors.nome}
-        />
-        <TextField
-          style={styles.textInput}
-          id="idade"
-          variant="outlined"
-          type="number"
-          label="Idade"
-          value={formData.idade}
-          onChange={(e) => handleChange(e, 'idade')}
-          fullWidth
-          required
-          error={!!errors.idade}
-          helperText={errors.idade}
-        />
-        <ReactInputMask
-          mask="999.999.999-99"
-          onChange={(e) => handleChange(e, 'cpf')}
-        >
-          {() => (
-            <TextField
-              style={styles.textInput}
-              id="cpf"
-              label="CPF"
-              variant="outlined"
-              fullWidth
-              required
-              error={!!errors.cpf}
-              helperText={errors.cpf}
-            />
-          )}
-        </ReactInputMask>
-        <ReactInputMask
-          mask="99.999.999-99"
-          onChange={(e) => handleChange(e, 'rg')}
-        >
-          {() => (
-            <TextField
-              style={styles.textInput}
-              id="rg"
-              label="RG"
-              variant="outlined"
-              fullWidth
-              required
-              error={!!errors.rg}
-              helperText={errors.rg}
-            />
-          )}
-        </ReactInputMask>
-        <ReactInputMask
-          mask="99999-999"
-          onChange={(e) => handleCepChange(e)}
-        >
-          {() => (
-            <TextField
-              style={styles.textInput}
-              id="cep"
-              label="CEP"
-              variant="outlined"
-              fullWidth
-              required
-              error={!!errors.cep}
-              helperText={errors.cep}
-            />
-          )}
-        </ReactInputMask>
-        <TextField
-          style={styles.textInput}
-          id="funcao"
-          variant="outlined"
-          type="text"
-          label="Função"
-          value={formData.funcao}
-          onChange={(e) => handleChange(e, 'funcao')}
-          fullWidth
-          required
-          error={!!errors.funcao}
-          helperText={errors.funcao}
-        />
-        <TextField
-          style={styles.textInput}
-          id="salario"
-          variant="outlined"
-          type="number"
-          label="Salário"
-          value={formData.salario}
-          onChange={(e) => handleChange(e, 'salario')}
-          fullWidth
-          required
-          error={!!errors.salario}
-          helperText={errors.salario}
-        />
-        <MenuItemCondominio
-          label="Condomínio"
-          value={formData.condominio}
-          onChange={(value) => handleChange({ target: { value } }, 'condominio')}
-          onError={(error) => setCondominioError(error)} // Passa uma função para receber o erro
-        />
-        <Button variant="contained" onClick={handleClick} style={styles.botao} 
-        disabled={!!condominioError}>
-          Salvar
-        </Button>
-        {mensagem && <div>{mensagem}</div>}
+      <Paper style={styles.paper}>
+        <FormControl onSubmit={handleClick}>
+          <TextField style={styles.textInput}
+            id="nome"
+            variant="outlined"
+            type="text"
+            label="Nome"
+            value={formData.nome}
+            onChange={(e) => handleChange(e, 'nome')}
+            fullWidth
+            required
+            error={!!errors.nome}
+            helperText={errors.nome}
+          />
+          <TextField
+            style={styles.textInput}
+            id="idade" variant="outlined"
+            type="number"
+            label="Idade"
+            value={formData.idade}
+            onChange={(e) => handleChange(e, 'idade')}
+            fullWidth
+            required
+            error={!!errors.idade}
+            helperText={errors.idade}
+          />
+          <ReactInputMask
+            mask="999.999.999-99"
+            onChange={(e) => handleChange(e, 'cpf')}
+          >
+            {() => (
+              <TextField
+                style={styles.textInput}
+                id="cpf"
+                label="CPF"
+                variant="outlined"
+                fullWidth
+                required
+                error={!!errors.cpf}
+                helperText={errors.cpf}
+              />
+            )}
+          </ReactInputMask>
+          <ReactInputMask
+            mask="99.999.999-99"
+            onChange={(e) => handleChange(e, 'rg')}
+          >
+            {() => (
+              <TextField
+                style={styles.textInput}
+                id="rg"
+                label="RG"
+                variant="outlined"
+                fullWidth
+                required
+                error={!!errors.rg}
+                helperText={errors.rg}
+              />
+            )}
+          </ReactInputMask>
+          <ReactInputMask
+            mask="99999-999"
+            onChange={(e) => handleCepChange(e)}
+          >
+            {() => (
+              <TextField
+                style={styles.textInput}
+                id="cep"
+                label="CEP"
+                variant="outlined"
+                fullWidth
+                required
+                error={!!errors.cep}
+                helperText={errors.cep}
+              />
+            )}
+          </ReactInputMask>
+          <TextField
+            style={styles.textInput}
+            id="funcao"
+            variant="outlined"
+            type="text"
+            label="Função"
+            value={formData.funcao}
+            onChange={(e) => handleChange(e, 'funcao')}
+            fullWidth
+            required
+            error={!!errors.funcao}
+            helperText={errors.funcao}
+          />
+          <TextField
+            style={styles.textInput}
+            id="salario"
+            variant="outlined"
+            type="number"
+            label="Salário"
+            value={formData.salario}
+            onChange={(e) => handleChange(e, 'salario')}
+            fullWidth
+            required
+            error={!!errors.salario}
+            helperText={errors.salario}
+          />
+          <MenuItemCondominio
+            label="Condomínio"
+            value={formData.condominio}
+            onChange={(value) => handleChange({ target: { value } }, 'condominio')}
+            onError={(error) => setCondominioError(error)} // Passa uma função para receber o erro
+          />
+          <Button variant="contained" style={styles.botao} 
+          disabled={!!condominioError}>
+            Salvar
+          </Button> {mensagem && <div>{mensagem}</div>}
+        </FormControl>
       </Paper>
     </Container>
   );
