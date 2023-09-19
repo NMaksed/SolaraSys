@@ -4,6 +4,7 @@ import { Container, Paper } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
 import Button from '@mui/material/Button';
 import styles from './styles';
+import MenuItemCondominio from '../../../components/MenuItem/MenuItemCondominio';
 
 
 export default function FuncionarioCadastro() {
@@ -16,6 +17,8 @@ export default function FuncionarioCadastro() {
   const [funcao, setFuncao] = useState('');
   const [salario, setSalario] = useState('');
   const [mensagem, setMensagem] = useState('');
+  const [condominio, setCondominio] = useState('');
+  const [id, setId] = useState(null);
 
   const [nomeError, setNomeError] = useState('');
   const [idadeError, setIdadeError] = useState('');
@@ -24,10 +27,11 @@ export default function FuncionarioCadastro() {
   const [cepError, setCepError] = useState('');
   const [funcaoError, setFuncaoError] = useState('');
   const [salarioError, setSalarioError] = useState('');
+  const [condominioError, setCondominioError] = useState('');
 
   const enviarDadosFuncionario = async (data) => {
     try {
-      const response = await fetch('http://localhost:8080/funcionario/salvar', {
+      const response = await fetch('http://localhost:8080/funcionario/salvar{1}', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -43,6 +47,7 @@ export default function FuncionarioCadastro() {
         setCep('');
         setFuncao('');
         setSalario('');
+        setCondominio('')
       } else {
         console.error('Erro ao adicionar funcionário');
         exibirMensagemTemporaria('96#Erro ao adicionar funcionário', 5000);
@@ -60,6 +65,25 @@ export default function FuncionarioCadastro() {
     }, tempo);
   }
 
+  const handleClickCondominio = (e) => {
+    e.preventDefault()
+
+    let valid = true;
+
+    if (condominio) {
+      setCondominioError('Campo Obrigatório!');
+      valid = false
+    } else {
+      setCondominioError('');
+    }
+
+    if (valid) {
+      const data = { condominio };
+      enviarDadosFuncionario(data);
+    }
+
+  }
+
   const handleClick = (e) => {
     e.preventDefault()
 
@@ -73,7 +97,7 @@ export default function FuncionarioCadastro() {
       setNomeError('');
     }
 
-    // ValidaR idade
+    // Validar idade
     if (idade.trim() === '') {
       setIdadeError('Campo obrigatório');
       valid = false;
@@ -120,10 +144,13 @@ export default function FuncionarioCadastro() {
     }
 
     if (valid) {
-      const data = { nome, idade, cpf, rg, cep, funcao, salario };
+      const data = { nome, idade, cpf, rg, cep, funcao, salario, condominio };
+      console.log(data)
       enviarDadosFuncionario(data);
     }
     };
+
+
 
   return (
     <>
@@ -177,6 +204,13 @@ export default function FuncionarioCadastro() {
             onChange={(e) => setSalario(e.target.value)} 
             fullWidth required error={!!salarioError} helperText={salarioError} 
           />
+
+          <MenuItemCondominio
+          id="Condominio"
+          label="Condominio"
+          value={condominio.id}
+          onChange={handleClickCondominio}
+           style={styles.text} />
 
           <Button variant="contained" onClick={handleClick} style={styles.botao}>
               Salvar

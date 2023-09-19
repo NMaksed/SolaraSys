@@ -4,7 +4,8 @@ import Navbar from './components/header/Appbar';
 import PessoaCadastro from './pages/Pessoa/Cadastro';
 import EmpresaCadastro from './pages/Empresa/Cadastro';
 import FuncionarioCadastro from './pages/Funcionario/Cadastro';
-import ConsultaPessoa from './pages/Pessoa/Consulta';
+import ConsultaEmpresa from './pages/Empresa/Consulta';
+
 
 function App() {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -21,8 +22,8 @@ function App() {
         return <EmpresaCadastro />;
       case 'FuncionarioCadastro':
         return <FuncionarioCadastro />;
-        case "ConsultaPessoa":
-          return <ConsultaPessoa/>
+        case "ConsultaEmpresa":
+          return <ConsultaEmpresa/>
       default:
         return null;
     }
@@ -41,8 +42,8 @@ function App() {
         <button onClick={() => handleComponentChange('FuncionarioCadastro')}>
           Cadastrar Funcionário
         </button>
-        <button onClick={() => handleComponentChange("ConsultaPessoa")}>
-        Consultar Pessoa
+        <button onClick={() => handleComponentChange("ConsultaEmpresa")}>
+        Consultar Empresa
         </button>
       </div>
       {renderActiveComponent()}
