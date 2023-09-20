@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, FormControl } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
-import styles from '../../../components/form_style';
+import styles from '../../../components/Form/styles';
 import MenuItemCondominio from '../../../components/MenuItem/MenuItemCondominio';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 
 const initialFormData = {
   nome: '',
@@ -29,9 +32,11 @@ const initialErrors = {
 
 export default function FuncionarioCadastro() {
   const [formData, setFormData] = useState({ ...initialFormData });
-  const [mensagem, setMensagem] = useState('');
   const [errors, setErrors] = useState({ ...initialErrors });
   const [condominioError, setCondominioError] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
   const enviarDadosFuncionario = async (data) => {
     try {
@@ -42,25 +47,24 @@ export default function FuncionarioCadastro() {
       });
       if (response.ok) {
         console.log('Novo Funcionário Adicionado');
-        exibirMensagemTemporaria(`Funcionário ${data.nome} adicionado(a) com sucesso`, 5000);
+        openSnackbarWithMessage(`Funcionário ${data.nome} adicionado(a) com sucesso`, 'success');
         setFormData({ ...initialFormData });
         setErrors({ ...initialErrors });
       } else {
         console.error('Erro ao adicionar funcionário');
-        exibirMensagemTemporaria('Erro ao adicionar funcionário', 5000);
+        openSnackbarWithMessage('Erro ao adicionar funcionário', 'error');
       }
     } catch (error) {
       console.error('Erro ao fazer a solicitação:', error);
-      exibirMensagemTemporaria('Erro ao adicionar funcionário', 5000);
+      openSnackbarWithMessage('Erro ao adicionar funcionário', 'error');
     }
   };
 
-  function exibirMensagemTemporaria(mensagem, tempo) {
-    setMensagem(mensagem);
-    setTimeout(() => {
-      setMensagem('');
-    }, tempo);
-  }
+  const openSnackbarWithMessage = (message, severity) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setOpenSnackbar(true);
+  };
 
   const validateField = (fieldName) => {
     const value = formData[fieldName];
@@ -258,9 +262,23 @@ export default function FuncionarioCadastro() {
           <Button variant="contained" style={styles.botao} 
           disabled={!!condominioError}>
             Salvar
-          </Button> {mensagem && <div>{mensagem}</div>}
+          </Button>
         </FormControl>
       </Paper>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={4000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <MuiAlert
+          elevation={6}
+          variant="filled"
+          severity={snackbarSeverity}
+          onClose={() => setOpenSnackbar(false)}
+        >
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
     </Container>
   );
 }

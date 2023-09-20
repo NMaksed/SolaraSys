@@ -10,6 +10,9 @@ const styles = {
     maxWidth: '400px',
     width: '100%',
   },
+  form: {
+    width: '100%',
+  },
   textInput: {
     marginBottom: '16px',
   },

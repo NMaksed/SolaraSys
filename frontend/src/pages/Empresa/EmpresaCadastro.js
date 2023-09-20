@@ -1,55 +1,61 @@
 import React, { useState } from 'react';
 import { Container, Paper, FormControl } from '@mui/material';
-// import {InputField, MaskedInput, SaveButton, CustomSnackbar, styles }from '../../components/Form';
-import InputField from '../../../components/Form/InputField';
-import MaskedInput from '../../../components/Form/MaskedInput';
-import CustomSnackbar from '../../../components/Form/CustomSnackbar';
-import SaveButton from '../../../components/Form/SaveButton';
+// import {InputField, MaskedInput, SaveButton, CustomSnackbar, FormValidation }from '../../components/Form';
+import InputField from '../../components/Form/InputField';
+import MaskedInput from '../../components/Form/MaskedInput';
+import CustomSnackbar from '../../components/Form/CustomSnackbar';
+import SaveButton from '../../components/Form/SaveButton';
+import styles from '../../components/Form/styles';
 
 const initialFormData = {
   nome: '',
-  idade: '',
-  cpf: '',
-  rg: '',
+  numero: '',
+  cidade: '',
+  rua: '',
+  cnpj: '',
+  uf: '',
   cep: '',
 };
 
 const initialErrors = {
   nome: '',
-  idade: '',
-  cpf: '',
-  rg: '',
+  numero: '',
+  cidade: '',
+  rua: '',
+  cnpj: '',
+  uf: '',
   cep: '',
 };
 
-export default function PessoaCadastro() {
+export default function EmpresaCadastro() {
   const [formData, setFormData] = useState({ ...initialFormData });
   const [errors, setErrors] = useState({ ...initialErrors });
+
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-  const [snackbarMessage, setSnackbarMessage] = useState('');
 
-  const enviarDadosPessoa = async (data) => {
+  const enviarDadosEmpresa = async (data) => {
     try {
-      const response = await fetch('http://localhost:8080/pessoa/registro', {
+      const response = await fetch('http://localhost:8080/empresa/salvar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
       if (response.ok) {
         setSnackbarSeverity('success');
-        setSnackbarMessage('Pessoa adicionada com sucesso');
+        setSnackbarMessage('Empresa adicionado(a) com sucesso');
         setOpenSnackbar(true);
         setFormData({ ...initialFormData });
         setErrors({ ...initialErrors });
       } else {
         setSnackbarSeverity('error');
-        setSnackbarMessage('Erro ao adicionar pessoa');
+        setSnackbarMessage('Erro ao adicionar empresa');
         setOpenSnackbar(true);
       }
     } catch (error) {
       setSnackbarSeverity('error');
-      setSnackbarMessage('Erro ao adicionar pessoa');
+      setSnackbarMessage('Erro ao adicionar empresa');
       setOpenSnackbar(true);
     }
   };
@@ -64,21 +70,30 @@ export default function PessoaCadastro() {
           error = 'Campo obrigatório';
         }
         break;
-      case 'idade':
+      case 'numero':
         if (value.trim() === '') {
           error = 'Campo obrigatório';
         }
         break;
-      case 'cpf':
-        const strippedCpf = value.replace(/[^\d]/g, '');
-        if (strippedCpf.length !== 11) {
-          error = 'CPF inválido';
+      case 'cidade':
+        if (value.trim() === '') {
+          error = 'Campo obrigatório';
         }
         break;
-      case 'rg':
-        const strippedRg = value.replace(/[^\d]/g, '');
-        if (strippedRg.length < 9) {
-          error = 'RG inválido';
+      case 'rua':
+        if (value.trim() === '') {
+          error = 'Campo obrigatório';
+        }
+        break;
+      case 'cnpj':
+        const strippedCnpj = value.replace(/[^\d]/g, '');
+        if (strippedCnpj.length !== 14) {
+          error = 'CNPJ inválido';
+        }
+        break;
+      case 'uf':
+        if (value.trim() === '') {
+          error = 'Campo obrigatório';
         }
         break;
       case 'cep':
@@ -115,13 +130,13 @@ export default function PessoaCadastro() {
     const hasErrors = Object.values(errors).some((error) => error !== '');
     
     if (!hasErrors) {
-      enviarDadosPessoa(formData);
+      enviarDadosEmpresa(formData);
     }
   };
 
   return (
-    <Container>
-      <Paper>
+    <Container style={styles.container}>
+      <Paper style={styles.paper}>
         <FormControl onSubmit={handleClick}>
           <InputField
             label="Nome"
@@ -132,28 +147,44 @@ export default function PessoaCadastro() {
             helperText={errors.nome}
           />
           <InputField
-            label="Idade"
-            value={formData.idade}
+            label="Número"
+            value={formData.numero}
             type="number"
-            onChange={(e) => handleChange(e, 'idade')}
-            error={!!errors.idade}
-            helperText={errors.idade}
+            onChange={(e) => handleChange(e, 'numero')}
+            error={!!errors.numero}
+            helperText={errors.numero}
+          />
+          <InputField
+            label="Cidade"
+            value={formData.cidade}
+            type="text"
+            onChange={(e) => handleChange(e, 'cidade')}
+            error={!!errors.cidade}
+            helperText={errors.cidade}
+          />
+          <InputField
+            label="Rua"
+            value={formData.rua}
+            type="text"
+            onChange={(e) => handleChange(e, 'rua')}
+            error={!!errors.rua}
+            helperText={errors.rua}
           />
           <MaskedInput
-            mask="999.999.999-99"
-            label="CPF"
-            value={formData.cpf}
-            onChange={(e) => handleChange(e, 'cpf')}
-            error={!!errors.cpf}
-            helperText={errors.cpf}
+            mask="99.999.999/9999-99"
+            label="CNPJ"
+            value={formData.cnpj}
+            onChange={(e) => handleChange(e, 'cnpj')}
+            error={!!errors.cnpj}
+            helperText={errors.cnpj}
           />
-          <MaskedInput
-            mask="99.999.999-99"
-            label="RG"
-            value={formData.rg}
-            onChange={(e) => handleChange(e, 'rg')}
-            error={!!errors.rg}
-            helperText={errors.rg}
+          <InputField
+            label="UF"
+            value={formData.uf}
+            type="text"
+            onChange={(e) => handleChange(e, 'uf')}
+            error={!!errors.uf}
+            helperText={errors.uf}
           />
           <MaskedInput
             mask="99999-999"
@@ -163,7 +194,7 @@ export default function PessoaCadastro() {
             error={!!errors.cep}
             helperText={errors.cep}
           />
-          <SaveButton onClick={handleClick} />
+          <SaveButton type="submit"/>
         </FormControl>
         <CustomSnackbar
           message={snackbarMessage}

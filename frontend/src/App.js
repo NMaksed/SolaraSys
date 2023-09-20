@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import './App.css';
 import Button from '@mui/material/Button';
 import Navbar from './components/header/Appbar';
-import PessoaCadastro from './pages/Pessoa/Cadastro';
-import EmpresaCadastro from './pages/Empresa/Cadastro';
-import FuncionarioCadastro from './pages/Funcionario/Cadastro';
+//import PessoaCadastro from './pages/Pessoa/Cadastro';
+//import EmpresaCadastro from './pages/Empresa/Cadastro';
+//import FuncionarioCadastro from './pages/Funcionario/Cadastro';
 import ConsultaEmpresa from './pages/Empresa/Consulta';
 import Login from './pages/Main/login';
+
+import PessoaCadastro from './pages/Pessoa/PessoaCadastro';
+import EmpresaCadastro from './pages/Empresa/EmpresaCadastro';
+import FuncionarioCadastro from './pages/Funcionario/FuncionarioCadastro';
+
+
 
 function App() {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -51,6 +57,7 @@ function App() {
         <Button onClick={() => handleComponentChange("Login")}>
           Login
         </Button>
+        FALTA FINALIZAR TESTE; turar esse campo bugado numnber
       </div>
       {renderActiveComponent()}
       

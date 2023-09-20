@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Container, Paper, FormControl } from '@mui/material';
-// import {InputField, MaskedInput, SaveButton, CustomSnackbar, styles }from '../../components/Form';
-import InputField from '../../../components/Form/InputField';
-import MaskedInput from '../../../components/Form/MaskedInput';
-import CustomSnackbar from '../../../components/Form/CustomSnackbar';
-import SaveButton from '../../../components/Form/SaveButton';
+import MenuItemCondominio from '../../components/Form/MenuItemCondominio';
+import InputField from '../../components/Form/InputField';
+import MaskedInput from '../../components/Form/MaskedInput';
+import CustomSnackbar from '../../components/Form/CustomSnackbar';
+import SaveButton from '../../components/Form/SaveButton';
+import styles from '../../components/Form/styles';
+
 
 const initialFormData = {
   nome: '',
@@ -12,6 +14,9 @@ const initialFormData = {
   cpf: '',
   rg: '',
   cep: '',
+  funcao: '',
+  salario: '',
+  condominio: '',
 };
 
 const initialErrors = {
@@ -20,37 +25,42 @@ const initialErrors = {
   cpf: '',
   rg: '',
   cep: '',
+  funcao: '',
+  salario: '',
+  condominio: '',
 };
 
-export default function PessoaCadastro() {
+export default function FuncionarioCadastro() {
+  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false);
   const [formData, setFormData] = useState({ ...initialFormData });
   const [errors, setErrors] = useState({ ...initialErrors });
+
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-  const [snackbarMessage, setSnackbarMessage] = useState('');
 
-  const enviarDadosPessoa = async (data) => {
+  const enviarDadosFuncionario = async (data) => {
     try {
-      const response = await fetch('http://localhost:8080/pessoa/registro', {
+      const response = await fetch('http://localhost:8080/funcionario/salvar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
       if (response.ok) {
+        console.log('Novo Funcionário Adicionado');
         setSnackbarSeverity('success');
-        setSnackbarMessage('Pessoa adicionada com sucesso');
-        setOpenSnackbar(true);
+        setSnackbarMessage(`Funcionário ${data.nome} adicionado(a) com sucesso`);
         setFormData({ ...initialFormData });
         setErrors({ ...initialErrors });
       } else {
+        console.error('Erro ao adicionar funcionário');
         setSnackbarSeverity('error');
-        setSnackbarMessage('Erro ao adicionar pessoa');
-        setOpenSnackbar(true);
+        setSnackbarMessage('Erro ao adicionar funcionário');
       }
     } catch (error) {
+      console.error('Erro ao fazer a solicitação:', error);
       setSnackbarSeverity('error');
-      setSnackbarMessage('Erro ao adicionar pessoa');
-      setOpenSnackbar(true);
+      setSnackbarMessage('Erro ao adicionar funcionário');
     }
   };
 
@@ -87,6 +97,21 @@ export default function PessoaCadastro() {
           error = 'CEP inválido';
         }
         break;
+      case 'funcao':
+        if (value.trim() === '') {
+          error = 'Campo obrigatório';
+        }
+        break;
+      case 'salario':
+        if (!value || isNaN(value) || Number(value) <= 0) {
+          error = 'Salário inválido';
+        }
+        break;
+      case 'condominio':
+        if (!value) {
+          error = 'Campo obrigatório';
+        }
+        break;
       default:
         break;
     }
@@ -108,62 +133,92 @@ export default function PessoaCadastro() {
   const handleClick = (e) => {
     e.preventDefault();
 
+    // Validar cada campo
     Object.keys(formData).forEach((fieldName) => {
       validateField(fieldName);
     });
 
+    // Verificar se há algum erro
     const hasErrors = Object.values(errors).some((error) => error !== '');
-    
+
     if (!hasErrors) {
-      enviarDadosPessoa(formData);
+      enviarDadosFuncionario(formData);
     }
   };
 
   return (
-    <Container>
-      <Paper>
+    <Container style={styles.container}>
+      <Paper style={styles.paper}>
         <FormControl onSubmit={handleClick}>
           <InputField
+            id="nome"
             label="Nome"
             value={formData.nome}
-            type="text"
             onChange={(e) => handleChange(e, 'nome')}
             error={!!errors.nome}
             helperText={errors.nome}
           />
           <InputField
+            id="idade"
             label="Idade"
             value={formData.idade}
-            type="number"
             onChange={(e) => handleChange(e, 'idade')}
+            type="number"
             error={!!errors.idade}
             helperText={errors.idade}
-          />
+          /> 
           <MaskedInput
-            mask="999.999.999-99"
+            id="cpf"
             label="CPF"
             value={formData.cpf}
             onChange={(e) => handleChange(e, 'cpf')}
+            mask="999.999.999-99"
             error={!!errors.cpf}
             helperText={errors.cpf}
           />
           <MaskedInput
-            mask="99.999.999-99"
+            id="rg"
             label="RG"
             value={formData.rg}
             onChange={(e) => handleChange(e, 'rg')}
+            mask="99.999.999-99"
             error={!!errors.rg}
             helperText={errors.rg}
           />
           <MaskedInput
-            mask="99999-999"
+            id="cep"
             label="CEP"
             value={formData.cep}
             onChange={(e) => handleCepChange(e)}
+            mask="99999-999"
             error={!!errors.cep}
             helperText={errors.cep}
           />
-          <SaveButton onClick={handleClick} />
+          <InputField
+            id="funcao"
+            label="Função"
+            value={formData.funcao}
+            onChange={(e) => handleChange(e, 'funcao')}
+            error={!!errors.funcao}
+            helperText={errors.funcao}
+          />
+          <InputField
+            id="salario"
+            label="Salário"
+            value={formData.salario}
+            onChange={(e) => handleChange(e, 'salario')}
+            type="number"
+            error={!!errors.salario}
+            helperText={errors.salario}
+          />
+          <MenuItemCondominio
+            onCondominioChange={(condominio) => handleChange({ target: { value: condominio } }, 'condominio')}
+            onError={(error) => {
+              validateField('condominio');
+              setIsSaveButtonDisabled(true); // Desabilitar o botão de salvamento
+            }}
+          />
+          <SaveButton type="submit" disabled={isSaveButtonDisabled}/>
         </FormControl>
         <CustomSnackbar
           message={snackbarMessage}

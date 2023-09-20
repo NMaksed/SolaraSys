@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Container, Paper, FormControl } from '@mui/material';
 // import {InputField, MaskedInput, SaveButton, CustomSnackbar, styles }from '../../components/Form';
-import InputField from '../../../components/Form/InputField';
-import MaskedInput from '../../../components/Form/MaskedInput';
-import CustomSnackbar from '../../../components/Form/CustomSnackbar';
-import SaveButton from '../../../components/Form/SaveButton';
+import InputField from '../../components/Form/InputField';
+import MaskedInput from '../../components/Form/MaskedInput';
+import CustomSnackbar from '../../components/Form/CustomSnackbar';
+import SaveButton from '../../components/Form/SaveButton';
+import styles from '../../components/Form/styles';
 
 const initialFormData = {
   nome: '',
@@ -25,9 +26,10 @@ const initialErrors = {
 export default function PessoaCadastro() {
   const [formData, setFormData] = useState({ ...initialFormData });
   const [errors, setErrors] = useState({ ...initialErrors });
+
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const enviarDadosPessoa = async (data) => {
     try {
@@ -120,9 +122,9 @@ export default function PessoaCadastro() {
   };
 
   return (
-    <Container>
-      <Paper>
-        <FormControl onSubmit={handleClick}>
+    <Container style={styles.container}>
+      <Paper style={styles.paper}>
+        <FormControl onSubmit={handleClick} style={styles.form}>
           <InputField
             label="Nome"
             value={formData.nome}
@@ -163,7 +165,7 @@ export default function PessoaCadastro() {
             error={!!errors.cep}
             helperText={errors.cep}
           />
-          <SaveButton onClick={handleClick} />
+          <SaveButton type="submit"/>
         </FormControl>
         <CustomSnackbar
           message={snackbarMessage}
