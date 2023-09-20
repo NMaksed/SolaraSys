@@ -137,7 +137,7 @@ export default function EmpresaCadastro() {
   return (
     <Container style={styles.container}>
       <Paper style={styles.paper}>
-        <FormControl onSubmit={handleClick}>
+        <FormControl onSubmit={handleClick} style={styles.form}>
           <InputField
             label="Nome"
             value={formData.nome}
