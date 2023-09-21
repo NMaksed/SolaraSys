@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/funcionario")
 public class FuncionarioController {
 
@@ -20,10 +21,9 @@ public class FuncionarioController {
     @Autowired
     public AbstractPessoaServiceImpl pessoaService;
 
-    @PostMapping("/salvar")
-    public ResponseEntity<String> add(@RequestBody Funcionario funcionarioDTO, @RequestParam("id") Integer empresaId, @RequestParam("id") Integer condominioId) {
+    @PostMapping("/salvar{id}")
+    public ResponseEntity<String> add(@RequestBody Funcionario funcionarioDTO, @RequestParam("id") Integer condominioId) {
         try {
-            funcionarioService.validateEmpresaFuncionario(empresaId);
             funcionarioService.validateCondominioFuncionario(condominioId);
             funcionarioService.validatePessoaFuncionario(funcionarioDTO.getPessoa().getCpf());
             if (funcionarioDTO.getPessoa().getCpf() == null) {

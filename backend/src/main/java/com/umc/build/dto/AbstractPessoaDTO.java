@@ -14,7 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AbstractPessoaDTO {
 
-    private Integer id;
     private String nome;
     private Integer idade;
     private String cpf;
