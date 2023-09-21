@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Container, Paper, FormControl } from '@mui/material';
-import InputField from '../../../components/Form/InputField';
-import MaskedInput from '../../../components/Form/MaskedInput';
-import CustomSnackbar from '../../../components/Form/CustomSnackbar';
-import SaveButton from '../../../components/Form/SaveButton';
+// import {InputField, MaskedInput, SaveButton, CustomSnackbar, FormValidation }from '../../components/Form';
+import InputField from '../../../components/form/InputField';
+import MaskedInput from '../../../components/form/MaskedInput';
+import CustomSnackbar from '../../../components/form/CustomSnackbar';
+import SaveButton from '../../../components/form/SaveButton';
+import styles from '../../../components/styles/FormsStyles';
 
 const initialFormData = {
   nome: '',
@@ -27,11 +29,11 @@ const initialErrors = {
 
 export default function EmpresaCadastro() {
   const [formData, setFormData] = useState({ ...initialFormData });
-  const [mensagem, setMensagem] = useState('');
   const [errors, setErrors] = useState({ ...initialErrors });
+
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const enviarDadosEmpresa = async (data) => {
     try {
@@ -41,25 +43,21 @@ export default function EmpresaCadastro() {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        showSnackbar('success', 'Empresa adicionada com sucesso');
-        resetForm();
+        setSnackbarSeverity('success');
+        setSnackbarMessage('Empresa adicionado(a) com sucesso');
+        setOpenSnackbar(true);
+        setFormData({ ...initialFormData });
+        setErrors({ ...initialErrors });
       } else {
-        showSnackbar('error', 'Erro ao adicionar empresa');
+        setSnackbarSeverity('error');
+        setSnackbarMessage('Erro ao adicionar empresa');
+        setOpenSnackbar(true);
       }
     } catch (error) {
-      showSnackbar('error', 'Erro ao adicionar empresa');
+      setSnackbarSeverity('error');
+      setSnackbarMessage('Erro ao adicionar empresa');
+      setOpenSnackbar(true);
     }
-  };
-
-  const showSnackbar = (severity, message) => {
-    setSnackbarSeverity(severity);
-    setSnackbarMessage(message);
-    setOpenSnackbar(true);
-  };
-
-  const resetForm = () => {
-    setFormData({ ...initialFormData });
-    setErrors({ ...initialErrors });
   };
 
   const validateField = (fieldName) => {
@@ -68,10 +66,21 @@ export default function EmpresaCadastro() {
 
     switch (fieldName) {
       case 'nome':
+        if (value.trim() === '') {
+          error = 'Campo obrigatório';
+        }
+        break;
       case 'numero':
+        if (value.trim() === '') {
+          error = 'Campo obrigatório';
+        }
+        break;
       case 'cidade':
+        if (value.trim() === '') {
+          error = 'Campo obrigatório';
+        }
+        break;
       case 'rua':
-      case 'uf':
         if (value.trim() === '') {
           error = 'Campo obrigatório';
         }
@@ -80,6 +89,11 @@ export default function EmpresaCadastro() {
         const strippedCnpj = value.replace(/[^\d]/g, '');
         if (strippedCnpj.length !== 14) {
           error = 'CNPJ inválido';
+        }
+        break;
+      case 'uf':
+        if (value.trim() === '') {
+          error = 'Campo obrigatório';
         }
         break;
       case 'cep':
@@ -114,74 +128,73 @@ export default function EmpresaCadastro() {
     });
 
     const hasErrors = Object.values(errors).some((error) => error !== '');
-
+    
     if (!hasErrors) {
       enviarDadosEmpresa(formData);
     }
   };
 
   return (
-    <Container>
-      <Paper>
-        <FormControl onSubmit={handleClick}>
+    <Container style={styles.container}>
+      <Paper style={styles.paper}>
+        <FormControl onSubmit={handleClick} style={styles.form}>
           <InputField
             label="Nome"
             value={formData.nome}
             type="text"
-            fieldName="nome"
-            onChange={handleChange}
-            error={errors.nome}
+            onChange={(e) => handleChange(e, 'nome')}
+            error={!!errors.nome}
+            helperText={errors.nome}
           />
           <InputField
             label="Número"
             value={formData.numero}
             type="number"
-            fieldName="numero"
-            onChange={handleChange}
-            error={errors.numero}
+            onChange={(e) => handleChange(e, 'numero')}
+            error={!!errors.numero}
+            helperText={errors.numero}
           />
           <InputField
             label="Cidade"
             value={formData.cidade}
             type="text"
-            fieldName="cidade"
-            onChange={handleChange}
-            error={errors.cidade}
+            onChange={(e) => handleChange(e, 'cidade')}
+            error={!!errors.cidade}
+            helperText={errors.cidade}
           />
           <InputField
             label="Rua"
             value={formData.rua}
             type="text"
-            fieldName="rua"
-            onChange={handleChange}
-            error={errors.rua}
+            onChange={(e) => handleChange(e, 'rua')}
+            error={!!errors.rua}
+            helperText={errors.rua}
           />
           <MaskedInput
             mask="99.999.999/9999-99"
             label="CNPJ"
             value={formData.cnpj}
-            fieldName="cnpj"
-            onChange={handleChange}
-            error={errors.cnpj}
+            onChange={(e) => handleChange(e, 'cnpj')}
+            error={!!errors.cnpj}
+            helperText={errors.cnpj}
           />
           <InputField
             label="UF"
             value={formData.uf}
             type="text"
-            fieldName="uf"
-            onChange={handleChange}
-            error={errors.uf}
+            onChange={(e) => handleChange(e, 'uf')}
+            error={!!errors.uf}
+            helperText={errors.uf}
           />
           <MaskedInput
             mask="99999-999"
             label="CEP"
             value={formData.cep}
-            fieldName="cep"
-            onChange={handleCepChange}
-            error={errors.cep}
+            onChange={(e) => handleCepChange(e)}
+            error={!!errors.cep}
+            helperText={errors.cep}
           />
-          <SaveButton onClick={handleClick} />
-
+          <SaveButton type="submit"/>
         </FormControl>
         <CustomSnackbar
           message={snackbarMessage}

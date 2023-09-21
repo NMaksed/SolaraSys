@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
-function CustomSnackbar({ message, severity, open, onClose }) {
+function CustomSnackbar({ message, severity = 'info', open, onClose }) {
   const [isOpen, setIsOpen] = useState(open);
 
   useEffect(() => {

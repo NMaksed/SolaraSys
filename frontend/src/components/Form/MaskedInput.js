@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactInputMask from 'react-input-mask';
 import TextField from '@mui/material/TextField';
-import styles from './styles';
+import styles from '../styles/FormsStyles';
 
 function MaskedInput({ mask, label, value, onChange, error, helperText }) {
   return (
