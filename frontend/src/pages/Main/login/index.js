@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
-import CustomSnackbar from '../../../components/form/CustomSnackbar';
-import InputField from '../../../components/form/InputField';
-import SaveButton from '../../../components/form/SaveButton';
-import backgroundImage from '../../../components/styles/or-21s84129.png';
-import styles from '../../../components/styles/HomeScreenStyles';
+import CustomSnackbar from '../../../components/Form/CustomSnackbar';
+import InputField from '../../../components/Form/InputField';
+import SaveButton from '../../../components/Form/SaveButton';
+import backgroundImage from '../../../components/Styles/or-21s84129.png';
+import styles from '../../../components/Styles/HomeScreenStyles';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -15,8 +15,8 @@ const Login = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [backgroundStyle, setBackgroundStyle] = useState(styles.backgroundImage);
   const [contentStyle, setContentStyle] = useState(styles.content);
-  const [scaleValue, setScaleValue] = useState(new Animated.Value(0));
-  //const navigation = useNavigation();
+  const [scaleValue] = useState(new Animated.Value(0));
+  const navigation = useNavigation(0);
 
   useEffect(() => {
     if (showLoginForm) {
@@ -27,10 +27,19 @@ const Login = () => {
         useNativeDriver: true,
       }).start();
     } else {
-      // Resetar a escala quando o formulário é ocultado
-      scaleValue.setValue(0);
+      Animated.spring(scaleValue, {
+        toValue: 0, // Defina o valor inicial como 0
+        friction: 7,
+        useNativeDriver: true,
+      }).start();
     }
-  }, [showLoginForm]);
+  }, [showLoginForm, scaleValue]);
+
+  const handleBackgroundClick = () => {
+    setShowLoginForm(false);
+    setBackgroundStyle(styles.backgroundImage);
+    setContentStyle(styles.content);
+  };
 
   const handleButtonClick = () => {
     setShowLoginForm(true);
@@ -58,7 +67,7 @@ const Login = () => {
         });
   
         if (response.status === 200) {
-          navigation.navigate('Dashboard'); // Substitua 'Dashboard' pelo nome da sua rota de dashboard
+          navigation.navigate('Dashboard');
         } else {
           setSnackbar({ open: true, message: 'Erro ao fazer login.' });
         }
@@ -75,8 +84,9 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={backgroundImage} style={backgroundStyle} />
-
+      <TouchableOpacity onPress={handleBackgroundClick} style={backgroundStyle}>
+        <Image source={backgroundImage} style={backgroundStyle} />
+      </TouchableOpacity>
       <View style={contentStyle}>
         <Text style={styles.title}>Solara</Text>
         <View style={styles.separator} />
@@ -99,8 +109,10 @@ const Login = () => {
             <Text style={styles.loginText}>Login</Text>
             <InputField
               label="Usuário"
-              value={formData.username}
+              type="text"
               variant="standard"
+              autoFocus={true}
+              value={formData.username}
               onChange={(e) => handleChange(e, 'username')}
             />
             <InputField

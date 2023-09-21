@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, FormControl } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
-import styles from '../../../components/styles/FormsStyles';
+import styles from '../../../components/Styles/FormsStyles';
 import MenuItemCondominio from '../../../components/MenuItem/MenuItemCondominio';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';

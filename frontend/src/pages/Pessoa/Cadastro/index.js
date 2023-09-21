@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Paper, FormControl } from '@mui/material';
 // import {InputField, MaskedInput, SaveButton, CustomSnackbar, styles }from '../../components/Form';
-import InputField from '../../../components/form/InputField';
-import MaskedInput from '../../../components/form/MaskedInput';
-import CustomSnackbar from '../../../components/form/CustomSnackbar';
-import SaveButton from '../../../components/form/SaveButton';
+import InputField from '../../../components/Form/InputField';
+import MaskedInput from '../../../components/Form/MaskedInput';
+import CustomSnackbar from '../../../components/Form/CustomSnackbar';
+import SaveButton from '../../../components/Form/SaveButton';
 
 const initialFormData = {
   nome: '',

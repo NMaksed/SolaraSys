@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import DataTable from '../../../components/DataTable';
+import DataTable from '../../../components/DataTable/index';
 
 const ConsultaEmpresa = () => {
   const [data, setData] = useState([]);
