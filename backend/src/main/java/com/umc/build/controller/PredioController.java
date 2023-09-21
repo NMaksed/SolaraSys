@@ -6,18 +6,17 @@ import com.umc.build.serviceImpl.PredioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/predio")
 public class PredioController {
 
     @Autowired
     private PredioServiceImpl predioService;
 
+    @PostMapping("/salvar")
     public ResponseEntity<String> salvarPredio(@RequestBody Predio predio, @RequestParam("id") Integer condominioId) {
         try {
             predioService.validatePredioCondominiobyId(condominioId);

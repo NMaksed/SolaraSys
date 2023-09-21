@@ -18,7 +18,6 @@ public class Predio {
     private Integer id;
     private Integer numero;
     private Integer andar;
-    private Integer numeroApartamento;
     private String referencia;
     private LocalDate dataRegistro;
     @OneToMany(mappedBy = "predio")

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/apartamento")
 public class ApartamentoController {
 
@@ -17,9 +18,9 @@ public class ApartamentoController {
     private ApartamentoServiceImpl apartamentoService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<String> salvar(@RequestBody Apartamento apartamento) {
+    public ResponseEntity<String> salvar(@RequestBody Apartamento apartamento, @RequestParam("id") Integer predioId) {
         try {
-            apartamentoService.validateApartamentoPredio(apartamento.getPredio().getId());
+            apartamentoService.validateApartamentoPredio(predioId);
             apartamentoService.salvarApartamento(apartamento);
             return ResponseEntity.ok("Novo apartamento adicionado!");
         } catch (Exception e) {
