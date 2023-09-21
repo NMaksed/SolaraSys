@@ -88,7 +88,7 @@ const Login = () => {
         <Image source={backgroundImage} style={backgroundStyle} />
       </TouchableOpacity>
       <View style={contentStyle}>
-        <Text style={styles.title}>Solara</Text>
+        <Text style={styles.title}>🌞 Solara 😎</Text>
         <View style={styles.separator} />
         <Text style={styles.description}>Solara é um inovador programa de gerenciamento condominial que leva a administração de condomínios para o futuro. Com uma interface intuitiva e recursos de ponta, Solara foi projetado para simplificar a vida dos síndicos, condôminos e administradores, tornando a gestão condominial mais eficiente, transparente e agradável.</Text>
         <TouchableOpacity onPress={handleButtonClick} style={styles.button}>
