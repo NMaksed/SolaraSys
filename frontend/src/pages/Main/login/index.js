@@ -70,6 +70,7 @@ const Login = () => {
 
 
   const consultarLogin = async (data) => {
+    console.log(data)
     try {
       const response = await fetch('http://localhost:8080/user/login', {
         method: 'POST',
@@ -80,7 +81,7 @@ const Login = () => {
       if (response.ok) {
         navigation.navigate('Dashboard');
       } else {
-        enqueueSnackbar('Nome de usuário ou senha incorreta', { variant: 'error' });
+        enqueueSnackbar('Email de usuário ou senha incorreta', { variant: 'error' });
       }
 
     } catch (error) {
