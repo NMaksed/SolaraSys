@@ -5,6 +5,7 @@ import ReactInputMask from 'react-input-mask';
 import Button from '@mui/material/Button';
 import styles from '../../../components/Styles/FormsStyles';
 import { useSnackbar } from 'notistack';
+import MenuItemCondominio from '../../../components/Form/MenuItemCondominio';
 
 
 export default function FuncionarioCadastro() {
@@ -15,7 +16,10 @@ export default function FuncionarioCadastro() {
   const [cep, setCep] = useState('');
   const [funcao, setFuncao] = useState('');
   const [salario, setSalario] = useState('');
+
   const { enqueueSnackbar } = useSnackbar();
+  const [condominio, setCondominio] = useState('');
+  const [condominioError, setCondominioError] = useState('');
 
   const [nomeError, setNomeError] = useState('');
   const [idadeError, setIdadeError] = useState('');
@@ -78,6 +82,13 @@ export default function FuncionarioCadastro() {
         valid = false;
       } else {
         setSalarioError('');
+      }
+
+      if (condominio.trim() === '') {
+        setCondominioError('Campo obrigatório');
+        valid = false;
+        } else {
+        setCondominioError('');
       }
   
       if (valid) {
@@ -167,7 +178,12 @@ export default function FuncionarioCadastro() {
             fullWidth required error={!!salarioError} helperText={salarioError} 
           />
 
-          <Button variant="contained" onClick={handleClick}>
+          <MenuItemCondominio
+            onChange={(e) => setCondominio(e.target.value)}
+            onError={(error) => setCondominioError(error)}
+          />
+
+          <Button variant="contained" onClick={handleClick} disabled={!!condominioError}>
               Salvar
           </Button>
         </Paper>

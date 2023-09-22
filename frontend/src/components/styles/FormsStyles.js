@@ -6,6 +6,8 @@ const styles = {
     minHeight: '90vh',
   },
   Paper: {
+    display: 'flex',
+    flexDirection: 'column',
     padding: '20px',
     maxWidth: '400px',
     width: '100%',

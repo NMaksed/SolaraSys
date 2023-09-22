@@ -17,16 +17,16 @@ const MenuItemCondominio = ({ onCondominioChange, onError }) => {
         const result = await response.json();
         setCondominios(result);
         setFetchSucesso(true);
-        setErroMensagem(''); // Limpar mensagem de erro, se houver
+        setErroMensagem('');
         if (onError) {
-          onError(''); // Limpar o erro no componente pai
+          onError('');
         }
       } catch (error) {
         console.error('Erro ao carregar condomínios:', error);
         setFetchSucesso(false);
         setErroMensagem('Ocorreu um erro ao carregar os condomínios. Por favor, tente novamente mais tarde.');
         if (onError) {
-          onError(error.message); // Passar o erro para o componente pai
+          onError(error.message);
         }
       }
     };

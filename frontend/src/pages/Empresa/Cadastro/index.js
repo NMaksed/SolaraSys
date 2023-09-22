@@ -167,7 +167,6 @@ export default function EmpresaCadastro() {
                 {() => <TextField style={styles.TextField} id="cep" label="CEP" variant="outlined" fullWidth required  error={!!cepError} helperText={cepError}/>}
             </ReactInputMask>
 
-
             <Button style={styles.button} variant="contained" onClick={handleClick}>
                 Salvar
             </Button>
