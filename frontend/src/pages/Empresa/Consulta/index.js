@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
 import DataTable from '../../../components/DataTable/index';
 
 const ConsultaEmpresa = () => {
@@ -23,14 +24,14 @@ const ConsultaEmpresa = () => {
   }, []);
 
   return (
-    <div>
+    <View style={{flex: 1, justifyContent: 'column', alignitems: 'center'}}>
       <h1>Empresas</h1>
       {error ? (
         <p>Falha de conexão: {error}</p>
       ) : (
         <DataTable data={data} />
       )}
-    </div>
+    </View>
   );
 };
 
