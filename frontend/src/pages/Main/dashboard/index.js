@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import Navbar from '../../../components/header/Appbar';
+import Navbar from '../../../components/Header/Navbar';
 import PessoaCadastro from '../../Pessoa/Cadastro/index';
 import EmpresaCadastro from '../../Empresa/Cadastro/index';
 import FuncionarioCadastro from '../../Funcionario/Cadastro/index';
@@ -23,17 +23,15 @@ function DashboardScreen() {
         return <FuncionarioCadastro />;
       case "ConsultaEmpresa":
         return <ConsultaEmpresa/>
-      case "Login":
-        return <Login/>
       default:
         return null;
     }
   };
 
   return (
-    <div className="App">
+    <div>
       <Navbar texto="Cadastro de Entidades" />
-      <div className="button-container">
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <Button onClick={() => handleComponentChange('PessoaCadastro')}>
           Cadastrar Pessoa
         </Button>
@@ -46,10 +44,6 @@ function DashboardScreen() {
         <Button onClick={() => handleComponentChange("ConsultaEmpresa")}>
           Consultar Empresa
         </Button>
-        <Button onClick={() => handleComponentChange("Login")}>
-          Login
-        </Button>
-        FALTA FINALIZAR TESTE; turar esse campo bugado numnber
       </div>
       {renderActiveComponent()}
       

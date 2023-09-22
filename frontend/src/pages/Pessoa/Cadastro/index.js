@@ -1,35 +1,72 @@
 import React, { useState } from 'react';
-import { Container, Paper, FormControl } from '@mui/material';
-// import {InputField, MaskedInput, SaveButton, CustomSnackbar, styles }from '../../components/Form';
-import InputField from '../../../components/Form/InputField';
-import MaskedInput from '../../../components/Form/MaskedInput';
-import CustomSnackbar from '../../../components/Form/CustomSnackbar';
-import SaveButton from '../../../components/Form/SaveButton';
-
-const initialFormData = {
-  nome: '',
-  idade: '',
-  cpf: '',
-  rg: '',
-  cep: '',
-};
-
-const initialErrors = {
-  nome: '',
-  idade: '',
-  cpf: '',
-  rg: '',
-  cep: '',
-};
+import { useSnackbar } from 'notistack';
+import { Container, Paper, TextField } from '@mui/material';
+import ReactInputMask from 'react-input-mask';
+import Button from '@mui/material/Button';
+import styles from '../../../components/Styles/FormsStyles';
 
 export default function PessoaCadastro() {
-  const [formData, setFormData] = useState({ ...initialFormData });
-  const [errors, setErrors] = useState({ ...initialErrors });
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [nome, setNome] = useState('');
+  const [idade, setIdade] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [rg, setRg] = useState('');
+  const [cep, setCep] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
+  //controle de erro
+  const [nomeError, setNomeError] = useState('');
+  const [idadeError, setIdadeError] = useState('');
+  const [cpfError, setCpfError] = useState('');
+  const [rgError, setRgError] = useState('');
+  const [cepError, setCepError] = useState('');
 
-  const enviarDadosPessoa = async (data) => {
+  //Validacao de dados
+  const handleClick = (e) => {
+    e.preventDefault()
+
+    let valid = true;
+
+    if (nome.trim() === '') {
+      setNomeError('Campo obrigatório');
+      valid = false;
+    } else {
+      setNomeError('');
+    }
+
+    if (idade === '') {
+      setIdadeError('Idade é obrigatória');
+      valid = false;
+    } else {
+      setIdadeError('');
+    }
+
+    if (cpf.replace(/[^0-9]/g, '').length !== 11) {
+      setCpfError('CPF inválido');
+      valid = false;
+    } else {
+      setCpfError('');
+    }
+
+    if (rg.replace(/[^0-9]/g, '').length !== 10) {
+      setRgError('RG inválido');
+      valid = false;
+    } else {
+      setRgError('');
+    }
+
+    if (cep.replace(/[^0-9]/g, '').length !== 8) {
+      setCepError('CEP inválido');
+      valid = false;
+    } else {
+      setCepError('');
+    }
+
+    if (valid) {
+      const data = { nome, idade, cpf, rg, cep };
+      enviarDadosFuncionario(data);
+    }
+  };
+    
+  const enviarDadosFuncionario = async (data) => {
     try {
       const response = await fetch('http://localhost:8080/pessoa/registro', {
         method: 'POST',
@@ -37,141 +74,65 @@ export default function PessoaCadastro() {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        setSnackbarSeverity('success');
-        setSnackbarMessage('Pessoa adicionada com sucesso');
-        setOpenSnackbar(true);
-        setFormData({ ...initialFormData });
-        setErrors({ ...initialErrors });
+        console.log('Pessoa registrada');
+        enqueueSnackbar('Pessoa registrada', { variant: 'success' });
+        // Limpar os campos após o envio bem-sucedido, se necessário
+        setNome('');
+        setIdade('');
+        setCpf('');
+        setRg('');
+        setCep('');
       } else {
-        setSnackbarSeverity('error');
-        setSnackbarMessage('Erro ao adicionar pessoa');
-        setOpenSnackbar(true);
+        console.error('Erro ao aregistrar pessoa');
+        enqueueSnackbar('Erro ao registrar pessoa', { variant: 'error' });
       }
     } catch (error) {
-      setSnackbarSeverity('error');
-      setSnackbarMessage('Erro ao adicionar pessoa');
-      setOpenSnackbar(true);
-    }
-  };
-
-  const validateField = (fieldName) => {
-    const value = formData[fieldName];
-    let error = '';
-
-    switch (fieldName) {
-      case 'nome':
-        if (value.trim() === '') {
-          error = 'Campo obrigatório';
-        }
-        break;
-      case 'idade':
-        if (value.trim() === '') {
-          error = 'Campo obrigatório';
-        }
-        break;
-      case 'cpf':
-        const strippedCpf = value.replace(/[^\d]/g, '');
-        if (strippedCpf.length !== 11) {
-          error = 'CPF inválido';
-        }
-        break;
-      case 'rg':
-        const strippedRg = value.replace(/[^\d]/g, '');
-        if (strippedRg.length < 9) {
-          error = 'RG inválido';
-        }
-        break;
-      case 'cep':
-        const strippedCep = value.replace(/[^\d]/g, '');
-        if (strippedCep.length !== 8) {
-          error = 'CEP inválido';
-        }
-        break;
-      default:
-        break;
-    }
-
-    setErrors({ ...errors, [fieldName]: error });
-  };
-
-  const handleChange = (e, fieldName) => {
-    const { value } = e.target;
-    setFormData({ ...formData, [fieldName]: value });
-  };
-
-  const handleCepChange = (e) => {
-    const { value } = e.target;
-    const strippedCep = value.replace(/[^\d]/g, '');
-    setFormData({ ...formData, cep: strippedCep });
-  };
-
-  const handleClick = (e) => {
-    e.preventDefault();
-
-    Object.keys(formData).forEach((fieldName) => {
-      validateField(fieldName);
-    });
-
-    const hasErrors = Object.values(errors).some((error) => error !== '');
-    
-    if (!hasErrors) {
-      enviarDadosPessoa(formData);
+      console.error('Erro ao fazer a solicitação:', error);
+      enqueueSnackbar('Problema ao se conectar com o servidor', { variant: 'error' });
     }
   };
 
   return (
-    <Container>
-      <Paper>
-        <FormControl onSubmit={handleClick}>
-          <InputField
-            label="Nome"
-            value={formData.nome}
-            type="text"
-            onChange={(e) => handleChange(e, 'nome')}
-            error={!!errors.nome}
-            helperText={errors.nome}
-          />
-          <InputField
-            label="Idade"
-            value={formData.idade}
-            type="number"
-            onChange={(e) => handleChange(e, 'idade')}
-            error={!!errors.idade}
-            helperText={errors.idade}
-          />
-          <MaskedInput
-            mask="999.999.999-99"
-            label="CPF"
-            value={formData.cpf}
-            onChange={(e) => handleChange(e, 'cpf')}
-            error={!!errors.cpf}
-            helperText={errors.cpf}
-          />
-          <MaskedInput
-            mask="99.999.999-99"
-            label="RG"
-            value={formData.rg}
-            onChange={(e) => handleChange(e, 'rg')}
-            error={!!errors.rg}
-            helperText={errors.rg}
-          />
-          <MaskedInput
-            mask="99999-999"
-            label="CEP"
-            value={formData.cep}
-            onChange={(e) => handleCepChange(e)}
-            error={!!errors.cep}
-            helperText={errors.cep}
-          />
-          <SaveButton onClick={handleClick} />
-        </FormControl>
-        <CustomSnackbar
-          message={snackbarMessage}
-          severity={snackbarSeverity}
-          open={openSnackbar}
-          onClose={() => setOpenSnackbar(false)}
+    <Container style={styles.Container}>
+      <Paper style={styles.Paper}>
+        <TextField style={styles.TextField}
+          id="nome" variant="outlined" 
+          type="text" label="Nome" value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          fullWidth required  error={!!nomeError} helperText={nomeError} 
         />
+
+        <TextField style={styles.TextField}
+          type="number" label="Idade" value={idade} 
+          onChange={(e) => setIdade(e.target.value)}
+          fullWidth required error={!!idadeError} helperText={idadeError} 
+        />
+
+        <ReactInputMask
+          mask="999.999.999-99"
+          onChange={(e) => setCpf(e.target.value)}
+          type="number" label="CPF" value={cpf}> 
+            {() => <TextField style={styles.TextField} id="cpf" label="CPF" variant="outlined" fullWidth required error={!!cpfError} helperText={cpfError} />}
+        </ReactInputMask>
+
+        <ReactInputMask
+          mask="99.999.999-99"
+          onChange={(e) => setRg(e.target.value)}
+          type="number" label="RG" vaule={rg}>
+            {() => <TextField style={styles.TextField} id="rg" label="RG" variant="outlined" fullWidth required error={!!rgError} helperText={rgError} />}
+        </ReactInputMask>
+  
+        <ReactInputMask
+          mask="99999-999"
+          onChange={(e) => setCep(e.target.value)}
+          type="number" label="CEP" value={cep}>
+            {() => <TextField style={styles.TextField} id="cep" label="CEP" variant="outlined" fullWidth required error={!!cepError} helperText={cepError}/>}
+        </ReactInputMask>
+
+        <Button variant="contained" onClick={handleClick}>
+          Salvar 
+        </Button>
       </Paper>
     </Container>
   );
-}
+} 

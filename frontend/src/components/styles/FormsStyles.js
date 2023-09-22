@@ -1,19 +1,19 @@
 const styles = {
-  container: {
+  Container: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '90vh',
   },
-  paper: {
+  Paper: {
     padding: '20px',
     maxWidth: '400px',
     width: '100%',
   },
-  form: {
+  FormControl: {
     width: '100%',
   },
-  textInput: {
+  TextField: {
     marginBottom: '16px',
   },
 };

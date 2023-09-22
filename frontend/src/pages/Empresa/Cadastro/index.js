@@ -1,208 +1,177 @@
 import React, { useState } from 'react';
-import { Container, Paper, FormControl } from '@mui/material';
-// import {InputField, MaskedInput, SaveButton, CustomSnackbar, FormValidation }from '../../components/Form';
-import InputField from '../../../components/Form/InputField';
-import MaskedInput from '../../../components/Form/MaskedInput';
-import CustomSnackbar from '../../../components/Form/CustomSnackbar';
-import SaveButton from '../../../components/Form/SaveButton';
+import { useSnackbar } from 'notistack';
+import { Container, Paper, Button, TextField } from '@mui/material';
+import ReactInputMask from 'react-input-mask';
 import styles from '../../../components/Styles/FormsStyles';
 
-const initialFormData = {
-  nome: '',
-  numero: '',
-  cidade: '',
-  rua: '',
-  cnpj: '',
-  uf: '',
-  cep: '',
-};
-
-const initialErrors = {
-  nome: '',
-  numero: '',
-  cidade: '',
-  rua: '',
-  cnpj: '',
-  uf: '',
-  cep: '',
-};
-
 export default function EmpresaCadastro() {
-  const [formData, setFormData] = useState({ ...initialFormData });
-  const [errors, setErrors] = useState({ ...initialErrors });
+  const [nome, setNome] = useState('');
+  const [numero, setNumero] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [rua, setRua] = useState('');
+  const [cnpj, setCnpj] = useState('');
+  const [uf, setUf] = useState('');
+  const [cep, setCep] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
 
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+  const [nomeError, setNomeError] = useState('');
+  const [numeroError, setNumeroError] = useState('');
+  const [cidadeError, setCidadeError] = useState('');
+  const [ruaError, setRuaError] = useState('');
+  const [cnpjError, setCnpjError] = useState('');
+  const [ufError, setUfError] = useState('');
+  const [cepError, setCepError] = useState('');
 
-  const enviarDadosEmpresa = async (data) => {
-    try {
-      const response = await fetch('http://localhost:8080/empresa/salvar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        setSnackbarSeverity('success');
-        setSnackbarMessage('Empresa adicionado(a) com sucesso');
-        setOpenSnackbar(true);
-        setFormData({ ...initialFormData });
-        setErrors({ ...initialErrors });
-      } else {
-        setSnackbarSeverity('error');
-        setSnackbarMessage('Erro ao adicionar empresa');
-        setOpenSnackbar(true);
-      }
-    } catch (error) {
-      setSnackbarSeverity('error');
-      setSnackbarMessage('Erro ao adicionar empresa');
-      setOpenSnackbar(true);
-    }
-  };
+    const enviarDadosFuncionario = async (data) => {
+        try {
+        const response = await fetch('http://localhost:8080/empresa/salvar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+        if (response.ok) {
+            console.log('Novo Empresa Adicionado');
+            enqueueSnackbar('Empresa Adicionada', { variant: 'success' });
+            // Limpar os campos após o envio bem-sucedido, se necessário
+            setNome('');
+            setNumero('');
+            setCidade('');
+            setRua('');
+            setCnpj('');
+            setUf('');
+            setCep('');
+        } else {
+            console.error('Erro ao adicionar empresa');
+            enqueueSnackbar('Erro ao adicionar empresa', { variant: 'error' });
+        }
+        } catch (error) {
+            console.error('Erro ao fazer a solicitação:', error);
+            enqueueSnackbar('Problema ao se conectar com o servidor', { variant: 'error' });
+        }
+    };
 
-  const validateField = (fieldName) => {
-    const value = formData[fieldName];
-    let error = '';
+    const handleClick = (e) => {
+        e.preventDefault()
 
-    switch (fieldName) {
-      case 'nome':
-        if (value.trim() === '') {
-          error = 'Campo obrigatório';
+        let valid = true;
+
+        // Validar nome
+        if (nome.trim() === '') {
+        setNomeError('Nome é obrigatório');
+        valid = false;
+        } else {
+        setNomeError('');
         }
-        break;
-      case 'numero':
-        if (value.trim() === '') {
-          error = 'Campo obrigatório';
+
+        // Validar número
+        if (numero.trim() === '') {
+        setNumeroError('Número é obrigatório');
+        valid = false;
+        } else {
+        setNumeroError('');
         }
-        break;
-      case 'cidade':
-        if (value.trim() === '') {
-          error = 'Campo obrigatório';
+
+        // Validar cidade
+        if (cidade.trim() === '') {
+        setCidadeError('Cidade é obrigatória');
+        valid = false;
+        } else {
+        setCidadeError('');
         }
-        break;
-      case 'rua':
-        if (value.trim() === '') {
-          error = 'Campo obrigatório';
+
+        // Validar rua
+        if (rua.trim() === '') {
+        setRuaError('Rua é obrigatória');
+        valid = false;
+        } else {
+        setRuaError('');
         }
-        break;
-      case 'cnpj':
-        const strippedCnpj = value.replace(/[^\d]/g, '');
+
+        // Validar CNPJ
+        const strippedCnpj = cnpj.replace(/[^0-9]/g, '');
         if (strippedCnpj.length !== 14) {
-          error = 'CNPJ inválido';
+        setCnpjError('CNPJ inválido');
+        valid = false;
+        } else {
+        setCnpjError('');
         }
-        break;
-      case 'uf':
-        if (value.trim() === '') {
-          error = 'Campo obrigatório';
+
+        // Validar UF
+        if (uf.trim() === '') {
+        setUfError('UF é obrigatória');
+        valid = false;
+        } else {
+        setUfError('');
         }
-        break;
-      case 'cep':
-        const strippedCep = value.replace(/[^\d]/g, '');
+
+        // Validar CEP
+        const strippedCep = cep.replace(/[^0-9]/g, '');
         if (strippedCep.length !== 8) {
-          error = 'CEP inválido';
+        setCepError('CEP inválido');
+        valid = false;
+        } else {
+        setCepError('');
         }
-        break;
-      default:
-        break;
-    }
+        if (valid) {
+            const data = { nome, numero, cidade, rua, cnpj, uf, cep };
+            console.log(data)
+            enviarDadosFuncionario(data);
+        }
+    };
 
-    setErrors({ ...errors, [fieldName]: error });
-  };
 
-  const handleChange = (e, fieldName) => {
-    const { value } = e.target;
-    setFormData({ ...formData, [fieldName]: value });
-  };
+    return (
+        <Container style={styles.Container}>
+        <Paper style={styles.Paper}>
+            <TextField style={styles.TextField}
+            label="Nome" value={nome} type="text" variant="outlined"
+            onChange={(e) => setNome(e.target.value)}
+            fullWidth required error={!!nomeError} helperText={nomeError}
+            />
 
-  const handleCepChange = (e) => {
-    const { value } = e.target;
-    const strippedCep = value.replace(/[^\d]/g, '');
-    setFormData({ ...formData, cep: strippedCep });
-  };
+            <TextField style={styles.TextField}
+            label="Número" value={numero} type="number" variant="outlined"
+            onChange={(e) => setNumero(e.target.value)}
+            fullWidth required error={!!numeroError} helperText={numeroError}
+            />
 
-  const handleClick = (e) => {
-    e.preventDefault();
+            <TextField style={styles.TextField}
+            label="Cidade" value={cidade} type="text" variant="outlined"
+            onChange={(e) => setCidade(e.target.value)}
+            fullWidth required error={!!cidadeError} helperText={cidadeError}
+            />
 
-    Object.keys(formData).forEach((fieldName) => {
-      validateField(fieldName);
-    });
+            <TextField style={styles.TextField} 
+            label="Rua" value={rua} type="text" variant="outlined"
+            onChange={(e) => setRua(e.target.value)} 
+            fullWidth required error={!!ruaError} helperText={ruaError}
+            />
 
-    const hasErrors = Object.values(errors).some((error) => error !== '');
-    
-    if (!hasErrors) {
-      enviarDadosEmpresa(formData);
-    }
-  };
-
-  return (
-    <Container style={styles.container}>
-      <Paper style={styles.paper}>
-        <FormControl onSubmit={handleClick} style={styles.form}>
-          <InputField
-            label="Nome"
-            value={formData.nome}
-            type="text"
-            onChange={(e) => handleChange(e, 'nome')}
-            error={!!errors.nome}
-            helperText={errors.nome}
-          />
-          <InputField
-            label="Número"
-            value={formData.numero}
-            type="number"
-            onChange={(e) => handleChange(e, 'numero')}
-            error={!!errors.numero}
-            helperText={errors.numero}
-          />
-          <InputField
-            label="Cidade"
-            value={formData.cidade}
-            type="text"
-            onChange={(e) => handleChange(e, 'cidade')}
-            error={!!errors.cidade}
-            helperText={errors.cidade}
-          />
-          <InputField
-            label="Rua"
-            value={formData.rua}
-            type="text"
-            onChange={(e) => handleChange(e, 'rua')}
-            error={!!errors.rua}
-            helperText={errors.rua}
-          />
-          <MaskedInput
+            <ReactInputMask
             mask="99.999.999/9999-99"
-            label="CNPJ"
-            value={formData.cnpj}
-            onChange={(e) => handleChange(e, 'cnpj')}
-            error={!!errors.cnpj}
-            helperText={errors.cnpj}
-          />
-          <InputField
-            label="UF"
-            value={formData.uf}
-            type="text"
-            onChange={(e) => handleChange(e, 'uf')}
-            error={!!errors.uf}
-            helperText={errors.uf}
-          />
-          <MaskedInput
+            onChange={(e) => setCnpj(e.target.value)}
+            type="number" label="CNPJ" value={cnpj}>
+                {() => <TextField style={styles.TextField} id="cnpj" label="CNPJ" variant="outlined" fullWidth required error={!!cnpjError} helperText={cnpjError}/>}
+            </ReactInputMask>
+
+            <TextField style={styles.TextField} 
+            label="UF" value={uf} type="text" variant="outlined"
+            onChange={(e) => setUf(e.target.value)}
+            fullWidth required  error={!!ufError} helperText={ufError}
+            />
+
+            <ReactInputMask
             mask="99999-999"
-            label="CEP"
-            value={formData.cep}
-            onChange={(e) => handleCepChange(e)}
-            error={!!errors.cep}
-            helperText={errors.cep}
-          />
-          <SaveButton type="submit"/>
-        </FormControl>
-        <CustomSnackbar
-          message={snackbarMessage}
-          severity={snackbarSeverity}
-          open={openSnackbar}
-          onClose={() => setOpenSnackbar(false)}
-        />
-      </Paper>
-    </Container>
-  );
+            onChange={(e) => setCep(e.target.value)}
+            type="number" label="CEP" value={cep}>
+                {() => <TextField style={styles.TextField} id="cep" label="CEP" variant="outlined" fullWidth required  error={!!cepError} helperText={cepError}/>}
+            </ReactInputMask>
+
+
+            <Button style={styles.button} variant="contained" onClick={handleClick}>
+                Salvar
+            </Button>
+        </Paper>
+        </Container>
+    );
 }

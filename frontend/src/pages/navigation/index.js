@@ -1,7 +1,8 @@
 import React from 'react';
+import {View} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {View} from 'react-native';
+import { SnackbarProvider } from 'notistack';
 // Importe suas telas
 import Login from '../Main/Login/index';
 import DashboardScreen from '../Main/Dashboard/index';
@@ -12,10 +13,12 @@ const Navigation = () => {
   return (
     <View style={{height: '100vh'}}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" options={{headerShown: false,}} component={Login} />
-          <Stack.Screen name="Dashboard" options={{headerShown: false,}} component={DashboardScreen} />
-        </Stack.Navigator>
+        <SnackbarProvider>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen name="Login" options={{headerShown: false,}} component={Login} />
+            <Stack.Screen name="Dashboard" options={{headerShown: false,}} component={DashboardScreen} />
+          </Stack.Navigator>
+        </SnackbarProvider>
       </NavigationContainer>
     </ View>
   );

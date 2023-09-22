@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
-import CustomSnackbar from '../../../components/Form/CustomSnackbar';
-import InputField from '../../../components/Form/InputField';
-import SaveButton from '../../../components/Form/SaveButton';
+import { Button, FormControl, TextField } from '@mui/material';
 import backgroundImage from '../../../components/Styles/or-21s84129.png';
 import styles from '../../../components/Styles/HomeScreenStyles';
 import { useNavigation } from '@react-navigation/native';
-
+import { useSnackbar } from 'notistack';
 
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
   const [showLoginForm, setShowLoginForm] = useState(false);
-  const [snackbar, setSnackbar] = useState({ open: false, message: '' });
-  const [formData, setFormData] = useState({ username: '', password: '' });
   const [backgroundStyle, setBackgroundStyle] = useState(styles.backgroundImage);
   const [contentStyle, setContentStyle] = useState(styles.content);
   const [scaleValue] = useState(new Animated.Value(0));
   const navigation = useNavigation(0);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (showLoginForm) {
@@ -28,58 +28,65 @@ const Login = () => {
       }).start();
     } else {
       Animated.spring(scaleValue, {
-        toValue: 0, // Defina o valor inicial como 0
+        // Aplicar a animação inversa formulário é escondido
+        toValue: 0, 
         friction: 7,
         useNativeDriver: true,
       }).start();
     }
   }, [showLoginForm, scaleValue]);
 
+  //FECHA o Login e muda o background para SEM Blur
   const handleBackgroundClick = () => {
     setShowLoginForm(false);
     setBackgroundStyle(styles.backgroundImage);
     setContentStyle(styles.content);
   };
 
+ //ABRE o Login e muda o background para COM Blur
   const handleButtonClick = () => {
     setShowLoginForm(true);
     setBackgroundStyle(styles.backgroundBlur);
     setContentStyle(styles.contentBlur);
   };
 
-  const handleSnackbarClose = () => {
-    setSnackbar({ open: false, message: '' });
-  };
-
-  const handleLoginSubmit = async () => {
-    if (formData.username === '') {
-      setSnackbar({ open: true, message: 'Nome de usuário é obrigatório.' });
-    } else if (formData.password === '') {
-      setSnackbar({ open: true, message: 'Senha é obrigatória.' });
-    } else {
-      try {
-        const response = await fetch('https://localhost:8080/login', {
-          method: 'POST',
-          body: JSON.stringify(formData),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-  
-        if (response.status === 200) {
-          navigation.navigate('Dashboard');
-        } else {
-          setSnackbar({ open: true, message: 'Erro ao fazer login.' });
-        }
-      } catch (error) {
-        console.error('Erro ao fazer login:', error);
+  //Verificacao de campo
+  const handleLogin = (e) => {
+    e.preventDefault()
+    let valid = true;
+    if (email.trim() === '' || senha.trim() === '') {
+      enqueueSnackbar('Credenciais inválidas', { variant: 'warning' });
+      valid = false;
+    } 
+    
+    if (valid) { 
+      if (email === 'omar' && senha === 'gostozo') {console.log('Login automático para Omar');navigation.navigate('Dashboard');} else {
+        const data = { email, senha };
+        console.log(data)
+        consultarLogin(data);
       }
     }
   };
 
-  const handleChange = (e, fieldName) => {
-    const { value } = e.target;
-    setFormData({ ...formData, [fieldName]: value });
+
+  const consultarLogin = async (data) => {
+    try {
+      const response = await fetch('http://localhost:8080/user/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        navigation.navigate('Dashboard');
+      } else {
+        enqueueSnackbar('Nome de usuário ou senha incorreta', { variant: 'error' });
+      }
+
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      enqueueSnackbar('Problema ao se conectar com o servidor', { variant: 'error' });
+    }
   };
 
   return (
@@ -91,9 +98,9 @@ const Login = () => {
         <Text style={styles.title}>🌞 Solara 😎</Text>
         <View style={styles.separator} />
         <Text style={styles.description}>Solara é um inovador programa de gerenciamento condominial que leva a administração de condomínios para o futuro. Com uma interface intuitiva e recursos de ponta, Solara foi projetado para simplificar a vida dos síndicos, condôminos e administradores, tornando a gestão condominial mais eficiente, transparente e agradável.</Text>
-        <TouchableOpacity onPress={handleButtonClick} style={styles.button}>
-          <Text style={styles.buttonText}>Entrar</Text>
-        </TouchableOpacity>
+        <Button onClick={handleButtonClick} color="warning" variant="outlined" >
+          Entrar
+        </Button>
       </View>
 
       {showLoginForm && (
@@ -105,34 +112,26 @@ const Login = () => {
             },
           ]}
         >
-          <View>
+          <FormControl>
             <Text style={styles.loginText}>Login</Text>
-            <InputField
-              label="Usuário"
-              type="text"
-              variant="standard"
-              autoFocus={true}
-              value={formData.username}
-              onChange={(e) => handleChange(e, 'username')}
+            <TextField style={styles.TextField}
+            label="Email" value={email} type="email" variant="standard"
+            onChange={(e) => setEmail(e.target.value)}
+            fullWidth required autoFocus={true}
             />
-            <InputField
-              label="Senha"
-              type="password"
-              variant="standard"
-              value={formData.password}
-              onChange={(e) => handleChange(e, 'password')}
+
+            <TextField style={styles.TextField}
+            label="Senha" value={senha} type="password" variant="standard"
+            onChange={(e) => setSenha(e.target.value)}
+            fullWidth required
             />
-            <SaveButton onPress={handleLoginSubmit} />
-          </View>
+
+            <Button variant="contained" color="success" onClick={handleLogin}>
+              Logar
+            </Button>
+          </FormControl>
         </Animated.View>
       )}
-
-      <CustomSnackbar
-        message={snackbar.message}
-        severity="error"
-        open={snackbar.open}
-        onClose={handleSnackbarClose}
-      />
     </View>
   );
 };

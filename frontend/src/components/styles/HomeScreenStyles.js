@@ -12,12 +12,14 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     width: '100%',
     height: '100%',
+    cursor: 'default',
   },
   backgroundBlur: {
     ...StyleSheet.absoluteFillObject,
     width: '100%',
     height: '100%',
     filter: 'blur(10px)',
+    cursor: 'default',
   },
   content: {
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -70,6 +72,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     fontSize: 18,
+  },
+  TextField: {
+    marginBottom: '10px',
   },
 });
 
