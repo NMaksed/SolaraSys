@@ -36,9 +36,10 @@ const MenuItemCondominio = ({ onCondominioChange, onError }) => {
 
   const handleCondominioChange = (event) => {
     const selectedCondominio = event.target.value;
+    const selectedCondominioId = condominios.find((condominio) => condominio.nome === selectedCondominio)?.id;
     setCondominioSelecionado(selectedCondominio);
     if (onCondominioChange) {
-      onCondominioChange(selectedCondominio);
+      onCondominioChange(selectedCondominio, selectedCondominioId);
     }
   };
 

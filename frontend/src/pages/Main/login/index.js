@@ -115,18 +115,39 @@ const Login = () => {
         >
           <FormControl>
             <Text style={styles.loginText}>Login</Text>
-            <TextField style={styles.TextField}
-            label="Email" value={email} type="email" variant="standard"
-            onChange={(e) => setEmail(e.target.value)}
-            fullWidth required autoFocus={true}
-            />
+            <TextField
+              style={styles.TextField}
+              label="Email"
+              value={email}
+              type="email"
+              variant="standard"
+              onChange={(e) => setEmail(e.target.value)}
+              fullWidth
+              required
+              autoFocus
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  document.getElementById('senha').focus();
+                  }
+                }}
+              />
 
-            <TextField style={styles.TextField}
-            label="Senha" value={senha} type="password" variant="standard"
-            onChange={(e) => setSenha(e.target.value)}
-            fullWidth required
+            <TextField
+              style={styles.TextField}
+              label="Senha"
+              value={senha}
+              type="password"
+              variant="standard"
+              onChange={(e) => setSenha(e.target.value)}
+              fullWidth
+              required
+              id="senha"
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  handleLogin(e);
+                }
+              }}
             />
-
             <Button variant="contained" color="success" onClick={handleLogin}>
               Logar
             </Button>

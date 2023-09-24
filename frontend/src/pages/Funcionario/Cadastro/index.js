@@ -19,6 +19,7 @@ export default function FuncionarioCadastro() {
 
   const { enqueueSnackbar } = useSnackbar();
   const [condominio, setCondominio] = useState('');
+  const [condominioId, setCondominioId] = useState(null);
   const [condominioError, setCondominioError] = useState('');
 
   const [nomeError, setNomeError] = useState('');
@@ -92,14 +93,15 @@ export default function FuncionarioCadastro() {
       }
   
       if (valid) {
-        const data = { nome, idade, cpf, rg, cep, funcao, salario };
+        const data = { nome, idade, cpf, rg, cep, funcao, salario, condominioId };
         enviarDadosFuncionario(data);
+        console.log(data)
       }
     };
 
   const enviarDadosFuncionario = async (data) => {
     try {
-      const response = await fetch('http://localhost:8080/funcionario/salvar', {
+      const response = await fetch(`http://localhost:8080/funcionario/salvar?id=${condominioId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -179,7 +181,10 @@ export default function FuncionarioCadastro() {
           />
 
           <MenuItemCondominio
-            onChange={(e) => setCondominio(e.target.value)}
+            onCondominioChange={(selectedCondominio, selectedCondominioId) => {
+              setCondominio(selectedCondominio);
+              setCondominioId(selectedCondominioId);
+            }}
             onError={(error) => setCondominioError(error)}
           />
 
