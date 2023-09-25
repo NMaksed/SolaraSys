@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import { Container, Paper } from '@mui/material';
+import { useSnackbar } from 'notistack';
+import { Container, Paper, TextField } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
-import Button from '@mui/material/Button';
-import styles from './style';
+import styles from '../../../components/Styles/FormsStyles';
+import CustomButton from '../../../components/Form/CustomButton';
 
 export default function EmpresaCadastro() {
   const [nome, setNome] = useState('');
@@ -13,7 +13,7 @@ export default function EmpresaCadastro() {
   const [cnpj, setCnpj] = useState('');
   const [uf, setUf] = useState('');
   const [cep, setCep] = useState('');
-  const [mensagem, setMensagem] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
 
   const [nomeError, setNomeError] = useState('');
   const [numeroError, setNumeroError] = useState('');
@@ -23,7 +23,7 @@ export default function EmpresaCadastro() {
   const [ufError, setUfError] = useState('');
   const [cepError, setCepError] = useState('');
 
-  const enviarDadosFuncionario = async (data) => {
+    const enviarDadosFuncionario = async (data) => {
         try {
         const response = await fetch('http://localhost:8080/empresa/salvar', {
             method: 'POST',
@@ -32,7 +32,7 @@ export default function EmpresaCadastro() {
         });
         if (response.ok) {
             console.log('Novo Empresa Adicionado');
-            exibirMensagemTemporaria('Empresa adicionado(a) com sucesso', 5000);
+            enqueueSnackbar('Empresa Adicionada', { variant: 'success' });
             // Limpar os campos após o envio bem-sucedido, se necessário
             setNome('');
             setNumero('');
@@ -43,20 +43,13 @@ export default function EmpresaCadastro() {
             setCep('');
         } else {
             console.error('Erro ao adicionar empresa');
-            exibirMensagemTemporaria('96#Erro ao adicionar empresa', 5000);
+            enqueueSnackbar('Erro ao adicionar empresa', { variant: 'error' });
         }
         } catch (error) {
-        console.error('Erro ao fazer a solicitação:', error);
-        exibirMensagemTemporaria('69#Erro ao adicionar empresa', 5000);
+            console.error('Erro ao fazer a solicitação:', error);
+            enqueueSnackbar('Problema ao se conectar com o servidor', { variant: 'error' });
         }
-     };
-
-    function exibirMensagemTemporaria(mensagem, tempo) {
-        setMensagem(mensagem);
-        setTimeout(() => {
-        setMensagem('');
-        }, tempo);
-    }
+    };
 
     const handleClick = (e) => {
         e.preventDefault()
@@ -129,27 +122,27 @@ export default function EmpresaCadastro() {
 
 
     return (
-        <Container style={styles.container}>
-        <Paper style={styles.paper}>
-            <TextField style={styles.textInput}
+        <Container style={styles.Container}>
+        <Paper style={styles.Paper}>
+            <TextField style={styles.TextField}
             label="Nome" value={nome} type="text" variant="outlined"
             onChange={(e) => setNome(e.target.value)}
             fullWidth required error={!!nomeError} helperText={nomeError}
             />
 
-            <TextField style={styles.textInput}
+            <TextField style={styles.TextField}
             label="Número" value={numero} type="number" variant="outlined"
             onChange={(e) => setNumero(e.target.value)}
             fullWidth required error={!!numeroError} helperText={numeroError}
             />
 
-            <TextField style={styles.textInput}
+            <TextField style={styles.TextField}
             label="Cidade" value={cidade} type="text" variant="outlined"
             onChange={(e) => setCidade(e.target.value)}
             fullWidth required error={!!cidadeError} helperText={cidadeError}
             />
 
-            <TextField style={styles.textInput} 
+            <TextField style={styles.TextField} 
             label="Rua" value={rua} type="text" variant="outlined"
             onChange={(e) => setRua(e.target.value)} 
             fullWidth required error={!!ruaError} helperText={ruaError}
@@ -159,10 +152,10 @@ export default function EmpresaCadastro() {
             mask="99.999.999/9999-99"
             onChange={(e) => setCnpj(e.target.value)}
             type="number" label="CNPJ" value={cnpj}>
-                {() => <TextField style={styles.textInput} id="cnpj" label="CNPJ" variant="outlined" fullWidth required error={!!cnpjError} helperText={cnpjError}/>}
+                {() => <TextField style={styles.TextField} id="cnpj" label="CNPJ" variant="outlined" fullWidth required error={!!cnpjError} helperText={cnpjError}/>}
             </ReactInputMask>
 
-            <TextField style={styles.textInput} 
+            <TextField style={styles.TextField} 
             label="UF" value={uf} type="text" variant="outlined"
             onChange={(e) => setUf(e.target.value)}
             fullWidth required  error={!!ufError} helperText={ufError}
@@ -172,13 +165,10 @@ export default function EmpresaCadastro() {
             mask="99999-999"
             onChange={(e) => setCep(e.target.value)}
             type="number" label="CEP" value={cep}>
-                {() => <TextField style={styles.textInput} id="cep" label="CEP" variant="outlined" fullWidth required  error={!!cepError} helperText={cepError}/>}
+                {() => <TextField style={styles.TextField} id="cep" label="CEP" variant="outlined" fullWidth required  error={!!cepError} helperText={cepError}/>}
             </ReactInputMask>
 
-
-            <Button style={styles.button} variant="contained" onClick={handleClick}>
-                Salvar
-            </Button> {mensagem && <div>{mensagem}</div>}
+            <CustomButton onClick={handleClick} />
         </Paper>
         </Container>
     );
