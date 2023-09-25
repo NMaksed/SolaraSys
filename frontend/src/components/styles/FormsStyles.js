@@ -1,19 +1,21 @@
-
-import { StyleSheet } from 'react-native';
-
 const styles = {
-  container: {
+  Container: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '90vh',
   },
-  paper: {
+  Paper: {
+    display: 'flex',
+    flexDirection: 'column',
     padding: '20px',
     maxWidth: '400px',
     width: '100%',
   },
-  textInput: {
+  FormControl: {
+    width: '100%',
+  },
+  TextField: {
     marginBottom: '16px',
   },
 };
