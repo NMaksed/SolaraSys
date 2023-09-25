@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import { Button, FormControl, TextField } from '@mui/material';
 import backgroundImage from '../../../components/Styles/or-21s84129.png';
-import styles from '../../../components/Styles/HomeScreenStyles';
+import styles from './styles.js';
 import { useNavigation } from '@react-navigation/native';
 import { useSnackbar } from 'notistack';
 
