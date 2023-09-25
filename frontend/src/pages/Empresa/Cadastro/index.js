@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useSnackbar } from 'notistack';
-import { Container, Paper, Button, TextField } from '@mui/material';
+import { Container, Paper, TextField } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
 import styles from '../../../components/Styles/FormsStyles';
+import CustomButton from '../../../components/Form/CustomButton';
 
 export default function EmpresaCadastro() {
   const [nome, setNome] = useState('');
@@ -167,9 +168,7 @@ export default function EmpresaCadastro() {
                 {() => <TextField style={styles.TextField} id="cep" label="CEP" variant="outlined" fullWidth required  error={!!cepError} helperText={cepError}/>}
             </ReactInputMask>
 
-            <Button style={styles.button} variant="contained" onClick={handleClick}>
-                Salvar
-            </Button>
+            <CustomButton onClick={handleClick} />
         </Paper>
         </Container>
     );

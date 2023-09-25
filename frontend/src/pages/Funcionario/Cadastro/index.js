@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Container, Paper } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
-import Button from '@mui/material/Button';
+import CustomButton from '../../../components/Form/CustomButton';
 import styles from '../../../components/Styles/FormsStyles';
 import { useSnackbar } from 'notistack';
 import MenuItemCondominio from '../../../components/Form/MenuItemCondominio';
@@ -188,9 +188,7 @@ export default function FuncionarioCadastro() {
             onError={(error) => setCondominioError(error)}
           />
 
-          <Button variant="contained" onClick={handleClick} disabled={!!condominioError}>
-              Salvar
-          </Button>
+          <CustomButton onClick={handleClick} />
         </Paper>
       </Container>
     </>

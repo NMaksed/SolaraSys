@@ -5,7 +5,7 @@ import backgroundImage from '../../../components/Styles/or-21s84129.png';
 import styles from './styles.js';
 import { useNavigation } from '@react-navigation/native';
 import { useSnackbar } from 'notistack';
-
+import CustomButton from '../../../components/Form/CustomButton';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -148,9 +148,8 @@ const Login = () => {
                 }
               }}
             />
-            <Button variant="contained" color="success" onClick={handleLogin}>
-              Logar
-            </Button>
+
+            <CustomButton onClick={handleLogin} text="Login" variant="contained" />
           </FormControl>
         </Animated.View>
       )}

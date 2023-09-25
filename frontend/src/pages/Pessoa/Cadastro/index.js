@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { Container, Paper, TextField } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
-import Button from '@mui/material/Button';
+import CustomButton from '../../../components/Form/CustomButton';
 import styles from '../../../components/Styles/FormsStyles';
 
 export default function PessoaCadastro() {
@@ -129,9 +129,7 @@ export default function PessoaCadastro() {
             {() => <TextField style={styles.TextField} id="cep" label="CEP" variant="outlined" fullWidth required error={!!cepError} helperText={cepError}/>}
         </ReactInputMask>
 
-        <Button variant="contained" onClick={handleClick}>
-          Salvar 
-        </Button>
+        <CustomButton onClick={handleClick} />
       </Paper>
     </Container>
   );
