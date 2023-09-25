@@ -24,7 +24,7 @@ const ConsultaEmpresa = () => {
   }, []);
 
   return (
-    <View style={{flex: 1, justifyContent: 'column', alignitems: 'center'}}>
+    <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
       <h1>Empresas</h1>
       {error ? (
         <p>Falha de conexão: {error}</p>

@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../Sidebar/index';
 
-export default function Navbar({ texto }) {
+const Header = ({ texto }) => {
   const [sidebar, setSidebar] = React.useState(false);
 
   const toggleSidebar = () => setSidebar(!sidebar);
@@ -35,3 +35,5 @@ export default function Navbar({ texto }) {
     </Box>
   );
 }
+
+export default Header;

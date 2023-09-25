@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import Navbar from '../../../components/Header/Navbar';
+import Header from '../../../components/Header/index.js';
 import PessoaCadastro from '../../Pessoa/Cadastro/index';
 import EmpresaCadastro from '../../Empresa/Cadastro/index';
 import FuncionarioCadastro from '../../Funcionario/Cadastro/index';
@@ -8,9 +8,11 @@ import ConsultaEmpresa from '../../Empresa/Consulta/index';
 
 function DashboardScreen() {
   const [activeComponent, setActiveComponent] = useState(null);
+  const [activeComponentName, setActiveComponentName] = useState('Cadastro de Entidades');
 
-  const handleComponentChange = (componentName) => {
+  const handleComponentChange = (componentName, componentDisplayName) => {
     setActiveComponent(componentName);
+    setActiveComponentName(componentDisplayName);
   };
 
   const renderActiveComponent = () => {
@@ -30,18 +32,18 @@ function DashboardScreen() {
 
   return (
     <div>
-      <Navbar texto="Cadastro de Entidades" />
+      <Header texto={activeComponentName} />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <Button onClick={() => handleComponentChange('PessoaCadastro')}>
+        <Button onClick={() => handleComponentChange('PessoaCadastro', 'Cadastro de Pessoa')}>
           Cadastrar Pessoa
         </Button>
-        <Button onClick={() => handleComponentChange('EmpresaCadastro')}>
+        <Button onClick={() => handleComponentChange('EmpresaCadastro', 'Cadastro de Empresa')}>
           Cadastrar Empresa
         </Button>
-        <Button onClick={() => handleComponentChange('FuncionarioCadastro')}>
+        <Button onClick={() => handleComponentChange('FuncionarioCadastro', 'Cadastro de Funcionário')}>
           Cadastrar Funcionário
         </Button>
-        <Button onClick={() => handleComponentChange("ConsultaEmpresa")}>
+        <Button onClick={() => handleComponentChange('ConsultaEmpresa', 'Consulta de Empresa')}>
           Consultar Empresa
         </Button>
       </div>
