@@ -60,7 +60,7 @@ const Login = () => {
     } 
     
     if (valid) { 
-      if (email === 'omar' && senha === 'gostozo') {console.log('Login automático para Omar');navigation.navigate('Dashboard');} else {
+      if (email === 'admin' && senha === 'admin') {console.log('Login automático para Ambiente de Teste');navigation.navigate('Dashboard');} else {
         const data = { email, senha };
         console.log(data)
         consultarLogin(data);
