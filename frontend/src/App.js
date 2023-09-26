@@ -5,6 +5,7 @@ import PessoaCadastro from './pages/Pessoa/Cadastro';
 import EmpresaCadastro from './pages/Empresa/Cadastro';
 import FuncionarioCadastro from './pages/Funcionario/Cadastro';
 import ConsultaEmpresa from './pages/Empresa/Consulta';
+import PredioCadastro from './pages/Predio/Cadastro';
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
         return <FuncionarioCadastro />;
         case "ConsultaEmpresa":
           return <ConsultaEmpresa/>
+          case "PredioCadastro":
+            return <PredioCadastro />
       default:
         return null;
     }
@@ -44,6 +47,9 @@ function App() {
         </button>
         <button onClick={() => handleComponentChange("ConsultaEmpresa")}>
         Consultar Empresa
+        </button>
+        <button onClick={() => handleComponentChange("PredioCadastro")}>
+        Cadastrar Predio
         </button>
       </div>
       {renderActiveComponent()}
