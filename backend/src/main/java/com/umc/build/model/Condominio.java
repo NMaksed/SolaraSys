@@ -1,5 +1,6 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,17 +24,12 @@ public class Condominio {
     private Boolean churrasqueira;
     private Boolean salao;
     private String avisos;
-    @OneToMany(mappedBy = "condominio")
-    private List<Predio> predio;
     @ManyToOne
     @JoinColumn(name = "empresa_condominio_codigo")
     private Empresa empresa;
-    @OneToMany(mappedBy = "condominio")
-    private List<User> usuario;
+    @JsonIgnore
     @OneToMany(mappedBy = "condominio")
     private List<Funcionario> funcionarios;
-    @OneToMany(mappedBy = "condominio")
-    private List<Apartamento> apartamento;
 
     @PrePersist
     public void setDataRegistro() {

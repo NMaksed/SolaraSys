@@ -19,9 +19,14 @@ public class UserController{
     @Autowired
     private UserServiceImpl userService;
 
-    @PostMapping("adicionarUsuario")
-    public ResponseEntity<String> salvarUsuario (@RequestBody User user) {
-        userService.salvarUsuario(user);
+    @PostMapping("/salvar{id}")
+    public ResponseEntity<String> salvarUsuario (@RequestBody User user, @RequestParam("id") Integer funcionarioId) {
+        try {
+            userService.validatorFuncionario(funcionarioId);
+            userService.salvarUsuario(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return ResponseEntity.ok("Novo usuário adicionado!");
     }
 

@@ -1,7 +1,6 @@
 package com.umc.build.dto;
 
 import com.umc.build.model.Condominio;
-import com.umc.build.model.Empresa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +18,4 @@ public class FuncionarioDTO {
     private String rg;
     private String cep;
     private Condominio condominio;
-    private Empresa empresa;
 }

@@ -1,5 +1,6 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,7 @@ public class Funcionario {
     @ManyToOne
     @JoinColumn(name = "empresa_funcionario_codigo")
     private Empresa empresa;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "condominio_funcionario_codigo")
     private Condominio condominio;

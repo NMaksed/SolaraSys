@@ -19,7 +19,7 @@ public class PessoaController {
     private AbstractPessoaServiceImpl pessoaService;
 
 
-    @PostMapping("registro")
+    @PostMapping("/registro{id}")
     public ResponseEntity<String> registroPessoa(@RequestBody AbstractPessoa pessoa) {
         try {
 

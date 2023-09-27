@@ -36,8 +36,12 @@ public class FuncionarioServiceImpl {
         return funcionarioRepository.findAll();
     }
 
-    public void validatePessoaFuncionario(String cpf) {
-        pessoaRepository.findByCpf(cpf);
+    public void validatePessoaFuncionario(Integer id) throws Exception {
+        Optional<AbstractPessoa> pessoaOptional = pessoaRepository.findById(id);
+
+        if (pessoaOptional.isEmpty()) {
+            throw new Exception("Pessoa: " + id + " não existe!");
+        }
     }
 
     public void validateEmpresaFuncionario(Integer id) throws Exception{
@@ -58,18 +62,17 @@ public class FuncionarioServiceImpl {
 
     public void builderPessoaFuncionario(Funcionario funcionarioDTO) {
         AbstractPessoa pessoa = new AbstractPessoa();
-        pessoa = new AbstractPessoa();
         pessoa.setNome(funcionarioDTO.getPessoa().getNome());
         pessoa.setIdade(funcionarioDTO.getPessoa().getIdade());
         pessoa.setCep(funcionarioDTO.getPessoa().getCep());
         pessoa.setRg(funcionarioDTO.getPessoa().getRg());
         pessoa.setCpf(funcionarioDTO.getPessoa().getCpf());
 
-        pessoa = pessoaService.salvarPessoa(pessoa);
+        pessoa = pessoaService.salvarPessoa(funcionarioDTO.getPessoa());
 
         Funcionario funcionario = new Funcionario();
         funcionario.setFuncao(funcionarioDTO.getFuncao());
-        funcionario.setSalario(funcionario.getSalario());
+        funcionario.setSalario(funcionarioDTO.getSalario());
         funcionario.setPessoa(pessoa);
     }
 }

@@ -23,17 +23,8 @@ public class Morador {
     @JoinColumn(name = "pessoa_morador_codigo")
     private AbstractPessoa pessoa;
     @ManyToOne
-    @JoinColumn(name = "predio_morador_codigo")
-    private Predio predio;
-    @ManyToOne
     @JoinColumn(name = "apartamento_morador_codigo")
     private Apartamento apartamento;
-    @ManyToOne
-    @JoinColumn(name = "condominio_morador_codigo")
-    private Condominio condominio;
-    @ManyToOne
-    @JoinColumn(name = "empresa_morador_codigo")
-    private Empresa empresa;
 
     @PrePersist
     public void setDataRegistro() {
