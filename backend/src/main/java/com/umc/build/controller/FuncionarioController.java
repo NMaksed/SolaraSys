@@ -25,10 +25,10 @@ public class FuncionarioController {
     public ResponseEntity<String> add(@RequestBody Funcionario funcionarioDTO, @RequestParam("id") Integer condominioId) {
         try {
             funcionarioService.validateCondominioFuncionario(condominioId);
-            funcionarioService.validatePessoaFuncionario(funcionarioDTO.getPessoa().getCpf());
-            if (funcionarioDTO.getPessoa().getCpf() == null) {
+            if (funcionarioDTO.getPessoa() == null || funcionarioDTO.getPessoa().getId() == null) {
                 funcionarioService.builderPessoaFuncionario(funcionarioDTO);
             }
+            funcionarioService.validatePessoaFuncionario(funcionarioDTO.getPessoa().getId());
             funcionarioService.salvarFuncionario(funcionarioDTO);
             return ResponseEntity.ok("Novo funcionário adicionado!");
         } catch (Exception e) {

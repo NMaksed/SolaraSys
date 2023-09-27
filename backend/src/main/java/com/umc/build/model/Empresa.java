@@ -34,20 +34,7 @@ public class Empresa {
     private List<Condominio> condominio;
     @JsonIgnore
     @OneToMany(mappedBy = "empresa")
-    private List<User> user;
-    @JsonIgnore
-    @OneToMany(mappedBy = "empresa")
-    private List<Apartamento> apartamentos;
-    @JsonIgnore
-    @OneToMany(mappedBy = "empresa")
-    private List<Predio> predio;
-    @JsonIgnore
-    @OneToMany(mappedBy = "empresa")
     private List<Funcionario> funcionario;
-    @JsonIgnore
-    @OneToMany(mappedBy = "empresa")
-    private List<Morador> morador;
-
     public String getEnderecoCompleto() {
         if (getRua() != null && getNumero() != null && getCidade() != null &&
             getUf() != null && getCep() != null) {

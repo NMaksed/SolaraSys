@@ -24,10 +24,8 @@ public class AbstractPessoa {
     @ManyToOne
     @JoinColumn(name = "apartamento_visitante_codigo")
     private Apartamento apartamento;
-    @ManyToOne
-    @JoinColumn(name = "condominio_pessoa_codigo")
-    private Condominio condominio;
-    @ManyToOne
-    @JoinColumn(name = "empresa_pessoa_codigo")
-    private Empresa empresa;
+    @OneToOne(mappedBy = "pessoa")
+    private Funcionario funcionario;
+    @OneToOne(mappedBy = "pessoa")
+    private Morador morador;
 }

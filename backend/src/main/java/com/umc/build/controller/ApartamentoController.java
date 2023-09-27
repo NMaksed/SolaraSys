@@ -17,7 +17,7 @@ public class ApartamentoController {
     @Autowired
     private ApartamentoServiceImpl apartamentoService;
 
-    @PostMapping("/salvar")
+    @PostMapping("/salvar{id}")
     public ResponseEntity<String> salvar(@RequestBody Apartamento apartamento, @RequestParam("id") Integer predioId) {
         try {
             apartamentoService.validateApartamentoPredio(predioId);
