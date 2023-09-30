@@ -28,4 +28,7 @@ public class AbstractPessoa {
     private Funcionario funcionario;
     @OneToOne(mappedBy = "pessoa")
     private Morador morador;
+    @JoinColumn(name = "empresa_visitante_codigo")
+    @ManyToOne
+    private Empresa empresa;
 }

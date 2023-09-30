@@ -25,6 +25,9 @@ public class Predio {
     private Condominio condominio;
     @OneToMany(mappedBy = "predio")
     private List<Apartamento> apartamento;
+    @JoinColumn(name = "empresa_predio_codigo")
+    @ManyToOne
+    private Empresa empresa;
     @PrePersist
     public void setDataRegistro() {
         this.dataRegistro = LocalDate.now();

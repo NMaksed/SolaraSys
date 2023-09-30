@@ -25,7 +25,9 @@ public class Morador {
     @ManyToOne
     @JoinColumn(name = "apartamento_morador_codigo")
     private Apartamento apartamento;
-
+    @JoinColumn(name = "empresa_morador_codigo")
+    @ManyToOne
+    private Empresa empresa;
     @PrePersist
     public void setDataRegistro() {
         this.dataRegistro = LocalDate.now();
