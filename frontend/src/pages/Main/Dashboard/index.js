@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import Navbar from '../../../components/Header/Navbar';
 import PessoaCadastro from '../../Pessoa/Cadastro/index';
 import EmpresaCadastro from '../../Empresa/Cadastro/index';
 import FuncionarioCadastro from '../../Funcionario/Cadastro/index';
 import ConsultaEmpresa from '../../Empresa/Consulta/index';
+import Header from '../../../components/Header';
 
 function DashboardScreen() {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -30,7 +30,7 @@ function DashboardScreen() {
 
   return (
     <div>
-      <Navbar texto="Cadastro de Entidades" />
+      <Header texto="Cadastro de Entidades" />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <Button onClick={() => handleComponentChange('PessoaCadastro')}>
           Cadastrar Pessoa
