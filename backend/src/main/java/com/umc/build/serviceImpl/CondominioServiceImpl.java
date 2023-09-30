@@ -22,7 +22,9 @@ public class CondominioServiceImpl{
         condominioRepository.save(condominio);
     }
 
-    public List<Condominio> getCondominio() { return condominioRepository.findAll(); }
+    public List<Condominio> getCondominio() {
+        return condominioRepository.findAll();
+    }
     public void validateEmpresaCondominiobyId(Integer id) throws Exception {
         Optional<Empresa> empresaOptional = empresaRepository.findById(id);
 

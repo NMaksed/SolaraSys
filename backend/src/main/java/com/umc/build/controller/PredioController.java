@@ -16,7 +16,7 @@ public class PredioController {
     @Autowired
     private PredioServiceImpl predioService;
 
-    @PostMapping("/salvar")
+    @PostMapping("/salvar{id}")
     public ResponseEntity<String> salvarPredio(@RequestBody Predio predio, @RequestParam("id") Integer condominioId) {
         try {
             predioService.validatePredioCondominiobyId(condominioId);

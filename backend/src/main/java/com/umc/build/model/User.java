@@ -18,16 +18,13 @@ public class User {
     private Integer id;
     private String email;
     private String senha;
+    private boolean administrador = false;
     private LocalDate dataRegistro;
     @OneToOne(mappedBy = "user")
     private Funcionario funcionario;
-    @ManyToOne
     @JoinColumn(name = "empresa_usuario_codigo")
-    private Empresa empresa;
     @ManyToOne
-    @JoinColumn(name = "condominio_usuario_codigo")
-    private Condominio condominio;
-
+    private Empresa empresa;
     @PrePersist
     public void setDataRegistro() {
         this.dataRegistro = LocalDate.now();

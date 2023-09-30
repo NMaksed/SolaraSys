@@ -17,7 +17,7 @@ public class EmpresaController {
     @Autowired
     private EmpresaServiceImpl empresaService;
 
-    @PostMapping("/salvar")
+    @PostMapping("/salvar{id}")
     public ResponseEntity<String> salvarEmpresa(@RequestBody Empresa empresaDTO) {
         try {
             empresaService.validateEmpresa(empresaDTO.getCnpj());

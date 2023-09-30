@@ -20,17 +20,14 @@ public class Predio {
     private Integer andar;
     private String referencia;
     private LocalDate dataRegistro;
-    @OneToMany(mappedBy = "predio")
-    private List<Morador> morador;
     @ManyToOne
     @JoinColumn(name = "condominio_predio_codigo")
     private Condominio condominio;
     @OneToMany(mappedBy = "predio")
     private List<Apartamento> apartamento;
-    @ManyToOne
     @JoinColumn(name = "empresa_predio_codigo")
+    @ManyToOne
     private Empresa empresa;
-
     @PrePersist
     public void setDataRegistro() {
         this.dataRegistro = LocalDate.now();

@@ -32,8 +32,12 @@ public class MoradorServiceImpl{
         return moradorRepository.findAll();
     }
 
-    public void validatePessoaMorador(String cpf) {
-        pessoaRepository.findByCpf(cpf);
+    public void validatePessoaMorador(Integer id) throws Exception {
+        Optional<AbstractPessoa> pessoaOptional = pessoaRepository.findById(id);
+
+        if (pessoaOptional.isEmpty()) {
+            throw new Exception("Pessoa: " + id + " não existe!");
+        }
     }
     public void validateApartamentoMorador(Integer id) throws Exception{
         Optional<Apartamento> apartamentoOptional = apartamentoRepository.findById(id);
@@ -45,7 +49,6 @@ public class MoradorServiceImpl{
 
     public void builderPessoaMorador(Morador moradorDTO) {
         AbstractPessoa pessoa = new AbstractPessoa();
-        pessoa = new AbstractPessoa();
         pessoa.setNome(moradorDTO.getPessoa().getNome());
         pessoa.setIdade(moradorDTO.getPessoa().getIdade());
         pessoa.setCep(moradorDTO.getPessoa().getCep());
@@ -55,7 +58,7 @@ public class MoradorServiceImpl{
         pessoa = pessoaService.salvarPessoa(moradorDTO.getPessoa());
 
         Morador morador = new Morador();
-        morador.setRepresentante(morador.getRepresentante());
+        morador.setRepresentante(moradorDTO.getRepresentante());
         morador.setAtribuido(moradorDTO.getAtribuido());
         morador.setExame(moradorDTO.getExame());
         morador.setPessoa(pessoa);

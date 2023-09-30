@@ -21,16 +21,16 @@ public class MoradorController {
     @Autowired
     public AbstractPessoaServiceImpl pessoaService;
 
-    @PostMapping("/salvar")
+    @PostMapping("/salvar{id}")
     public ResponseEntity<String> add(@RequestBody Morador moradorDTO, @RequestParam("id") Integer apartamentoId) {
         try {
             moradorService.validateApartamentoMorador(apartamentoId);
-            moradorService.validatePessoaMorador(moradorDTO.getPessoa().getCpf());
-            if (moradorDTO.getPessoa() == null) {
+            if (moradorDTO.getPessoa().getId() == null) {
                 moradorService.builderPessoaMorador(moradorDTO);
             }
+            moradorService.validatePessoaMorador(moradorDTO.getPessoa().getId());
             moradorService.salvarMorador(moradorDTO);
-            return ResponseEntity.ok("Novo funcionário adicionado!");
+            return ResponseEntity.ok("Novo morador adicionado!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao criar Morador: " + e.getMessage());

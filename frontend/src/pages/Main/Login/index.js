@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import { Button, FormControl, TextField } from '@mui/material';
 import backgroundImage from '../../../components/Styles/or-21s84129.png';
-import styles from './styles.js';
+import styles from '../../../components/Styles/HomeScreenStyles';
 import { useNavigation } from '@react-navigation/native';
 import { useSnackbar } from 'notistack';
-import CustomButton from '../../../components/Form/CustomButton';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -60,7 +60,7 @@ const Login = () => {
     } 
     
     if (valid) { 
-      if (email === 'omar' && senha === 'gostozo') {console.log('Login automático para Omar');navigation.navigate('Dashboard');} else {
+      if (email === 'admin' && senha === 'admin') {console.log('Login automático para Ambiente de Teste');navigation.navigate('Dashboard');} else {
         const data = { email, senha };
         console.log(data)
         consultarLogin(data);
@@ -115,41 +115,21 @@ const Login = () => {
         >
           <FormControl>
             <Text style={styles.loginText}>Login</Text>
-            <TextField
-              style={styles.TextField}
-              label="Email"
-              value={email}
-              type="email"
-              variant="standard"
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth
-              required
-              autoFocus
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  document.getElementById('senha').focus();
-                  }
-                }}
-              />
-
-            <TextField
-              style={styles.TextField}
-              label="Senha"
-              value={senha}
-              type="password"
-              variant="standard"
-              onChange={(e) => setSenha(e.target.value)}
-              fullWidth
-              required
-              id="senha"
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  handleLogin(e);
-                }
-              }}
+            <TextField style={styles.TextField}
+            label="Email" value={email} type="email" variant="standard"
+            onChange={(e) => setEmail(e.target.value)}
+            fullWidth required autoFocus={true}
             />
 
-            <CustomButton onClick={handleLogin} text="Login" variant="contained" />
+            <TextField style={styles.TextField}
+            label="Senha" value={senha} type="password" variant="standard"
+            onChange={(e) => setSenha(e.target.value)}
+            fullWidth required
+            />
+
+            <Button variant="contained" color="success" onClick={handleLogin}>
+              Logar
+            </Button>
           </FormControl>
         </Animated.View>
       )}
