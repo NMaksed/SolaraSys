@@ -16,6 +16,8 @@ export default function FuncionarioCadastro() {
   const [cep, setCep] = useState('');
   const [funcao, setFuncao] = useState('');
   const [salario, setSalario] = useState('');
+  const [horaEntrada, setHoraEntrada] = useState(null);
+  const [horaSaida, setHoraSaida] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
   const [condominio, setCondominio] = useState('');
@@ -93,7 +95,7 @@ export default function FuncionarioCadastro() {
       }
   
       if (valid) {
-        const data = { nome, idade, cpf, rg, cep, funcao, salario, condominioId };
+        const data = { nome, idade, cpf, rg, cep, funcao, salario, horaEntrada, horaSaida, condominioId };
         enviarDadosFuncionario(data);
         console.log(data)
       }
@@ -179,6 +181,22 @@ export default function FuncionarioCadastro() {
             onChange={(e) => setSalario(e.target.value)} 
             fullWidth required error={!!salarioError} helperText={salarioError} 
           />
+
+          <TextField
+          type="time"
+          id="horaEntrada"
+          label="Hora de Entrada"
+          value={horaEntrada}
+          onChange={(e) => setHoraEntrada(e.target.value)}
+          fullWidth required />
+
+          <TextField
+          type="time"
+          id="horaSaide"
+          label="Hora de Saida"
+          value={horaSaida}
+          onChange={(e) => setHoraSaida(e.target.value)}
+          fullWidth required />
 
           <MenuItemCondominio
             onCondominioChange={(selectedCondominio, selectedCondominioId) => {

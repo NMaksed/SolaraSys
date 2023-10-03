@@ -1,5 +1,6 @@
 package com.umc.build.serviceImpl;
 
+import com.umc.build.dto.FuncionarioDTO;
 import com.umc.build.model.AbstractPessoa;
 import com.umc.build.model.Condominio;
 import com.umc.build.model.Empresa;
@@ -60,8 +61,10 @@ public class FuncionarioServiceImpl {
         }
     }
 
-    public void builderPessoaFuncionario(Funcionario funcionarioDTO) {
+
+    public void builderPessoaFuncionario(FuncionarioDTO funcionarioDTO, Integer condminioId) {
         AbstractPessoa pessoa = new AbstractPessoa();
+<<<<<<< Updated upstream
         pessoa.setNome(funcionarioDTO.getPessoa().getNome());
         pessoa.setIdade(funcionarioDTO.getPessoa().getIdade());
         pessoa.setCep(funcionarioDTO.getPessoa().getCep());
@@ -69,10 +72,29 @@ public class FuncionarioServiceImpl {
         pessoa.setCpf(funcionarioDTO.getPessoa().getCpf());
 
         pessoa = pessoaService.salvarPessoa(funcionarioDTO.getPessoa());
+=======
+        pessoa = new AbstractPessoa();
+        pessoa.setNome(funcionarioDTO.getNome());
+        pessoa.setIdade(funcionarioDTO.getIdade());
+        pessoa.setCep(funcionarioDTO.getCep());
+        pessoa.setRg(funcionarioDTO.getRg());
+        pessoa.setCpf(funcionarioDTO.getCpf());
+>>>>>>> Stashed changes
 
         Funcionario funcionario = new Funcionario();
+
         funcionario.setFuncao(funcionarioDTO.getFuncao());
         funcionario.setSalario(funcionarioDTO.getSalario());
+<<<<<<< Updated upstream
+=======
+        funcionario.setHoraEntrada(funcionarioDTO.getHoraEntrada());
+        funcionario.setHoraSaida(funcionarioDTO.getHoraSaida());
+        Condominio condominio = condominioRepository.idCondominio(condminioId);
+        funcionario.setCondominio(condominio);
+        funcionario.setEmpresa(condominio.getEmpresa());
+>>>>>>> Stashed changes
         funcionario.setPessoa(pessoa);
+        pessoaService.salvarPessoa(pessoa);
+        salvarFuncionario(funcionario);
     }
 }

@@ -1,5 +1,6 @@
 package com.umc.build.controller;
 
+import com.umc.build.dto.FuncionarioDTO;
 import com.umc.build.model.AbstractPessoa;
 import com.umc.build.model.Funcionario;
 import com.umc.build.serviceImpl.AbstractPessoaServiceImpl;
@@ -22,14 +23,18 @@ public class FuncionarioController {
     public AbstractPessoaServiceImpl pessoaService;
 
     @PostMapping("/salvar{id}")
-    public ResponseEntity<String> add(@RequestBody Funcionario funcionarioDTO, @RequestParam("id") Integer condominioId) {
+    public ResponseEntity<String> add(@RequestBody FuncionarioDTO funcionarioDTO, @RequestParam("id") Integer condominioId) {
         try {
             funcionarioService.validateCondominioFuncionario(condominioId);
+<<<<<<< Updated upstream
             if (funcionarioDTO.getPessoa() == null || funcionarioDTO.getPessoa().getId() == null) {
                 funcionarioService.builderPessoaFuncionario(funcionarioDTO);
             }
             funcionarioService.validatePessoaFuncionario(funcionarioDTO.getPessoa().getId());
             funcionarioService.salvarFuncionario(funcionarioDTO);
+=======
+            funcionarioService.builderPessoaFuncionario(funcionarioDTO, condominioId);
+>>>>>>> Stashed changes
             return ResponseEntity.ok("Novo funcionário adicionado!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

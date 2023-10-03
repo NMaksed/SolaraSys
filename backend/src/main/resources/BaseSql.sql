@@ -8,9 +8,13 @@ nome VARCHAR(255) NOT NULL,
 idade INT NOT NULL,
 cpf VARCHAR(20) NOT NULL,
 rg VARCHAR(22) NOT NULL,
+<<<<<<< Updated upstream
 cep VARCHAR(12),
 apartamento_visitante_codigo INT(11),
 empresa_visitante_codigo INT(11) NOT NULL
+=======
+cep VARCHAR(12)
+>>>>>>> Stashed changes
 )
     ENGINE = InnoDB;
 /* ------------- PESSOA ---------------*/
@@ -36,13 +40,18 @@ CREATE TABLE funcionario (
  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
  funcao VARCHAR(255) NOT NULL,
  salario DOUBLE NOT NULL DEFAULT 0,
- hora_entrada TIME NOT NULL,
- hora_saida TIME NOT NULL,
+ hora_entrada VARCHAR(25) NOT NULL,
+ hora_saida VARCHAR(25) NOT NULL,
  data_registro DATE NOT NULL,
  pessoa_funcionario_codigo INT(11) NOT NULL,
  usuario_funcionario_codigo INT(11),
+<<<<<<< Updated upstream
  empresa_funcionario_codigo INT(11),
  condominio_funcionario_codigo INT(11)
+=======
+ empresa_funcionario_codigo INT(11) NOT NULL,
+ condominio_funcionario_codigo INT(11) NOT NULL
+>>>>>>> Stashed changes
 )
     ENGINE = InnoDB;
 
@@ -146,7 +155,11 @@ FOREIGN KEY (predio_apartamento_codigo) REFERENCES predio(id);
 ALTER TABLE apartamento ADD CONSTRAINT empresa_apartamento_codigo
 FOREIGN KEY (empresa_apartamento_codigo) REFERENCES empresa(id);
 /*----------------------------------------------------------*/
+<<<<<<< Updated upstream
 ALTER TABLE pessoa ADD CONSTRAINT apartamento_visitante_codigo
 FOREIGN KEY (apartamento_visitante_codigo) REFERENCES pessoa(id);
 ALTER TABLE pessoa ADD CONSTRAINT empresa_visitante_codigo
 FOREIGN KEY (empresa_visitante_codigo) REFERENCES empresa(id);
+=======
+
+>>>>>>> Stashed changes

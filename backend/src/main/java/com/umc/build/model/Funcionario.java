@@ -21,14 +21,14 @@ public class Funcionario {
     private String funcao;
     private Double salario = 0d;
     private LocalDate dataRegistro;
-    private LocalDateTime horaEntrada;
-    private LocalDateTime horaSaida;
+    private String horaEntrada;
+    private String horaSaida;
     @OneToOne
     @JoinColumn(name = "pessoa_funcionario_codigo")
     private AbstractPessoa pessoa;
     @OneToOne
     @JoinColumn(name = "usuario_funcionario_codigo")
-    private User user;
+    private User user = null;
     @ManyToOne
     @JoinColumn(name = "empresa_funcionario_codigo")
     private Empresa empresa;

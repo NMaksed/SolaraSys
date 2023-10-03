@@ -13,6 +13,8 @@ export default function EmpresaCadastro() {
   const [cnpj, setCnpj] = useState('');
   const [uf, setUf] = useState('');
   const [cep, setCep] = useState('');
+  const [horaEntrada, setHoraEntrada] = useState(null);
+  const [horaSaida, setHoraSaida] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
 
   const [nomeError, setNomeError] = useState('');

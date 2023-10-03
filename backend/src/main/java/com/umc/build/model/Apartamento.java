@@ -17,8 +17,6 @@ public class Apartamento {
     private Integer id;
     private Integer numero;
     @OneToMany(mappedBy = "apartamento")
-    private List<AbstractPessoa> visitante;
-    @OneToMany(mappedBy = "apartamento")
     private List<Morador> morador;
     @JoinColumn(name = "empresa_apartamento_codigo")
     @ManyToOne

@@ -21,6 +21,7 @@ public class AbstractPessoa {
     private String cpf;
     private String rg;
     private String cep;
+<<<<<<< Updated upstream
     @ManyToOne
     @JoinColumn(name = "apartamento_visitante_codigo")
     private Apartamento apartamento;
@@ -31,4 +32,6 @@ public class AbstractPessoa {
     @JoinColumn(name = "empresa_visitante_codigo")
     @ManyToOne
     private Empresa empresa;
+=======
+>>>>>>> Stashed changes
 }
