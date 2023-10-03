@@ -31,6 +31,8 @@ export default function FuncionarioCadastro() {
   const [cepError, setCepError] = useState('');
   const [funcaoError, setFuncaoError] = useState('');
   const [salarioError, setSalarioError] = useState('');
+  const [horaEntradaError, setHoraEntradaError] = useState(null);
+  const [horaSaidaError, setHoraSaidaError] = useState(null);
 
     //Validacao de dados
     const handleClick = (e) => {
@@ -92,6 +94,20 @@ export default function FuncionarioCadastro() {
         valid = false;
         } else {
         setCondominioError('');
+      }
+
+      if (horaEntrada.trim() === "") {
+        setHoraEntradaError('Campo obrigatório');
+        valid = false;
+      } else {
+        setHoraEntradaError("");
+      }
+
+      if (horaSaida.trim() === "") {
+        setHoraSaidaError('Campo obrigatório');
+        valid = false;
+      } else {
+        setHoraSaidaError("");
       }
   
       if (valid) {
@@ -182,21 +198,21 @@ export default function FuncionarioCadastro() {
             fullWidth required error={!!salarioError} helperText={salarioError} 
           />
 
-          <TextField
+          <TextField style={styles.TextField}
           type="time"
           id="horaEntrada"
           label="Hora de Entrada"
           value={horaEntrada}
           onChange={(e) => setHoraEntrada(e.target.value)}
-          fullWidth required />
+          fullWidth required error={!!horaEntradaError} helperText={horaEntradaError} />
 
-          <TextField
+          <TextField style={styles.TextField}
           type="time"
           id="horaSaide"
           label="Hora de Saida"
           value={horaSaida}
           onChange={(e) => setHoraSaida(e.target.value)}
-          fullWidth required />
+          fullWidth required error={!!horaSaidaError} helperText={horaSaidaError}/>
 
           <MenuItemCondominio
             onCondominioChange={(selectedCondominio, selectedCondominioId) => {

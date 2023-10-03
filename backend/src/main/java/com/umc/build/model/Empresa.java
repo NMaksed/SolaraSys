@@ -46,9 +46,6 @@ public class Empresa {
     private List<User> usuario;
     @JsonIgnore
     @OneToMany(mappedBy = "empresa")
-    private List<AbstractPessoa> visitante;
-    @JsonIgnore
-    @OneToMany(mappedBy = "empresa")
     private List<Apartamento> apartamento;
     public String getEnderecoCompleto() {
         if (getRua() != null && getNumero() != null && getCidade() != null &&

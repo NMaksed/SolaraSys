@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SnackbarProvider } from 'notistack';
-// Importe suas telas
 import Login from '../Main/Login/index';
 import DashboardScreen from '../Main/Dashboard/index';
 

@@ -21,17 +21,4 @@ public class AbstractPessoa {
     private String cpf;
     private String rg;
     private String cep;
-<<<<<<< Updated upstream
-    @ManyToOne
-    @JoinColumn(name = "apartamento_visitante_codigo")
-    private Apartamento apartamento;
-    @OneToOne(mappedBy = "pessoa")
-    private Funcionario funcionario;
-    @OneToOne(mappedBy = "pessoa")
-    private Morador morador;
-    @JoinColumn(name = "empresa_visitante_codigo")
-    @ManyToOne
-    private Empresa empresa;
-=======
->>>>>>> Stashed changes
 }

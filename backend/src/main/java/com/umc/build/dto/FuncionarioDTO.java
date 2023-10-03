@@ -2,6 +2,7 @@ package com.umc.build.dto;
 
 import com.umc.build.model.AbstractPessoa;
 import com.umc.build.model.Condominio;
+import com.umc.build.model.Empresa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,12 +26,9 @@ public class FuncionarioDTO {
     private String horaEntrada;
     private String horaSaida;
     private Condominio condominio;
-<<<<<<< Updated upstream
-=======
     private Empresa empresa;
 
     public Empresa getEmpresa() {
         return condominio.getEmpresa();
     }
->>>>>>> Stashed changes
 }

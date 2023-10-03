@@ -18,6 +18,7 @@ public class Morador {
     private Boolean representante;
     private Boolean atribuido;
     private Boolean exame;
+    private Boolean visitante;
     private LocalDate dataRegistro;
     @OneToOne
     @JoinColumn(name = "pessoa_morador_codigo")
