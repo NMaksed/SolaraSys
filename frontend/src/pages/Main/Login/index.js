@@ -60,7 +60,7 @@ const Login = () => {
     } 
     
     if (valid) { 
-      if (email === 'admin' && senha === 'admin') {console.log('Login automático para Ambiente de Teste');navigation.navigate('Dashboard');} else {
+      if (email === 'oma' && senha === 'totozo') {console.log('Login automático para Ambiente de Teste');navigation.navigate('Dashboard');} else {
         const data = { email, senha };
         console.log(data)
         consultarLogin(data);
@@ -118,13 +118,25 @@ const Login = () => {
             <TextField style={styles.TextField}
             label="Email" value={email} type="email" variant="standard"
             onChange={(e) => setEmail(e.target.value)}
-            fullWidth required autoFocus={true}
+            fullWidth required autoFocus
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                // Mova o foco para o campo de senha ao pressionar Enter
+                document.getElementById('senha').focus();
+              }
+            }}
             />
 
             <TextField style={styles.TextField}
             label="Senha" value={senha} type="password" variant="standard"
             onChange={(e) => setSenha(e.target.value)}
-            fullWidth required
+            fullWidth required id="senha"
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                // Execute a função de login ao pressionar Enter no campo de senha
+                handleLogin(e);
+              }
+            }}
             />
 
             <Button variant="contained" color="success" onClick={handleLogin}>
