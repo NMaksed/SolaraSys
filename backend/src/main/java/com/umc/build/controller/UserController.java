@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 import java.util.List;
 
@@ -37,7 +40,8 @@ public class UserController{
     public ResponseEntity<String> login(@RequestBody User user) {
         try {
             userService.validatorUsuario(user.getEmail(), user.getSenha());
-            return ResponseEntity.ok("Usuario logado!");
+            String token = userService.geradorToken(user);
+            return ResponseEntity.ok("Usuario logado!" + token);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao passar usuario: " + e.getMessage());
