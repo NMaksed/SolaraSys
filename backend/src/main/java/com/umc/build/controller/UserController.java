@@ -40,8 +40,8 @@ public class UserController{
     public ResponseEntity<String> login(@RequestBody User user) {
         try {
             userService.validatorUsuario(user.getEmail(), user.getSenha());
-            String token = userService.geradorToken(user);
-            return ResponseEntity.ok("Usuario logado!" + token);
+            byte[] token = userService.geradorToken(user);
+            return ResponseEntity.ok("Usuario logado!" + token.toString());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao passar usuario: " + e.getMessage());

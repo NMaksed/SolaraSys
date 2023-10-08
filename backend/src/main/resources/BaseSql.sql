@@ -145,3 +145,7 @@ FOREIGN KEY (predio_apartamento_codigo) REFERENCES predio(id);
 ALTER TABLE apartamento ADD CONSTRAINT empresa_apartamento_codigo
 FOREIGN KEY (empresa_apartamento_codigo) REFERENCES empresa(id);
 /*----------------------------------------------------------*/
+
+
+
+/* Usuario admin generator */

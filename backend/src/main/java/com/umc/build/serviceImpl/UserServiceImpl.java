@@ -61,7 +61,7 @@ public class UserServiceImpl {
         JwtBuilder token = Jwts.builder()
                 .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 5 * 60 * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + 20 * 60 * 1000))
                 .signWith(key, SignatureAlgorithm.HS256);
 
         return token.compact().getBytes();

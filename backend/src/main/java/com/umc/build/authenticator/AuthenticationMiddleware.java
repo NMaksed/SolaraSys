@@ -4,8 +4,10 @@ import com.umc.build.serviceImpl.UserServiceImpl;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+@Component
 public class AuthenticationMiddleware implements HandlerInterceptor {
 
     private final UserServiceImpl userService;
@@ -15,9 +17,7 @@ public class AuthenticationMiddleware implements HandlerInterceptor {
     }
 
     @Override
-    public Boolean preHandler(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
-
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader == null || authorizationHeader.startsWith("Bearer ")) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
