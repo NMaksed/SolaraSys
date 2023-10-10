@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import jwtDecode from 'jwt-decode'; 
+import jwt_decode from "jwt-decode";
 
 const AuthChecker = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -7,14 +7,14 @@ const AuthChecker = ({ children }) => {
   useEffect(() => {
     const isValidToken = () => {
       const token = localStorage.getItem('jwtToken'); // Recupera o token do localStorage
-
+      console.log(token, "tome")
       if (!token) {
         return false; // Se o token não estiver presente, é inválido
       }
 
       try {
-        const decodedToken = jwtDecode(token); // Decodifica o token JWT
-
+        const decodedToken = jwt_decode(token); // Decodifica o token JWT
+        console.log('Token Decodificado:', decodedToken);
         // Verifica se o token expirou
         const currentTime = Date.now() / 1000; // Em segundos
         if (decodedToken.exp < currentTime) {

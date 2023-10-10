@@ -1,10 +1,10 @@
 import React from 'react';
-import Navigation from './pages/Navigation/index';
+import Routes from './services/Routes';
 
 
 function App() {
   return (
-    <Navigation />
+    <Routes />
   );
 }
 

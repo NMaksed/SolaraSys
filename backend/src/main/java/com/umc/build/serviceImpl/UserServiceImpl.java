@@ -1,5 +1,6 @@
 package com.umc.build.serviceImpl;
 
+import com.umc.build.dto.UserDTO;
 import com.umc.build.model.Funcionario;
 import com.umc.build.model.User;
 import com.umc.build.repository.FuncionarioRepository;
@@ -9,13 +10,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.security.Key;
 import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +27,14 @@ public class UserServiceImpl {
     @Autowired
     public FuncionarioRepository funcionarioRepository;
 
-    public User salvarUsuario(User user) {
+    public User salvarUsuario(UserDTO userDTO, Integer idCondominio) {
+        User user = new User();
+        user.setEmail(userDTO.getEmail());
+        user.setSenha(userDTO.getSenha());
+        user.setAdministrador(userDTO.isAdministrador());
+        Funcionario funcionario = funcionarioRepository.idFuncionario(idCondominio);
+        user.setFuncionario(funcionario);
+        user.setEmpresa(funcionario.getEmpresa());
         return userRepository.save(user);
     }
 

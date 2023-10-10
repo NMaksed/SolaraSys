@@ -1,60 +1,45 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
+import { Link, useRouteMatch, Route, Switch } from 'react-router-dom';
 import PessoaCadastro from '../../Pessoa/Cadastro/index';
 import EmpresaCadastro from '../../Empresa/Cadastro/index';
 import FuncionarioCadastro from '../../Funcionario/Cadastro/index';
 import ConsultaEmpresa from '../../Empresa/Consulta/index';
 import Header from '../../../components/Header';
 import MoradorCadastro from '../../Morador/Cadastro';
+import AuthChecker from '../../../components/Authentication';
 
 function DashboardScreen() {
-  const [activeComponent, setActiveComponent] = useState(null);
-
-  const handleComponentChange = (componentName) => {
-    setActiveComponent(componentName);
-  };
+  // Use useRouteMatch para obter o URL base da rota atual
+  const match = useRouteMatch();
 
   const renderActiveComponent = () => {
-    switch (activeComponent) {
-      case 'PessoaCadastro':
-        return <PessoaCadastro />;
-      case 'EmpresaCadastro':
-        return <EmpresaCadastro />;
-      case 'FuncionarioCadastro':
-        return <FuncionarioCadastro />;
-      case "ConsultaEmpresa":
-        return <ConsultaEmpresa/>
-        case "MoradorCadastro":
-          return <MoradorCadastro />;
-      default:
-        return null;
-    }
+    return (
+      <div>
+        <AuthChecker>
+        <Header texto="Cadastro de Entidades" />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Link to={`${match.url}/cadastro-pessoa`}>Cadastrar Pessoa</Link>
+          <Link to={`${match.url}/cadastro-empresa`}>Cadastrar Empresa</Link>
+          <Link to={`${match.url}/cadastro-funcionario`}>Cadastrar Funcionário</Link>
+          <Link to={`${match.url}/consulta-empresa`}>Consultar Empresa</Link>
+          <Link to={`${match.url}/cadastro-morador`}>Cadastrar Morador</Link>
+        </div>
+        <Switch>
+          <Route path={`${match.path}/cadastro-pessoa`} component={PessoaCadastro} />
+          <Route path={`${match.path}/cadastro-empresa`} component={EmpresaCadastro} />
+          <Route path={`${match.path}/cadastro-funcionario`} component={FuncionarioCadastro} />
+          <Route path={`${match.path}/consulta-empresa`} component={ConsultaEmpresa} />
+          <Route path={`${match.path}/cadastro-morador`} component={MoradorCadastro} />
+          <Route path={`${match.path}`} exact>
+            <p>Selecione uma opção acima para começar.</p>
+          </Route>
+        </Switch>
+        </AuthChecker>
+      </div>
+    );
   };
 
-  return (
-    <div>
-      <Header texto="Cadastro de Entidades" />
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <Button onClick={() => handleComponentChange('PessoaCadastro')}>
-          Cadastrar Pessoa
-        </Button>
-        <Button onClick={() => handleComponentChange('EmpresaCadastro')}>
-          Cadastrar Empresa
-        </Button>
-        <Button onClick={() => handleComponentChange('FuncionarioCadastro')}>
-          Cadastrar Funcionário
-        </Button>
-        <Button onClick={() => handleComponentChange("ConsultaEmpresa")}>
-          Consultar Empresa
-        </Button>
-        <Button onClick={() => handleComponentChange("MoradorCadastro")}>
-          Cadastrar Morador
-        </Button>
-      </div>
-      {renderActiveComponent()}
-      
-    </div>
-  );
+  return renderActiveComponent();
 }
 
 export default DashboardScreen;

@@ -39,7 +39,6 @@ CREATE TABLE funcionario (
  hora_saida VARCHAR(25) NOT NULL,
  data_registro DATE NOT NULL,
  pessoa_funcionario_codigo INT(11) NOT NULL,
- usuario_funcionario_codigo INT(11),
  empresa_funcionario_codigo INT(11) NOT NULL,
  condominio_funcionario_codigo INT(11) NOT NULL
 )
@@ -128,8 +127,6 @@ FOREIGN KEY (empresa_usuario_codigo) REFERENCES empresa(id);
 /*----------------------------------------------------------*/
 ALTER TABLE funcionario ADD CONSTRAINT pessoa_funcionario_codigo
 FOREIGN KEY (pessoa_funcionario_codigo) REFERENCES pessoa(id);
-ALTER TABLE funcionario ADD CONSTRAINT usuario_funcionario_codigo
-FOREIGN KEY (usuario_funcionario_codigo) REFERENCES usuario(id);
 ALTER TABLE funcionario ADD CONSTRAINT empresa_funcionario_codigo
 FOREIGN KEY (empresa_funcionario_codigo) REFERENCES empresa(id);
 ALTER TABLE funcionario ADD CONSTRAINT condominio_funcionario_codigo

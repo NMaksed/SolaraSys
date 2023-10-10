@@ -1,6 +1,7 @@
 package com.umc.build.controller;
 
 
+import com.umc.build.dto.UserDTO;
 import com.umc.build.model.User;
 import com.umc.build.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
+import java.util.Base64;
 import java.util.List;
 
 
@@ -23,10 +25,10 @@ public class UserController{
     private UserServiceImpl userService;
 
     @PostMapping("/salvar{id}")
-    public ResponseEntity<String> salvarUsuario (@RequestBody User user, @RequestParam("id") Integer funcionarioId) {
+    public ResponseEntity<String> salvarUsuario (@RequestBody UserDTO userDTO, @RequestParam("id") Integer funcionarioId) {
         try {
             userService.validatorFuncionario(funcionarioId);
-            userService.salvarUsuario(user);
+            userService.salvarUsuario(userDTO, funcionarioId);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -40,8 +42,9 @@ public class UserController{
     public ResponseEntity<String> login(@RequestBody User user) {
         try {
             userService.validatorUsuario(user.getEmail(), user.getSenha());
-            byte[] token = userService.geradorToken(user);
-            return ResponseEntity.ok("Usuario logado!" + token.toString());
+            byte[] tokenBytes = userService.geradorToken(user);
+            String token = Base64.getEncoder().encodeToString(tokenBytes);
+            return ResponseEntity.ok(token);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao passar usuario: " + e.getMessage());

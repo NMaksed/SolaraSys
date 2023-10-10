@@ -3,19 +3,19 @@ import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import { Button, FormControl, TextField } from '@mui/material';
 import backgroundImage from '../../../components/Styles/or-21s84129.png';
 import styles from '../../../components/Styles/HomeScreenStyles';
-import { useNavigation } from '@react-navigation/native';
 import { useSnackbar } from 'notistack';
+import { useHistory } from 'react-router-dom';
 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const history = useHistory();
 
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [backgroundStyle, setBackgroundStyle] = useState(styles.backgroundImage);
   const [contentStyle, setContentStyle] = useState(styles.content);
   const [scaleValue] = useState(new Animated.Value(0));
-  const navigation = useNavigation(0);
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -60,7 +60,10 @@ const Login = () => {
     } 
     
     if (valid) { 
-      if (email === 'admin' && senha === 'admin') {console.log('Login automático para Ambiente de Teste');navigation.navigate('Dashboard');} else {
+      if (email === 'admin' && senha === 'admin') {
+        console.log('Login automático para Ambiente de Teste'); history.push('/dashboard');
+      }
+       else {
         const data = { email, senha };
         console.log(data)
         consultarLogin(data);
@@ -79,7 +82,9 @@ const Login = () => {
       });
 
       if (response.ok) {
-        navigation.navigate('Dashboard');
+        const token = await response.text();
+        localStorage.setItem("jwtToken", token);
+        history.push("/dashboard")
       } else {
         enqueueSnackbar('Email de usuário ou senha incorreta', { variant: 'error' });
       }
@@ -116,16 +121,29 @@ const Login = () => {
           <FormControl>
             <Text style={styles.loginText}>Login</Text>
             <TextField style={styles.TextField}
-            label="Email" value={email} type="email" variant="standard"
-            onChange={(e) => setEmail(e.target.value)}
-            fullWidth required autoFocus={true}
+              label="Email" value={email} type="email" variant="standard"
+              onChange={(e) => setEmail(e.target.value)}
+              fullWidth required autoFocus
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  // Mova o foco para o campo de senha ao pressionar Enter
+                  document.getElementById('senha').focus();
+                }
+              }}
             />
 
             <TextField style={styles.TextField}
-            label="Senha" value={senha} type="password" variant="standard"
-            onChange={(e) => setSenha(e.target.value)}
-            fullWidth required
+              label="Senha" value={senha} type="password" variant="standard"
+              onChange={(e) => setSenha(e.target.value)}
+              fullWidth required id="senha"
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  // Execute a função de login ao pressionar Enter no campo de senha
+                  handleLogin(e);
+                }
+              }}
             />
+
 
             <Button variant="contained" color="success" onClick={handleLogin}>
               Logar
