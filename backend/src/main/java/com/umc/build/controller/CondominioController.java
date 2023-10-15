@@ -2,6 +2,8 @@ package com.umc.build.controller;
 
 import com.umc.build.model.Condominio;
 import com.umc.build.serviceImpl.CondominioServiceImpl;
+import com.umc.build.serviceImpl.TokenServiceImpl;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +16,20 @@ import java.util.List;
 @RequestMapping("/condominio")
 public class CondominioController {
     @Autowired
-    public CondominioServiceImpl condominioService;
+    private CondominioServiceImpl condominioService;
+
+    @Autowired
+    private TokenServiceImpl tokenService;
 
     @PostMapping("/salvar{id}")
-    public ResponseEntity<String> add(@RequestBody Condominio condominio, @RequestParam("id") Integer empresaId) {
+    public ResponseEntity<String> add(@RequestBody Condominio condominio, @RequestParam("id") Integer empresaId,
+                                      @RequestHeader(value = "Authorization") String authorizationHeader) {
         try {
+            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+                String jwtToken = authorizationHeader.substring(7); // Remove o prefixo "Bearer "
+                Claims claims = tokenService.parseToken(jwtToken);
+
+            }
             condominioService.validateEmpresaCondominiobyId(empresaId);
             condominioService.salvarCondominio(condominio);
             return ResponseEntity.ok("Novo condomínio adicionado!");
