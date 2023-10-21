@@ -6,6 +6,7 @@ import FuncionarioCadastro from '../../Funcionario/Cadastro/index';
 import ConsultaEmpresa from '../../Empresa/Consulta/index';
 import Header from '../../../components/Header';
 import MoradorCadastro from '../../Morador/Cadastro';
+import CondominioCadastro from '../../Condominio/Cadastro/index';
 
 function DashboardScreen() {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -24,8 +25,10 @@ function DashboardScreen() {
         return <FuncionarioCadastro />;
       case "ConsultaEmpresa":
         return <ConsultaEmpresa/>
-        case "MoradorCadastro":
-          return <MoradorCadastro />;
+      case "MoradorCadastro":
+        return <MoradorCadastro />;
+      case "CondominioCadastro":
+        return <CondominioCadastro />;
       default:
         return null;
     }
@@ -49,6 +52,9 @@ function DashboardScreen() {
         </Button>
         <Button onClick={() => handleComponentChange("MoradorCadastro")}>
           Cadastrar Morador
+        </Button>
+        <Button onClick={() => handleComponentChange("CondominioCadastro")}>
+          Cadastrar Condominio
         </Button>
       </div>
       {renderActiveComponent()}
