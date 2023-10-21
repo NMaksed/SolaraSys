@@ -33,20 +33,9 @@ export default function MoradorCadastro() {
 
   const handleRadioChange = (event) => {
     setTipo(event.target.value);
-    const { name, value } = event.target;
-    switch (name) {
-      case 'representante':
-        setRepresentante(value === 'rep');
-        break;
-      case 'atribuido':
-        setAtribuido(value === 'atr');
-        break;
-      case 'visitante':
-        setVisitante(value === 'vis');
-        break;
-      default:
-        break;
-    }
+    setRepresentante(event.target.value === 'rep');
+    setAtribuido(event.target.value === 'atr');
+    setVisitante(event.target.value === 'vis');
   };
 
   const handleClick = (e) => {
@@ -179,21 +168,24 @@ export default function MoradorCadastro() {
             name="row-radio-buttons-group"
             value={tipo}
             onChange={handleRadioChange}
-          >
+          > 
             <FormControlLabel
               value="rep"
               control={<Radio />}
               label="Representante"
+              name="representante"
             />
             <FormControlLabel
               value="atr"
               control={<Radio />}
               label="Atribuido"
+              name="atributo"
             />
             <FormControlLabel
               value="vis"
               control={<Radio />}
               label="Visitante"
+              name="visitante"
             />
           </RadioGroup>
           <FormHelperText style={{ margin:'3 14 16px ' }} error={!!tipoError}>{tipoError}</FormHelperText>
