@@ -105,7 +105,7 @@ export default function MoradorCadastro() {
 
   const enviarDadosMorador = async (data) => {
     try {
-      const response = await fetch(`http://localhost:8080/RESOLVA`, {
+      const response = await fetch(`http://localhost:8080/morador/salvar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
