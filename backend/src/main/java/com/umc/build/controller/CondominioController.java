@@ -5,6 +5,7 @@ import com.umc.build.model.Condominio;
 import com.umc.build.model.Empresa;
 import com.umc.build.model.User;
 import com.umc.build.serviceImpl.CondominioServiceImpl;
+import com.umc.build.serviceImpl.EmpresaServiceImpl;
 import com.umc.build.serviceImpl.TokenServiceImpl;
 import com.umc.build.serviceImpl.UserServiceImpl;
 import io.jsonwebtoken.Claims;
@@ -23,25 +24,27 @@ public class CondominioController {
     private CondominioServiceImpl condominioService;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private EmpresaServiceImpl empresaService;
 
     @Autowired
     private TokenServiceImpl tokenService;
 
     @PostMapping("/salvar{id}")
-    public ResponseEntity<String> add(@RequestBody CondominioDTO condominio, @RequestParam("id") Integer empresaId,
-                                      @RequestHeader(value = "Authorization") String authorizationHeader) {
+    public ResponseEntity<String> add(@RequestBody CondominioDTO condominio, @RequestParam("id") Integer empresaId) {
+                    //                  @RequestHeader(value = "Authorization") String authorizationHeader) {
         try {
-            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-                String jwtToken = authorizationHeader.substring(7); // Remove o prefixo "Bearer "
-                Claims claims = tokenService.parseToken(jwtToken);
-                User authenticatedUser = userService.userRepository.findByEmail(claims.getSubject());
-                Empresa empresa = authenticatedUser.getEmpresa();
-
+//            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+//                String jwtToken = authorizationHeader.substring(7); // Remove o prefixo "Bearer "
+//                Claims claims = tokenService.parseToken(jwtToken);
+//                User authenticatedUser = userService.userRepository.findByEmail(claims.getSubject());
+//                Empresa empresa = authenticatedUser.getEmpresa();
+                  Empresa empresa = empresaService.findEmpresa(empresaId);
                 condominioService.validateEmpresaCondominiobyId(empresaId);
                 condominioService.builderCondominio(condominio, empresa);
-            }
             return ResponseEntity.ok("Novo condomínio adicionado!");
-        } catch (Exception e) {
+            }
+         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao criar Condominio: " + e.getMessage());
         }
