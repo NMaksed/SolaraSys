@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import jwt_decode from "jwt-decode";
+
 
 const AuthChecker = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -8,6 +8,7 @@ const AuthChecker = ({ children }) => {
     const isValidToken = () => {
       const token = localStorage.getItem('jwtToken'); // Recupera o token do localStorage
       console.log(token, "mama")
+      
       if (!token) {
         return false; // Se o token não estiver presente, é inválido
       }

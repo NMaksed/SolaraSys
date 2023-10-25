@@ -41,7 +41,7 @@ public class AuthenticationMiddleware implements HandlerInterceptor {
 
     private boolean validateJwtToken(String jwtToken) {
         try {
-            byte[] keyBytes = userService.generateHs256().getEncoded();
+            byte[] keyBytes = userService.generateSecretKey().getEncoded();
             Jwts.parser()
                     .setSigningKey(keyBytes)
                     .parseClaimsJws(jwtToken);
