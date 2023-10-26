@@ -9,7 +9,6 @@ import MoradorCadastro from '../../Morador/Cadastro';
 import AuthChecker from '../../../components/Authentication';
 
 function DashboardScreen() {
-  // Use useRouteMatch para obter o URL base da rota atual
   const match = useRouteMatch();
 
   const renderActiveComponent = () => {
