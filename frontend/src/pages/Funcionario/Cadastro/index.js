@@ -22,7 +22,7 @@ export default function FuncionarioCadastro() {
   const { enqueueSnackbar } = useSnackbar();
   const [condominio, setCondominio] = useState('');
   const [condominioId, setCondominioId] = useState(null);
-  const [condominioError, setCondominioError] = useState('');
+  const [setCondominioError] = useState('');
 
   const [nomeError, setNomeError] = useState('');
   const [idadeError, setIdadeError] = useState('');
@@ -153,15 +153,13 @@ export default function FuncionarioCadastro() {
             id="nome" variant="outlined" 
             type="text" label="Nome" value={nome}
             onChange={(e) => setNome(e.target.value)} 
-            fullWidth required error={!!nomeError} helperText={nomeError} 
-            />
+            fullWidth required error={!!nomeError} helperText={nomeError} />
 
           <TextField style={styles.TextField}
             id="idade" variant="outlined" 
             type="number" label="Idade" value={idade}
             onChange={(e) => setIdade(e.target.value)}
-            fullWidth required error={!!idadeError} helperText={idadeError} 
-          />
+            fullWidth required error={!!idadeError} helperText={idadeError} />
             
           <ReactInputMask 
             mask="999.999.999-99"
@@ -188,31 +186,29 @@ export default function FuncionarioCadastro() {
             id="funcao" variant="outlined" 
             type="text" label="Função" value={funcao} 
             onChange={(e) => setFuncao(e.target.value)} 
-            fullWidth required error={!!funcaoError} helperText={funcaoError} 
-          />
+            fullWidth required error={!!funcaoError} helperText={funcaoError} />
 
           <TextField style={styles.TextField}
             id="salario" variant="outlined" 
             type="number" label="Salário" value={salario} 
             onChange={(e) => setSalario(e.target.value)} 
-            fullWidth required error={!!salarioError} helperText={salarioError} 
-          />
+            fullWidth required error={!!salarioError} helperText={salarioError} />
 
           <TextField style={styles.TextField}
-          type="time"
-          id="horaEntrada"
-          label="Hora de Entrada"
-          value={horaEntrada}
-          onChange={(e) => setHoraEntrada(e.target.value)}
-          fullWidth required error={!!horaEntradaError} helperText={horaEntradaError} />
+            type="time"
+            id="horaEntrada"
+            label="Hora de Entrada"
+            value={horaEntrada}
+            onChange={(e) => setHoraEntrada(e.target.value)}
+            fullWidth required error={!!horaEntradaError} helperText={horaEntradaError} />
 
           <TextField style={styles.TextField}
-          type="time"
-          id="horaSaide"
-          label="Hora de Saida"
-          value={horaSaida}
-          onChange={(e) => setHoraSaida(e.target.value)}
-          fullWidth required error={!!horaSaidaError} helperText={horaSaidaError}/>
+            type="time"
+            id="horaSaide"
+            label="Hora de Saida"
+            value={horaSaida}
+            onChange={(e) => setHoraSaida(e.target.value)}
+            fullWidth required error={!!horaSaidaError} helperText={horaSaidaError} />
 
           <MenuItemCondominio
             onCondominioChange={(selectedCondominio, selectedCondominioId) => {
