@@ -10,7 +10,6 @@ import logo1 from '../../../components/Styles/logo1.svg';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -25,7 +24,7 @@ const Login = () => {
     } 
     
     if (valid) { 
-      if (email === 'admin' && senha === '123123') {console.log('Login automático para Ambiente de Teste');history.push('/dashboard');} else {
+      if (email === 'admin' && senha === 'admin') {console.log('Login automático para Ambiente de Teste');history.push('/dashboard');} else {
         const data = { email, senha };
         console.log(data)
         consultarLogin(data);

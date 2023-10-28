@@ -26,9 +26,6 @@ public class Funcionario {
     @OneToOne
     @JoinColumn(name = "pessoa_funcionario_codigo")
     private AbstractPessoa pessoa;
-    @OneToOne
-    @JoinColumn(name = "usuario_funcionario_codigo")
-    private User user = null;
     @ManyToOne
     @JoinColumn(name = "empresa_funcionario_codigo")
     private Empresa empresa;

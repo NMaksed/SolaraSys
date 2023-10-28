@@ -20,7 +20,8 @@ public class User {
     private String senha;
     private boolean administrador = false;
     private LocalDate dataRegistro;
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    @JoinColumn(name = "funcionario_usuario_codigo")
     private Funcionario funcionario;
     @JoinColumn(name = "empresa_usuario_codigo")
     @ManyToOne

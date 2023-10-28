@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useRouteMatch, Route, Switch } from 'react-router-dom';
 import PessoaCadastro from '../../Pessoa/Cadastro/index';
 import EmpresaCadastro from '../../Empresa/Cadastro/index';
@@ -6,10 +6,9 @@ import FuncionarioCadastro from '../../Funcionario/Cadastro/index';
 import ConsultaEmpresa from '../../Empresa/Consulta/index';
 import Header from '../../../components/Header';
 import MoradorCadastro from '../../Morador/Cadastro';
-// import AuthChecker from '../../../components/Authentication';
+import AuthChecker from '../../../components/Authentication';
 
 function DashboardScreen() {
-  // Use useRouteMatch para obter o URL base da rota atual
   const match = useRouteMatch();
 
   const renderActiveComponent = () => {
@@ -34,7 +33,7 @@ function DashboardScreen() {
             <p>Selecione uma opção acima para começar.</p>
           </Route>
         </Switch>
-        {/* </AuthChecker> */}
+        </AuthChecker>
       </div>
     );
   };
