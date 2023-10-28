@@ -16,7 +16,7 @@ function DashboardScreen() {
     return (
       <div>
         {/* <AuthChecker> */}
-        <Header texto="Cadastro de Entidades" />
+        <Header/>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <Link to={`${match.url}/cadastro-pessoa`}>Cadastrar Pessoa</Link>
           <Link to={`${match.url}/cadastro-empresa`}>Cadastrar Empresa</Link>
