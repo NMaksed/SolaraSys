@@ -45,9 +45,10 @@ const styles = StyleSheet.create({
         marginBottom: '15px',
     },
     button: {
-        maxWidth: 100,
+        width: 100,
         borderRadius: 20,
         backgroundColor: 'darkblue',
+        alignSelf:'center',
     },
 
 
