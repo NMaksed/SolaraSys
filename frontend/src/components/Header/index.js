@@ -1,12 +1,12 @@
 import React from 'react';
-import SlideMenu from '../SliderMenu/index'; // Importe o componente SlideMenu
-import Avatar from '@mui/material/Avatar'; // Importe o componente Avatar do Material-UI
-import PersonIcon from '@mui/icons-material/Person'; // Ícone de usuário padrão
-import styles from './styles'; // Importe os estilos do arquivo HeaderStyles.js
+import SlideMenu from '../SliderMenu/index';
+import Avatar from '@mui/material/Avatar';
+import PersonIcon from '@mui/icons-material/Person';
+import Box from '@mui/material/Box';
+import styles from './styles';
 import logo2 from '../Styles/logo2.svg';
 
 function Header({ userIconSrc }) {
-  // Use o ícone padrão se userIconSrc estiver vazio ou não fornecido
   const userIcon = userIconSrc ? (
     <Avatar src={userIconSrc} alt="User Icon" sx={styles.userIcon} />
   ) : (
@@ -16,13 +16,11 @@ function Header({ userIconSrc }) {
   );
 
   return (
-    <div style={styles.header}>
-      <SlideMenu  />
-
+    <Box sx={styles.header}>
+      <SlideMenu />
       <img style={styles.logo} src={logo2} alt="Logo" />
-      
-      <div style={styles.userIcon}>{userIcon}</div>
-    </div>
+      <Box sx={styles.userIcon}>{userIcon}</Box>
+    </Box>
   );
 }
 

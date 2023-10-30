@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -17,21 +17,57 @@ const SlideMenu = (props) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Fecha o menu quando o scrim é clicado
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  // Bloqueia a rolagem da página quando o menu está aberto
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isMenuOpen]);
+
   return (
     <div className="slide-menu" style={{ position: 'relative' }}>
+      {/* Camada Scrim */}
+      {isMenuOpen && (
+        <div
+          className="scrim"
+          style={{
+            position: 'fixed',
+            zIndex: 1,
+            top: '0',
+            left: '0',
+            right: '0',
+            bottom: '0',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            opacity: isMenuOpen ? 1 : 0,
+            transition: 'opacity 0.4s',
+          }}
+          onClick={closeMenu} // Fecha o menu quando o scrim é clicado
+        />
+      )}
+
       <div
         className={`menu ${isMenuOpen ? 'open' : ''} sidebar`}
         style={{
           position: 'fixed',
-          zIndex: 1,
+          zIndex: 2,
+          top: '0px',
+          left: '0px',
           transition: 'transform 0.4s',
           backgroundColor: '#06002c',
           width: '200px',
-          top: '60px',
-          transform: `translateX(${isMenuOpen ? '-6%' : '-106%'})`,
+          transform: `translateX(${isMenuOpen ? '0%' : '-100%'})`,
+          height: '100vh',
+          overflowY: 'auto', // Adicione rolagem à barra lateral
         }}
       >
-        <List className={`menu-list ${isMenuOpen ? 'open' : ''}`}>
+        <List className={`menu-list ${isMenuOpen ? 'open' : ''}`} style={{ top: '60px' }}>
           <ListItemButton href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
             <PersonIcon />
             <ListItemText primary=" Morador" />
@@ -53,7 +89,12 @@ const SlideMenu = (props) => {
       <IconButton
         className={`menu-icon ${isMenuOpen ? 'open' : ''}`}
         onClick={toggleMenu}
-        style={{ backgroundColor: 'transparent', color: '#fff', position: 'relative', zIndex: 2 }}
+        style={{
+          backgroundColor: 'transparent',
+          color: '#fff',
+          position: 'relative',
+          zIndex: 3,
+        }}
       >
         {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
       </IconButton>

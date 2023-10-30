@@ -3,7 +3,7 @@ import {
   Box,
   Container,
   Grid,
-  IconButton,
+  IconButton, Button,
   TextField,
   Typography,
 } from "@mui/material";
@@ -13,7 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DataTable from "../DataTable/index";
 import Header from "../Header";
 
-export const Dashboard = ({ linkFetch ='http://localhost:8080/morador/getMorador' }) => {
+export const Dashboard = ({ linkFetch = 'http://localhost:8080/morador/getMorador', pageTitle = 'Título Modificável' }) => {
   const [data, setData] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [error, setError] = useState(null);
@@ -103,10 +103,10 @@ export const Dashboard = ({ linkFetch ='http://localhost:8080/morador/getMorador
   return (
     <>
       <Header />
-      <Container>
-        <Grid container alignItems="center" justifyContent="space-between">
+      <Container style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+        <Grid container alignItems="center" justifyContent="space-between" padding={1}>
           <Grid item>
-            <Typography variant="h5">Título Modificável</Typography>
+            <Typography variant="h5">{pageTitle}</Typography>
           </Grid>
           <Grid item>
             <IconButton color="primary" onClick={handleEditar}>
@@ -124,21 +124,27 @@ export const Dashboard = ({ linkFetch ='http://localhost:8080/morador/getMorador
           </Grid>
         </Grid>
 
-        <Box className="busca">
-        <TextField
+        <Box className="busca" style={{ display: "flex" }} padding={1}>
+          <TextField
+            style={{ paddingRight: 30 }}
             label="Buscar"
             variant="outlined"
             size="small"
             fullWidth
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <IconButton color="primary" size="small" onClick={handleBusca}>
+          />
+          <Button
+            style={{ borderRadius: 20, backgroundColor: "darkblue", padding: "0 30px" }}
+            variant="contained"
+            size="small"
+            onClick={handleBusca}
+          >
             Buscar
-        </IconButton>
+          </Button>
         </Box>
 
-        <Box className="tabela">
+        <Box className="tabela" style={{ flex: 1, padding: "10px" }}>
           {error ? (
             <div>{error}</div>
           ) : (

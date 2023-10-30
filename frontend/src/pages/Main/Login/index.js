@@ -91,7 +91,7 @@ const Login = () => {
                         }
                     }}
                 />
-            <Button style={styles.button} variant="contained" color="success" onClick={handleLogin}>
+            <Button style={styles.button} variant="contained" onClick={handleLogin}>
               Entrar
             </Button>
             </FormControl>
