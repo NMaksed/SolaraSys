@@ -1,4 +1,31 @@
-body {
-  margin: 0;
-  padding: 0;
+/* Estilize a barra de rolagem */
+/* Barra de rolagem */
+::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem */
+}
+
+/* Polegar da barra de rolagem */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Cor de fundo do polegar */
+  border-radius: 6px; /* Borda arredondada do polegar */
+}
+
+/* Trilha da barra de rolagem */
+::-webkit-scrollbar-track {
+  background: #ffffff00; /* Cor de fundo da trilha */
+}
+
+/* Estilize a barra de rolagem para navegadores não-WebKit (como Firefox) */
+/* Barra de rolagem */
+scrollbar-width: thin;
+scrollbar-color: #888 #f1f1f1;
+
+/* Polegar da barra de rolagem */
+scrollbar-thumb {
+  background: #888;
+}
+
+/* Trilha da barra de rolagem */
+scrollbar-track {
+  background: #f1f1f1;
 }
