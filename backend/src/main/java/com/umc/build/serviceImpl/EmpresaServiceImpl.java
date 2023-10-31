@@ -44,5 +44,14 @@ public class EmpresaServiceImpl {
         public Empresa findEmpresa(Integer empresaId) {
             return empresaRepository.trazPorid(empresaId);
         }
-    }
+
+        public void deletarEmpresa(Integer empresa) throws Exception{
+            if (empresa != null) {
+                empresaRepository.deleteById(empresa);
+            }
+            else {
+                throw new Exception("Empresa não pode ser apagada " );
+            }
+        }
+}
 

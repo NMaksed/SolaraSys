@@ -32,4 +32,15 @@ public class EmpresaController {
     public List<Empresa> getEmpresa() {
         return empresaService.getEmpresa();
     }
-}
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletarEmpresa(@PathVariable Integer id) {
+        try {
+        empresaService.deletarEmpresa(id);
+        return ResponseEntity.ok("Empresas Apagadas!");
+    } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Empresa: " + e.getMessage());
+            }
+        }
+    }
