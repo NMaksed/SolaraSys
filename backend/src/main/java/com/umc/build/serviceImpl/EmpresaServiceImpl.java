@@ -40,5 +40,9 @@ public class EmpresaServiceImpl {
             empresa.setCep(empresaDTO.getCep());
             empresa.setEnderecoCompleto(empresa.getEnderecoCompleto());
         }
+
+        public Empresa findEmpresa(Integer empresaId) {
+            return empresaRepository.trazPorid(empresaId);
+        }
     }
 
