@@ -29,4 +29,13 @@ public class PredioServiceImpl {
             throw new Exception("Condominio: " + id + " não existe!");
         }
     }
+
+    public void deletar(Integer predio) throws Exception{
+        if (predio != null) {
+            predioRepository.deleteById(predio);
+        }
+        else {
+            throw new Exception("Predio não pode ser apagado!" );
+        }
+    }
 }

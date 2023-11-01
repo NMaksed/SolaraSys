@@ -17,6 +17,4 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Integer> {
     @Query(value = "SELECT * FROM empresa e WHERE e.id = ?1", nativeQuery = true)
     Empresa trazPorid(Integer empresaid);
 
-
-    void deleteById(Integer id);
 }

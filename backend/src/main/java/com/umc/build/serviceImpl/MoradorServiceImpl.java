@@ -64,4 +64,13 @@ public class MoradorServiceImpl{
         morador.setPessoa(pessoa);
     }
 
+    public void deletar(Integer morador) throws Exception{
+        if (morador != null) {
+            moradorRepository.deleteById(morador);
+        }
+        else {
+            throw new Exception("Morador não pode ser apagado!" );
+        }
+    }
+
 }

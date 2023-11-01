@@ -45,4 +45,13 @@ public class CondominioServiceImpl{
         condominio.setSalao(dto.getSalao());
         salvarCondominio(condominio);
     }
+
+    public void deletarCondominio(Integer condominio) throws Exception{
+        if (condominio != null) {
+            condominioRepository.deleteById(condominio);
+        }
+        else {
+            throw new Exception("Condominio não pode ser apagado!" );
+        }
+    }
 }
