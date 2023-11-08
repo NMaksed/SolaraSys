@@ -1,5 +1,6 @@
 package com.umc.build.serviceImpl;
 
+import com.umc.build.dto.CondominioDTO;
 import com.umc.build.model.Condominio;
 import com.umc.build.model.Empresa;
 import com.umc.build.repository.CondominioRepository;
@@ -31,5 +32,17 @@ public class CondominioServiceImpl{
         if (empresaOptional.isEmpty()) {
             throw new Exception("Empresa: " + id + " não existe!");
         }
+    }
+
+    public void builderCondominio(CondominioDTO dto, Empresa empresa) {
+        Condominio condominio = new Condominio();
+
+        condominio.setEmpresa(empresa);
+        condominio.setChurrasqueira(dto.getChurrasqueira());
+        condominio.setPiscina(dto.getPiscina());
+        condominio.setNome(dto.getNome());
+        condominio.setSalao(dto.getSalao());
+        condominio.setSalao(dto.getSalao());
+        salvarCondominio(condominio);
     }
 }

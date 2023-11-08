@@ -49,19 +49,24 @@ public class UserServiceImpl {
         }
     }
 
-    public void validatorUsuario(String email, String senha) throws Exception {
+    public void getEmpresaVinculada(String email) {
+        userRepository.findByEmail(email);
+    }
+
+    public User validatorUsuario(String email, String senha) throws Exception {
         Optional<User> usuarioOptional = userRepository.findByEmailAndAndSenha(email, senha);
 
         if (usuarioOptional.isEmpty()) {
             throw new Exception("Senha ou Email Incorreto!!");
         }
+        return usuarioOptional.get();
     }
 
     /*
     * Gera um token para autorização de login
      */
-    public byte[] geradorToken(User user) {
-        Key key = generateHs256();
+    public String geradorToken(User user) {
+        Key key = generateSecretKey();
 
         JwtBuilder token = Jwts.builder()
                 .setSubject(user.getEmail())
@@ -69,13 +74,13 @@ public class UserServiceImpl {
                 .setExpiration(new Date(System.currentTimeMillis() + 20 * 60 * 1000))
                 .signWith(key, SignatureAlgorithm.HS256);
 
-        return token.compact().getBytes();
+        return token.compact();
     }
 
     /*
     * Cria uma chave do tipo HS256
      */
-    public Key generateHs256() {
+    public Key generateSecretKey() {
         int keySizeBytes = 32;
 
         byte[] secretKeyBytes = new byte[keySizeBytes];

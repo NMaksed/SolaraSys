@@ -1,54 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image } from 'react-native';
 import { Button, FormControl, TextField } from '@mui/material';
-import backgroundImage from '../../../components/Styles/or-21s84129.png';
-import styles from '../../../components/Styles/HomeScreenStyles';
-import { useSnackbar } from 'notistack';
+import styles from './styles';
 import { useHistory } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import logo1 from '../../../components/Styles/logo1.svg';
 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const history = useHistory();
-
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [backgroundStyle, setBackgroundStyle] = useState(styles.backgroundImage);
-  const [contentStyle, setContentStyle] = useState(styles.content);
-  const [scaleValue] = useState(new Animated.Value(0));
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    if (showLoginForm) {
-      // Aplicar a animação de zoom quando o formulário é exibido
-      Animated.spring(scaleValue, {
-        toValue: 1,
-        friction: 7,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.spring(scaleValue, {
-        // Aplicar a animação inversa formulário é escondido
-        toValue: 0, 
-        friction: 7,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [showLoginForm, scaleValue]);
-
-  //FECHA o Login e muda o background para SEM Blur
-  const handleBackgroundClick = () => {
-    setShowLoginForm(false);
-    setBackgroundStyle(styles.backgroundImage);
-    setContentStyle(styles.content);
-  };
-
- //ABRE o Login e muda o background para COM Blur
-  const handleButtonClick = () => {
-    setShowLoginForm(true);
-    setBackgroundStyle(styles.backgroundBlur);
-    setContentStyle(styles.contentBlur);
-  };
 
   //Verificacao de campo
   const handleLogin = (e) => {
@@ -60,17 +24,13 @@ const Login = () => {
     } 
     
     if (valid) { 
-      if (email === 'admin' && senha === 'admin') {
-        console.log('Login automático para Ambiente de Teste'); history.push('/dashboard');
-      }
-       else {
+      if (email === 'admin' && senha === 'admin') {console.log('Login automático para Ambiente de Teste');history.push('/dashboard');} else {
         const data = { email, senha };
         console.log(data)
         consultarLogin(data);
       }
     }
   };
-
 
   const consultarLogin = async (data) => {
     console.log(data)
@@ -96,61 +56,52 @@ const Login = () => {
   };
 
   return (
+    <View style={{        
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      background: 'linear-gradient(140deg, rgb(255,187,107) 12%, rgb(122,119,255) 68%)',
+      height: '100vh',
+    }}>
+
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleBackgroundClick} style={backgroundStyle}>
-        <Image source={backgroundImage} style={backgroundStyle} />
-      </TouchableOpacity>
-      <View style={contentStyle}>
-        <Text style={styles.title}>🌞 Solara 😎</Text>
-        <View style={styles.separator} />
-        <Text style={styles.description}>Solara é um inovador programa de gerenciamento condominial que leva a administração de condomínios para o futuro. Com uma interface intuitiva e recursos de ponta, Solara foi projetado para simplificar a vida dos síndicos, condôminos e administradores, tornando a gestão condominial mais eficiente, transparente e agradável.</Text>
-        <Button onClick={handleButtonClick} color="warning" variant="outlined" >
-          Entrar
-        </Button>
-      </View>
+        <View style={styles.containerForm}>
+            <FormControl>
+                <Text style={styles.loginText}>Login</Text>
+                <TextField style={styles.TextField}
+                    label="Email" value={email} type="email" variant="standard"
+                    onChange={(e) => setEmail(e.target.value)}
+                    fullWidth required autoFocus
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                            // Mova o foco para o campo de senha ao pressionar Enter
+                            document.getElementById('senha').focus();
+                        }
+                    }}
+                />
 
-      {showLoginForm && (
-        <Animated.View
-          style={[
-            styles.loginForm,
-            {
-              transform: [{ scale: scaleValue }],
-            },
-          ]}
-        >
-          <FormControl>
-            <Text style={styles.loginText}>Login</Text>
-            <TextField style={styles.TextField}
-              label="Email" value={email} type="email" variant="standard"
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth required autoFocus
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  // Mova o foco para o campo de senha ao pressionar Enter
-                  document.getElementById('senha').focus();
-                }
-              }}
-            />
-
-            <TextField style={styles.TextField}
-              label="Senha" value={senha} type="password" variant="standard"
-              onChange={(e) => setSenha(e.target.value)}
-              fullWidth required id="senha"
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  // Execute a função de login ao pressionar Enter no campo de senha
-                  handleLogin(e);
-                }
-              }}
-            />
-
-
-            <Button variant="contained" color="success" onClick={handleLogin}>
-              Logar
+                <TextField style={styles.TextField}
+                    label="Senha" value={senha} type="password" variant="standard"
+                    onChange={(e) => setSenha(e.target.value)}
+                    fullWidth required id="senha"
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                            // Execute a função de login ao pressionar Enter no campo de senha
+                            handleLogin(e);
+                        }
+                    }}
+                />
+            <Button style={styles.button} variant="contained" color="success" onClick={handleLogin}>
+              Entrar
             </Button>
-          </FormControl>
-        </Animated.View>
-      )}
+            </FormControl>
+        </View>
+        <View style={styles.separator}/>
+        <View style={styles.containerLogo}>
+        <Image style={styles.logo} alt="Solara" source={logo1}/>
+        </View>
+    </View>
+        
     </View>
   );
 };

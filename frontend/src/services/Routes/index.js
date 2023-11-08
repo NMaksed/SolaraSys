@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from '../../pages/Main/Login/index';
 import DashboardScreen from '../../pages/Main/Dashboard/index';
-import EmpresaCadastro from '../../pages/Empresa/Cadastro';
+import EmpresaCadastro from '../../pages/Empresa/Cadastro/index';
 
 function Routes() {
   return (
@@ -17,5 +17,6 @@ function Routes() {
     </div>
   );
 }
+
 
 export default Routes;

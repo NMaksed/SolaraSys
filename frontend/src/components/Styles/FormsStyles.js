@@ -18,6 +18,12 @@ const styles = {
   TextField: {
     marginBottom: '16px',
   },
+  RadioGroup: {
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    padding: '10px',
+    marginBottom: '2px'
+  },
 };
 
-export default styles;
+export default styles;  
