@@ -14,7 +14,7 @@ public class Evento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idevento;
+    private Integer idevento;
 
     private String emailmorador;
     private String evento;
