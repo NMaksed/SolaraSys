@@ -16,7 +16,7 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idevento;
 
-    private String email;
+    private String emailmorador;
     private String evento;
     private String espaco;
     private String date;

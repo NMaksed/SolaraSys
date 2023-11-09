@@ -18,6 +18,7 @@ cep VARCHAR(12)
 CREATE TABLE morador (
  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
  representante bit,
+ email VARCHAR(255) NOT NULL,
  atribuido bit,
  exame bit,
  visitante bit,
@@ -109,6 +110,17 @@ empresa_usuario_codigo INT(11) NOT NULL
     ENGINE = InnoDB;
 /* ------------- USUARIO ---------------*/
 
+/* ------------- EVENTO ---------------*/
+CREATE TABLE `evento`(
+idevento INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+emailmorador varchar(255) NOT NULL,
+evento varchar(45) NOT NULL,
+espaco varchar(45) NOT NULL,
+date datetime NOT NULL
+)
+    ENGINE = InnoDB;
+/* ------------- EVENTO ---------------*/
+
 /*----------------- ALTER TABLE ---------------------*/
 ALTER TABLE morador ADD CONSTRAINT pessoa_morador_codigo
     FOREIGN KEY(pessoa_morador_codigo) REFERENCES pessoa(id);
@@ -141,6 +153,9 @@ ALTER TABLE apartamento ADD CONSTRAINT predio_apartamento_codigo
 FOREIGN KEY (predio_apartamento_codigo) REFERENCES predio(id);
 ALTER TABLE apartamento ADD CONSTRAINT empresa_apartamento_codigo
 FOREIGN KEY (empresa_apartamento_codigo) REFERENCES empresa(id);
+/*----------------------------------------------------------*/
+ALTER TABLE evento ADD CONSTRAINT emailmorador
+FOREIGN KEY (emailmorador) REFERENCES morador(email);
 /*----------------------------------------------------------*/
 
 
