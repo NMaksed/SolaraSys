@@ -84,4 +84,13 @@ public class FuncionarioServiceImpl {
         pessoaService.salvarPessoa(pessoa);
         salvarFuncionario(funcionario);
     }
+
+    public void deletar(Integer funcionario) throws Exception{
+        if (funcionario != null) {
+            funcionarioRepository.deleteById(funcionario);
+        }
+        else {
+            throw new Exception("Funcionario não pode ser apagado!" );
+        }
+    }
 }

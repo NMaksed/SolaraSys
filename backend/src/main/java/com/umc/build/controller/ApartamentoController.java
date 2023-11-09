@@ -32,4 +32,15 @@ public class ApartamentoController {
     public List<Apartamento> getApartamento() {
        return apartamentoService.getApartamento();
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletarApartamento(@PathVariable Integer id) {
+        try {
+            apartamentoService.deletar(id);
+            return ResponseEntity.ok("Apartamento Apagado!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Empresa: " + e.getMessage());
+        }
+    }
 }

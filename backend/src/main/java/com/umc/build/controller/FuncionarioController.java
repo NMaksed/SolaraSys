@@ -38,4 +38,16 @@ public class FuncionarioController {
     public List<Funcionario> getFuncionario() {
         return funcionarioService.getFuncionario();
     }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletarFuncionario(@PathVariable Integer id) {
+        try {
+            funcionarioService.deletar(id);
+            return ResponseEntity.ok("Funcionario Apagado!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Empresa: " + e.getMessage());
+        }
+    }
 }

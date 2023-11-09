@@ -36,4 +36,13 @@ public class ApartamentoServiceImpl {
             throw new Exception("Prédio: " + id + " não existe!");
         }
     }
+
+    public void deletar(Integer apartamento) throws Exception{
+        if (apartamento != null) {
+            apartamentoRepository.deleteById(apartamento);
+        }
+        else {
+            throw new Exception("Apartamento não pode ser apagado " );
+        }
+    }
 }

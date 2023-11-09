@@ -41,4 +41,16 @@ public class MoradorController {
     public List<Morador> getMorador() {
        return moradorService.getMorador();
     }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletarMorador(@PathVariable Integer id) {
+        try {
+            moradorService.deletar(id);
+            return ResponseEntity.ok("Condominio Apagado!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Empresa: " + e.getMessage());
+        }
+    }
 }

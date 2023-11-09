@@ -54,4 +54,15 @@ public class CondominioController {
     public List<Condominio> getAllCondominio() {
         return condominioService.getCondominio();
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletarCondominio(@PathVariable Integer id) {
+        try {
+            condominioService.deletarCondominio(id);
+            return ResponseEntity.ok("Condominio Apagado!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Empresa: " + e.getMessage());
+        }
+    }
 }
