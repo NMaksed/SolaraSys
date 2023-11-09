@@ -5,14 +5,18 @@ import CloseIcon from '@mui/icons-material/Close';
 import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import ApartmentIcon from '@mui/icons-material/Apartment';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import { Link, useRouteMatch, Route, Switch } from 'react-router-dom';
+import ConsultaMorador from '../../pages/Morador/Dashboard';
 
 const SlideMenu = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const match = useRouteMatch();
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -68,21 +72,21 @@ const SlideMenu = (props) => {
         }}
       >
         <List className={`menu-list ${isMenuOpen ? 'open' : ''}`} style={{ top: '60px' }}>
-          <ListItemButton href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+          <ListItemButton onClick={closeMenu} href="/dashMorador">
             <PersonIcon />
             <ListItemText primary=" Morador" />
           </ListItemButton>
-          <ListItemButton href="/dashboard">
+          <ListItemButton onClose={closeMenu} href="/dashFuncionario">
             <WorkIcon />
             <ListItemText primary=" Funcionário" />
           </ListItemButton>
-          <ListItemButton>
-            <ApartmentIcon />
-            <ListItemText primary=" Apartamento" />
+          <ListItemButton onClose={closeMenu} href="/dashPredio">
+          <HolidayVillageIcon />
+            <ListItemText primary=" Condominio" />
           </ListItemButton>
           <ListItemButton href="/login">
-            <DashboardIcon />
-            <ListItemText primary=" Mural" />
+            <AssignmentIcon />
+            <ListItemText primary=" Agendamentos" />
           </ListItemButton>
         </List>
       </div>

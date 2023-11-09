@@ -7,13 +7,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
 import DataTable from "../DataTable/index";
 import Header from "../Header";
 
-export const Dashboard = ({ linkFetch = 'http://localhost:8080/morador/getMorador', pageTitle = 'Título Modificável' }) => {
+export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', deleteFetch }) => {
   const [data, setData] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [error, setError] = useState(null);
@@ -78,6 +76,7 @@ export const Dashboard = ({ linkFetch = 'http://localhost:8080/morador/getMorado
 
   const handleExcluir = () => {
     if (selectedRow) {
+      console.log(selectedRow)
       const updatedData = data.filter((row) => row.id !== selectedRow.id);
       setData(updatedData);
       setSelectedRow(null);
@@ -109,17 +108,9 @@ export const Dashboard = ({ linkFetch = 'http://localhost:8080/morador/getMorado
             <Typography variant="h5">{pageTitle}</Typography>
           </Grid>
           <Grid item>
-            <IconButton color="primary" onClick={handleEditar}>
-              <EditIcon />
-              Editar
-            </IconButton>
             <IconButton color="primary" onClick={handleCriar}>
               <AddIcon />
               Criar
-            </IconButton>
-            <IconButton color="secondary" onClick={handleExcluir}>
-              <DeleteIcon />
-              Excluir
             </IconButton>
           </Grid>
         </Grid>
@@ -151,12 +142,12 @@ export const Dashboard = ({ linkFetch = 'http://localhost:8080/morador/getMorado
             <DataTable
               data={data}
               selectedRow={selectedRow}
+              linkfetch={linkFetch}
+              deleteFetch={deleteFetch}
               setSelectedRow={setSelectedRow}
               isEditing={isEditing}
               newData={newData}
               setNewData={setNewData}
-              onSave={handleSalvarEdicao}
-              onCancelEdit={handleCancelarEdicao}
             />
           )}
         </Box>
