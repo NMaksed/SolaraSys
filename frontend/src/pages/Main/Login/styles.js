@@ -69,6 +69,18 @@ const styles = StyleSheet.create({
         height: 60,
         resizeMode: 'contain',
     },
+      textoBonitinho: {
+        fontSize: 16,
+        color: 'black',
+        fontFamily: 'ABeeZee-Regular, Helvetica',
+        textAlign: 'center',
+        marginVertical: 10,
+      },
+      buttonContainer: {
+        marginTop: 50,
+        textDecorationLine: 'underline',
+        
+      },
   });
   
   export default styles;

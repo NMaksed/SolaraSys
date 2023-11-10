@@ -11,7 +11,7 @@ function Routes() {
     <div style={{height: '100vh'}}>
     <Router >
       <Switch >
-        <Route path="/login" component={Login} />
+        <Route path="/" component={Login} />
         <Route path="/dashboard" component={DashboardScreen} />
         <Route path="/cadastro-empresa" component={EmpresaCadastro} />
         <Route path="/teste" component={ Dashboard } />
