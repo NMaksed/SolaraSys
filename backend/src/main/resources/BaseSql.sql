@@ -123,11 +123,12 @@ date datetime NOT NULL
 
 /*----------------- ALTER TABLE ---------------------*/
 ALTER TABLE morador ADD CONSTRAINT pessoa_morador_codigo
-    FOREIGN KEY(pessoa_morador_codigo) REFERENCES pessoa(id);
+FOREIGN KEY(pessoa_morador_codigo) REFERENCES pessoa(id);
 ALTER TABLE morador ADD CONSTRAINT apartamento_morador_codigo
 FOREIGN KEY(apartamento_morador_codigo) REFERENCES apartamento(id);
 ALTER TABLE morador ADD CONSTRAINT empresa_morador_codigo
 FOREIGN KEY (empresa_morador_codigo) REFERENCES empresa(id);
+ALTER TABLE morador ADD INDEX email_index (email);
 /*----------------------------------------------------------*/
 ALTER TABLE condominio ADD CONSTRAINT empresa_condominio_codigo
     FOREIGN KEY(empresa_condominio_codigo) REFERENCES empresa(id);
