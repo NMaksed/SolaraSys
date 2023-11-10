@@ -106,11 +106,9 @@ const Login = () => {
           </Text>
 
           <View style={styles.buttonContainer}>
-            <Button style={{ fontSize: 10, }}
-              onPress={() => {
-                //chore pq nao teremos suporte kkkkkkkkkkkkkkkkkkkkkkkkkkkk
-              }}
-            >Precisa de ajuda?</Button>
+            <a style={styles.textCase}
+              href='https://www.youtube.com/@letrajota'
+            >Precisa de ajuda?</a>
           </View>
         </View>
       </View>

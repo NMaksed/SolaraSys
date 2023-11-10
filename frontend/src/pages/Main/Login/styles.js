@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         shadowColor: 'rgba(0, 0, 0, 0.1)',
         shadowOffset: {
-          width: 0,
-          height: 4,
+            width: 0,
+            height: 4,
         },
         shadowRadius: 30,
         shadowOpacity: 1,
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     loginForm: {
         position: 'absolute',
         backgroundColor: 'white',
-        borderWidth: 1, 
-        borderColor: 'white', 
+        borderWidth: 1,
+        borderColor: 'white',
         borderRadius: 5,
         padding: 20,
     },
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         width: 100,
         borderRadius: 20,
         backgroundColor: 'darkblue',
-        alignSelf:'center',
+        alignSelf: 'center',
     },
 
 
@@ -63,25 +63,27 @@ const styles = StyleSheet.create({
         width: '40%',
         height: '90%',
         alignItems: 'center',
+        justifyContent: 'space-between',
     },
     logo: {
         width: 90,
         height: 60,
         resizeMode: 'contain',
     },
-      textoBonitinho: {
+    textoBonitinho: {
         fontSize: 16,
         color: 'black',
         fontFamily: 'ABeeZee-Regular, Helvetica',
         textAlign: 'center',
         marginVertical: 10,
-      },
-      buttonContainer: {
+    },
+    buttonContainer: {
         marginTop: 50,
         textDecorationLine: 'underline',
-        
-      },
+    },
+    textCase: {
+        fontSize: 16,
+    },
   });
-  
-  export default styles;
-  
+
+export default styles;
