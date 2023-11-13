@@ -84,6 +84,43 @@ const styles = StyleSheet.create({
     textCase: {
         fontSize: 16,
     },
+
+    separatorH: {
+        marginVertical: 20,
+        borderTopWidth: 2,
+        borderTopColor: 'gray',
+        width: '100%', 
+        margin: 20,
+    },
+    mobileContainer: {
+        backgroundColor: 'rgba(255, 255, 255, 0.45)',
+        borderRadius: 16,
+        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowRadius: 10,
+        shadowOpacity: 1,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 1)',
+        padding: 16,
+        width: '80%', 
+        maxWidth: 600, 
+        alignSelf: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height:'auto',
+       
+      },
+      containerFormMobile: {
+        height: '90%',
+        justifyContent: 'center',
+        width: '100%',
+        alignItems: 'center',
+        flexShrink:1
+    },
   });
 
 export default styles;
