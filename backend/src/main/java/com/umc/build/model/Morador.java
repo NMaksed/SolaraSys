@@ -16,6 +16,7 @@ public class Morador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean representante;
+    private String email;
     private Boolean atribuido;
     private Boolean exame;
     private Boolean visitante;
