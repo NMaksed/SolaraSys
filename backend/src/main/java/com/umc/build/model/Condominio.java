@@ -23,7 +23,9 @@ public class Condominio {
     private Boolean piscina;
     private Boolean churrasqueira;
     private Boolean salao;
+    @JsonIgnore
     private String avisos;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "empresa_condominio_codigo")
     private Empresa empresa;

@@ -116,7 +116,8 @@ idevento INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 emailmorador varchar(255) NOT NULL,
 evento varchar(45) NOT NULL,
 espaco varchar(45) NOT NULL,
-date datetime NOT NULL
+date datetime NOT NULL,
+data_registro DATE NOT NULL
 )
     ENGINE = InnoDB;
 /* ------------- EVENTO ---------------*/
