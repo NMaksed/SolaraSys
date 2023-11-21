@@ -121,6 +121,27 @@ date datetime NOT NULL
     ENGINE = InnoDB;
 /* ------------- EVENTO ---------------*/
 
+/* ------------ CONVERSA --------------*/
+CREATE TABLE `conversa`(
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+morador1ID INT NOT NULL,
+morador2ID INT NOT NULL
+)
+    ENGINE = InnoDB;
+/* ------------ CONVERSA --------------*/
+
+/* ------------ MENSAGEM --------------*/
+CREATE TABLE `mensagem`(
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+conversaID INT NOT NULL,
+conteudo VARCHAR(200) NOT NULL,
+timestamp TIMESTAMP NOT NULL,
+sender_Id INT NOT NULL,
+recipient_Id INT NOT NULL
+)
+    ENGINE = InnoDB;
+/* ------------ MENSAGEM --------------*/
+
 /*----------------- ALTER TABLE ---------------------*/
 ALTER TABLE morador ADD CONSTRAINT pessoa_morador_codigo
 FOREIGN KEY(pessoa_morador_codigo) REFERENCES pessoa(id);
@@ -131,10 +152,10 @@ FOREIGN KEY (empresa_morador_codigo) REFERENCES empresa(id);
 ALTER TABLE morador ADD INDEX email_index (email);
 /*----------------------------------------------------------*/
 ALTER TABLE condominio ADD CONSTRAINT empresa_condominio_codigo
-    FOREIGN KEY(empresa_condominio_codigo) REFERENCES empresa(id);
+FOREIGN KEY(empresa_condominio_codigo) REFERENCES empresa(id);
 /*----------------------------------------------------------*/
 ALTER TABLE usuario ADD CONSTRAINT funcionario_usuario_codigo
-    FOREIGN KEY(funcionario_usuario_codigo) REFERENCES funcionario(id);
+FOREIGN KEY(funcionario_usuario_codigo) REFERENCES funcionario(id);
 ALTER TABLE usuario ADD CONSTRAINT empresa_usuario_codigo
 FOREIGN KEY (empresa_usuario_codigo) REFERENCES empresa(id);
 /*----------------------------------------------------------*/
@@ -158,6 +179,13 @@ FOREIGN KEY (empresa_apartamento_codigo) REFERENCES empresa(id);
 ALTER TABLE evento ADD CONSTRAINT emailmorador
 FOREIGN KEY (emailmorador) REFERENCES morador(email);
 /*----------------------------------------------------------*/
+ALTER TABLE conversa ADD CONSTRAINT morador1ID
+FOREIGN KEY (morador1ID) REFERENCES morador(id);
+ALTER TABLE conversa ADD CONSTRAINT morador2ID
+FOREIGN KEY (morador2ID) REFERENCES morador(id);
+/*----------------------------------------------------------*/
+ALTER TABLE mensagem ADD CONSTRAINT conversaID
+FOREIGN KEY (conversaID) REFERENCES conversa(id);
 
 
 
