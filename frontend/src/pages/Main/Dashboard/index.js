@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Animated, Text, Image } from 'react-native';
 import logo1 from '../../../components/Styles/logo1.svg';
 import Header from '../../../components/Header';
-import LottieView from 'lottie-react-native';
+import lottie from 'lottie-web';
 
 const FadeInView = (props) => {
   const [fadeAnim] = useState(new Animated.Value(0)); // Inicia o valor de opacidade em 0
@@ -32,11 +32,25 @@ const FadeInView = (props) => {
 
 // Exemplo de uso:
 const MyComponent = () => {
+
+  const container = useRef(null)
+
+  useEffect(() => {
+    lottie.loadAnimation ({
+      container: container.current,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      animationData: require('../../../components/Animations/powerBI.json')
+    })
+  }, [])
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <FadeInView style={{ width: '100%', height: 50, backgroundColor: 'powderblue' }}>
         <Header/>
       <Image alt="Solara" source={logo1} />
+      <div className='container' ref={container}></div>
 
       <Text>O sistema Solara é uma abrangente e inovadora aplicação web desenvolvida para otimizar a gestão de condomínios e prédios residenciais. Com uma gama de recursos e funcionalidades, essa plataforma oferece controle completo sobre as operações condominiais, desde a administração dos edifícios até o gerenciamento dos apartamentos, moradores e funcionários.
 
@@ -45,13 +59,6 @@ Através da interface intuitiva e amigável, os administradores podem facilmente
 Uma das características marcantes do sistema é a sua versão mobile, especialmente projetada para os moradores. Essa aplicação permite que os residentes agendem atividades, eventos e reservem espaços comuns diretamente pelo aplicativo, promovendo uma maior interação e engajamento na vida comunitária.
 
 Com foco na praticidade, segurança e comodidade, o Solara visa aprimorar a experiência de moradia em condomínios, proporcionando uma plataforma completa e integrada que facilita a comunicação, organização e interação entre todos os envolvidos na comunidade residencial.</Text>
-      {/*<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <LottieView
-        source={require('../../../components/Animations/powerBI.json')} // Substitua 'sua_animacao.json' pelo caminho do seu arquivo JSON
-        autoPlay
-        loop
-      />
-  </View>*/}
       </FadeInView>
     </View>
   );

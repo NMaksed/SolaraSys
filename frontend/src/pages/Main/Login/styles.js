@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     textoBonitinho: {
         fontSize: 16,
         color: 'black',
-        fontFamily: 'Helvetica',
+        fontFamily: 'Montserrat',
         textAlign: 'center',
         marginVertical: 10,
     },
