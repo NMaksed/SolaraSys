@@ -10,14 +10,14 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import DataTable from "../DataTable/index";
 import Header from "../Header";
+import FormCadastro from "../FormCadastro";
 
-export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', deleteFetch }) => {
+export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', deleteFetch, create }) => {
   const [data, setData] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [error, setError] = useState(null);
-  const [newData, setNewData] = useState({}); // Estado para armazenar novos dados ao criar
-  const [isEditing, setIsEditing] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
 
   const fetchData = useCallback(async () => {
     if (!linkFetch) {
@@ -41,45 +41,26 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
     fetchData();
   }, [fetchData, linkFetch]);
 
-  const handleEditar = () => {
-    if (selectedRow) {
-      setIsEditing(true);
-    }
-  };
-
-  const handleCancelarEdicao = () => {
-    setIsEditing(false);
-    setSelectedRow(null);
-  };
-
-  const handleSalvarEdicao = () => {
-    if (selectedRow) {
-      const updatedData = data.map((row) =>
-        row.id === selectedRow.id ? { ...row, ...selectedRow } : row
-      );
-      setData(updatedData);
-      setIsEditing(false);
-      setSelectedRow(null);
-    }
-  };
-
   const handleCriar = () => {
-    if (newData) {
-      // Suponha que os novos dados tenham um campo 'id' único, adicione lógica para gerar um novo ID
-      const newId = Math.max(...data.map((row) => row.id), 0) + 1;
-      const newDataWithId = { id: newId, ...newData };
-      const updatedData = [...data, newDataWithId];
-      setData(updatedData);
-      setNewData({});
+    if (pageTitle === 'Morador') {
+    return (
+      <>
+      <FormCadastro
+      linkfetch={linkFetch}
+      morador={true}
+      />
+      </>
+    )
     }
-  };
-
-  const handleExcluir = () => {
-    if (selectedRow) {
-      console.log(selectedRow)
-      const updatedData = data.filter((row) => row.id !== selectedRow.id);
-      setData(updatedData);
-      setSelectedRow(null);
+    else if (pageTitle === 'Funcionario') {
+      return (
+        <>
+        <FormCadastro
+        linkfetch={linkFetch}
+        funcionario={true}
+        />
+        </>
+      )
     }
   };
 
@@ -108,10 +89,12 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
             <Typography variant="h5">{pageTitle}</Typography>
           </Grid>
           <Grid item>
+            {create && (
             <IconButton color="primary" onClick={handleCriar}>
               <AddIcon />
               Criar
             </IconButton>
+            )}
           </Grid>
         </Grid>
 
@@ -145,9 +128,6 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
               linkfetch={linkFetch}
               deleteFetch={deleteFetch}
               setSelectedRow={setSelectedRow}
-              isEditing={isEditing}
-              newData={newData}
-              setNewData={setNewData}
             />
           )}
         </Box>

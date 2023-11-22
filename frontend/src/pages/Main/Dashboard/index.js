@@ -1,41 +1,60 @@
-import React from 'react';
-import { Link, useRouteMatch, Route, Switch } from 'react-router-dom';
-import EmpresaCadastro from '../../Empresa/Cadastro/index';
-import FuncionarioCadastro from '../../Funcionario/Cadastro/index';
-import ConsultaEmpresa from '../../Empresa/Dashboard/index';
+import React, { useState, useEffect } from 'react';
+import { View, Animated, Text, Image } from 'react-native';
+import logo1 from '../../../components/Styles/logo1.svg';
 import Header from '../../../components/Header';
-import MoradorCadastro from '../../Morador/Cadastro';
-// import AuthChecker from '../../../components/Authentication';
+import LottieView from 'lottie-react-native';
 
-function DashboardScreen() {
-  // Use useRouteMatch para obter o URL base da rota atual
-  const match = useRouteMatch();
+const FadeInView = (props) => {
+  const [fadeAnim] = useState(new Animated.Value(0)); // Inicia o valor de opacidade em 0
 
-  const renderActiveComponent = () => {
-    return (
-      <div>
-        {/* <AuthChecker> */}
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-          <Link to={`${match.url}/cadastro-empresa`}>Cadastrar Empresa</Link>
-          <Link to={`${match.url}/cadastro-funcionario`}>Cadastrar Funcionário</Link>
-          <Link to={`${match.url}/consulta-empresa`}>Consultar Empresa</Link>
-          <Link to={`${match.url}/cadastro-morador`}>Cadastrar Morador</Link>
-        </div>
-        <Switch>
-          <Route path={`${match.path}/cadastro-empresa`} component={EmpresaCadastro} />
-          <Route path={`${match.path}/cadastro-funcionario`} component={FuncionarioCadastro} />
-          <Route path={`${match.path}/consulta-empresa`} component={ConsultaEmpresa} />
-          <Route path={`${match.path}/cadastro-morador`} component={MoradorCadastro} />
-          <Route path={`${match.path}`} exact>
-            <p>Selecione uma opção acima para começar.</p>
-          </Route>
-        </Switch>
-        {/* </AuthChecker> */}
-      </div>
-    );
-  };
+  useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1, 
+        duration: 1000, 
+        useNativeDriver: true, 
+      }
+    ).start(); 
+  }, []);
 
-  return renderActiveComponent();
-}
+  return (
+    <Animated.View
+      style={{
+        ...props.style,
+        opacity: fadeAnim,
+      }}
+    >
+      {props.children}
+    </Animated.View>
+  );
+};
 
-export default DashboardScreen;
+// Exemplo de uso:
+const MyComponent = () => {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <FadeInView style={{ width: '100%', height: 50, backgroundColor: 'powderblue' }}>
+        <Header/>
+      <Image alt="Solara" source={logo1} />
+
+      <Text>O sistema Solara é uma abrangente e inovadora aplicação web desenvolvida para otimizar a gestão de condomínios e prédios residenciais. Com uma gama de recursos e funcionalidades, essa plataforma oferece controle completo sobre as operações condominiais, desde a administração dos edifícios até o gerenciamento dos apartamentos, moradores e funcionários.
+
+Através da interface intuitiva e amigável, os administradores podem facilmente gerenciar informações cruciais, como despesas, manutenções, reservas de espaços comuns e comunicações com os residentes. Além disso, o Solara oferece ferramentas para a gestão de documentos e registros, simplificando processos burocráticos e aumentando a eficiência operacional.
+
+Uma das características marcantes do sistema é a sua versão mobile, especialmente projetada para os moradores. Essa aplicação permite que os residentes agendem atividades, eventos e reservem espaços comuns diretamente pelo aplicativo, promovendo uma maior interação e engajamento na vida comunitária.
+
+Com foco na praticidade, segurança e comodidade, o Solara visa aprimorar a experiência de moradia em condomínios, proporcionando uma plataforma completa e integrada que facilita a comunicação, organização e interação entre todos os envolvidos na comunidade residencial.</Text>
+      {/*<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <LottieView
+        source={require('../../../components/Animations/powerBI.json')} // Substitua 'sua_animacao.json' pelo caminho do seu arquivo JSON
+        autoPlay
+        loop
+      />
+  </View>*/}
+      </FadeInView>
+    </View>
+  );
+};
+
+export default MyComponent;

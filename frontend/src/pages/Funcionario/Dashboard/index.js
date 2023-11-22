@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Dashboard } from '../../../components/Dashboard';
 
 const ConsultaFuncionario = () => {
@@ -10,7 +10,8 @@ const ConsultaFuncionario = () => {
    <Dashboard
     linkFetch='http://localhost:8080/funcionario/getFuncionario'
     pageTitle='Funcionarios'
-    deleteFetch={deleteFetch}/>
+    deleteFetch={deleteFetch}
+    create={true}/>
    </>
   );
 };

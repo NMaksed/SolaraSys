@@ -4,15 +4,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
-import ApartmentIcon from '@mui/icons-material/Apartment';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Link, useRouteMatch, Route, Switch } from 'react-router-dom';
-import ConsultaMorador from '../../pages/Morador/Dashboard';
+import {  useRouteMatch } from 'react-router-dom';
 
 const SlideMenu = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -80,7 +77,7 @@ const SlideMenu = (props) => {
             <WorkIcon />
             <ListItemText primary=" Funcionário" />
           </ListItemButton>
-          <ListItemButton onClose={closeMenu} href="/dashPredio">
+          <ListItemButton onClose={closeMenu} href="/dashCondominio">
           <HolidayVillageIcon />
             <ListItemText primary=" Condominio" />
           </ListItemButton>

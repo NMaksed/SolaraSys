@@ -47,10 +47,10 @@ public class MoradorController {
     public ResponseEntity<String> deletarMorador(@PathVariable Integer id) {
         try {
             moradorService.deletar(id);
-            return ResponseEntity.ok("Condominio Apagado!");
+            return ResponseEntity.ok("Morador Apagado!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao criar Empresa: " + e.getMessage());
+                    .body("Erro ao deletar Morador: " + e.getMessage());
         }
     }
 }

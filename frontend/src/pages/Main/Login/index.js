@@ -107,7 +107,7 @@ const Login = () => {
               <Image style={styles.logo} alt="Solara" source={logo1} />
 
               <Text style={styles.textoBonitinho}>
-                Textinho bonitinho pra poder falar do sistema e tals.
+              Transformando condomínios, unindo eficiência e comodidade para o seu bem-estar! 
               </Text>
 
               <View style={styles.buttonContainer}>

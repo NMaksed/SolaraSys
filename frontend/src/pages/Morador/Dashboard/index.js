@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Dashboard } from '../../../components/Dashboard';
 
 const ConsultaMorador = () => {
@@ -10,9 +10,22 @@ const ConsultaMorador = () => {
    <Dashboard
     linkFetch='http://localhost:8080/morador/getMorador'
     pageTitle='Moradores'
-    deleteFetch={deleteFetch}/>
+    deleteFetch={deleteFetch}
+    create={true}/>
    </>
   );
 };
 
 export default ConsultaMorador;
+
+
+{/* import FormCadastro from "../../../components/FormCadastro";
+
+export default function MoradorCadastro() {
+
+  return (
+  <FormCadastro
+   linkfetch= 'http://localhost:8080/funcionario'
+   morador={true}
+   funcionario={false} />
+)}*/ }
