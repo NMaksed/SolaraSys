@@ -3,6 +3,8 @@ import { View, Animated, Text, Image } from 'react-native';
 import logo1 from '../../../components/Styles/logo1.svg';
 import Header from '../../../components/Header';
 import lottie from 'lottie-web';
+import { Grid } from '@mui/material';
+import styles from './styles';
 
 const FadeInView = (props) => {
   const [fadeAnim] = useState(new Animated.Value(0)); // Inicia o valor de opacidade em 0
@@ -12,7 +14,7 @@ const FadeInView = (props) => {
       fadeAnim,
       {
         toValue: 1, 
-        duration: 1000, 
+        duration: 2000, 
         useNativeDriver: true, 
       }
     ).start(); 
@@ -47,18 +49,21 @@ const MyComponent = () => {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <FadeInView style={{ width: '100%', height: 50, backgroundColor: 'powderblue' }}>
+      <FadeInView style={{ width: '100%', height: 10, backgroundColor: 'powderblue' }}>
         <Header/>
-      <Image alt="Solara" source={logo1} />
+        <Grid className='solara' style={styles.solara}>
+        <h1>
+        Solara
+        </h1>
+      </Grid>
+      <Grid className="texto" style={styles.texto}>
+      <Text className="cabecalho" style={styles.cabecalho}><h2>O sistema Solara é uma abrangente e inovadora aplicação web desenvolvida para otimizar a gestão de condomínios e prédios residenciais.</h2></Text>
+      <Text className="paragrafo" style={styles.paragrafo}><h3>
+      O Solara é uma plataforma abrangente para gestão condominial, oferecendo controle total desde a administração dos edifícios até o gerenciamento de apartamentos, moradores e funcionários. 
+      Sua interface permite aos administradores gerenciar facilmente despesas, manutenções, reservas de espaços comuns e comunicações com os residentes. 
+      Destaca-se por sua versão mobile projetada para os moradores, permitindo agendar atividades, eventos e reservar espaços comuns diretamente pelo aplicativo, promovendo maior interação comunitária.</h3></Text>
+      </Grid>
       <div className='container' ref={container}></div>
-
-      <Text>O sistema Solara é uma abrangente e inovadora aplicação web desenvolvida para otimizar a gestão de condomínios e prédios residenciais. Com uma gama de recursos e funcionalidades, essa plataforma oferece controle completo sobre as operações condominiais, desde a administração dos edifícios até o gerenciamento dos apartamentos, moradores e funcionários.
-
-Através da interface intuitiva e amigável, os administradores podem facilmente gerenciar informações cruciais, como despesas, manutenções, reservas de espaços comuns e comunicações com os residentes. Além disso, o Solara oferece ferramentas para a gestão de documentos e registros, simplificando processos burocráticos e aumentando a eficiência operacional.
-
-Uma das características marcantes do sistema é a sua versão mobile, especialmente projetada para os moradores. Essa aplicação permite que os residentes agendem atividades, eventos e reservem espaços comuns diretamente pelo aplicativo, promovendo uma maior interação e engajamento na vida comunitária.
-
-Com foco na praticidade, segurança e comodidade, o Solara visa aprimorar a experiência de moradia em condomínios, proporcionando uma plataforma completa e integrada que facilita a comunicação, organização e interação entre todos os envolvidos na comunidade residencial.</Text>
       </FadeInView>
     </View>
   );

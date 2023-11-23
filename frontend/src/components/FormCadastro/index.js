@@ -207,7 +207,8 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
     setVisitante(event.target.value === 'vis');
   };
 
-
+  console.log(funcionario)
+  console.log(morador)
   return (
     <>
        <Container style={styles.Container}>

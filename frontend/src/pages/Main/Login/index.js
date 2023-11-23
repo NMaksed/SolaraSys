@@ -110,7 +110,7 @@ const Login = () => {
               <Image style={styles.logo} alt="Solara" source={logo1} />
 
               <Text style={styles.textoBonitinho}>
-              Transformando condomínios, unindo eficiência e comodidade para o seu bem-estar! 
+              <h5>Transformando condomínios, unindo eficiência e comodidade para o seu bem-estar!</h5> 
               </Text>
 
               <View style={styles.buttonContainer}>

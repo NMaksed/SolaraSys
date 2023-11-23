@@ -18,6 +18,8 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [createdComponent, setCreatedComponent] = useState(null);
+
 
   const fetchData = useCallback(async () => {
     if (!linkFetch) {
@@ -42,22 +44,26 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
   }, [fetchData, linkFetch]);
 
   const handleCriar = () => {
-    if (pageTitle === 'Morador') {
-    return (
+    if (pageTitle === 'Moradores') {
+      console.log(pageTitle)
+      setCreatedComponent(
       <>
       <FormCadastro
       linkfetch={linkFetch}
       morador={true}
+      funcionario={false}
       />
       </>
     )
     }
-    else if (pageTitle === 'Funcionario') {
-      return (
+    else if (pageTitle === 'Funcionarios') {
+      console.log(pageTitle)
+      setCreatedComponent(
         <>
         <FormCadastro
         linkfetch={linkFetch}
         funcionario={true}
+        morador={false}
         />
         </>
       )
@@ -67,7 +73,6 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
   const handleBusca = () => {
     if (searchTerm) {
       const filteredData = data.filter((row) => {
-        // Modifique esta lógica para corresponder aos campos de busca apropriados em seus dados
         return (
           row.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
           row.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -75,8 +80,7 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
       });
       setData(filteredData);
     } else {
-      // Se o campo de busca estiver vazio, redefina os dados para a versão original
-      fetchData(); // Ou a função que busca os dados iniciais
+      fetchData();
     }
   };
 
@@ -97,6 +101,8 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
             )}
           </Grid>
         </Grid>
+
+        {createdComponent}
 
         <Box className="busca" style={{ display: "flex" }} padding={1}>
           <TextField
