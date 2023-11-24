@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback     } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Box,
   Container,
@@ -6,6 +6,7 @@ import {
   IconButton, Button,
   TextField,
   Typography,
+  Paper,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DataTable from "../DataTable/index";
@@ -17,9 +18,10 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
   const [selectedRow, setSelectedRow] = useState(null);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const tipoMorador = "morador";
+  const tipoFuncionario = "funcionario";
 
   const [createdComponent, setCreatedComponent] = useState(null);
-
 
   const fetchData = useCallback(async () => {
     if (!linkFetch) {
@@ -45,26 +47,24 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
 
   const handleCriar = () => {
     if (pageTitle === 'Moradores') {
-      console.log(pageTitle)
-      setCreatedComponent(
-      <>
-      <FormCadastro
-      linkfetch={linkFetch}
-      morador={true}
-      funcionario={false}
-      />
-      </>
-    )
-    }
-    else if (pageTitle === 'Funcionarios') {
-      console.log(pageTitle)
-      setCreatedComponent(
+      return setCreatedComponent(
         <>
-        <FormCadastro
-        linkfetch={linkFetch}
-        funcionario={true}
-        morador={false}
-        />
+          <Container>
+              <FormCadastro
+                linkfetch={deleteFetch}
+                tipo={tipoMorador}
+              />
+          </Container>
+        </>
+      )
+    }
+    if (pageTitle === 'Funcionarios') {
+      return setCreatedComponent(
+        <>
+          <FormCadastro
+            linkfetch={deleteFetch}
+            tipo={tipoFuncionario}
+          />
         </>
       )
     }
@@ -94,10 +94,10 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
           </Grid>
           <Grid item>
             {create && (
-            <IconButton color="primary" onClick={handleCriar}>
-              <AddIcon />
-              Criar
-            </IconButton>
+              <IconButton color="primary" onClick={handleCriar}>
+                <AddIcon />
+                Criar
+              </IconButton>
             )}
           </Grid>
         </Grid>

@@ -8,7 +8,7 @@ const ConsultaMorador = () => {
   return (
    <>
    <Dashboard
-    linkFetch='http://localhost:8080/morador/getMorador'
+    linkFetch='http://localhost:8080/morador/consultar'
     pageTitle='Moradores'
     deleteFetch={deleteFetch}
     create={true}/>

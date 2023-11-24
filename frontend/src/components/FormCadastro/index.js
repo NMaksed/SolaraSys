@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Container, FormHelperText, Paper } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
@@ -9,9 +9,10 @@ import FormLabel from '@mui/material/FormLabel';
 import styles from '../Styles/FormsStyles';
 import CustomButton from '../Form/CustomButton';
 import MenuItemCondominio from '../Form/MenuItemCondominio';
+import MenuItemApartamento from '../Form/MenuItemApartamento';
 
 
-export default function FormCadastro(linkfetch, morador, funcionario) {
+export default function FormCadastro({linkfetch, tipo}) {
   const [nome, setNome] = useState('');
   const [idade, setIdade] = useState('');
   const [cpf, setCpf] = useState('');
@@ -21,7 +22,7 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
   const [salario, setSalario] = useState('');
   const [horaEntrada, setHoraEntrada] = useState(null);
   const [horaSaida, setHoraSaida] = useState(null);
-  const [tipo, setTipo] = useState(''); // Initialize 'tipo' state
+  const [tipoMorador, setTipoMorador] = useState(''); // Initialize 'tipo' state
   const [representante, setRepresentante] = useState(false);
   const [exame, setExame] = useState(false);
   const [atribuido, setAtribuido] = useState(false);
@@ -29,7 +30,11 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
   const { enqueueSnackbar } = useSnackbar();
   const [condominio, setCondominio] = useState('');
   const [condominioId, setCondominioId] = useState(null);
-  const [setCondominioError] = useState('');
+  const [condominioError, setCondominioError] = useState('');
+  const [apartamento, setApartamento] = useState("");
+  const [apartamentoId, setApartamentoId] = useState(null);
+  const [apartamentoError, setApartamentoError] = useState("");
+  
 
   const [nomeError, setNomeError] = useState('');
   const [idadeError, setIdadeError] = useState('');
@@ -40,8 +45,7 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
   const [salarioError, setSalarioError] = useState('');
   const [horaEntradaError, setHoraEntradaError] = useState(null);
   const [horaSaidaError, setHoraSaidaError] = useState(null);
-  const [tipoError, setTipoError] = useState('');
-  const [apartamentoId, setApartamentoId] = useState(null);
+  const [tipoMoradorError, setTipoMoradorError] = useState('');
 
   const [camposExtras, setCamposExtras] = useState('');
 
@@ -50,9 +54,7 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
 
     let valid = true;
 
-    if (nome.trim() === '') {
-      setNomeError('Campo obrigatório');
-      valid = false;
+    if (nome.trim() === '') { setNomeError("Nome Obrigatorio")
     } else {
       setNomeError('');
     }
@@ -84,7 +86,8 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
     } else {
       setCepError('');
     }
-    if (funcionario === true && valid) {
+
+    if (tipo === "funcionario" && valid) {
       if (funcao.trim() === '') {
         setFuncaoError('Campo obrigatório');
         valid = false;
@@ -121,21 +124,28 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
       }
     }
 
-    if (morador === true && valid) {
+    if (tipo === "morador" && valid) {
       if (!representante && !atribuido && !visitante) {
-        setTipoError('Selecione pelo menos uma opção');
+        setTipoMoradorError('Selecione pelo menos uma opção');
         valid = false;
       } else {
-        setTipoError('');
+        setTipoMoradorError('');
+      }
+
+      if (apartamento.trim() === '') {
+        setApartamentoError('Campo obrigatório');
+        valid = false;
+      } else {
+        setApartamentoError('');
       }
     }
 
-    if (morador === true && valid) {
+    if (tipo === "morador" && valid) {
       const data = { nome, idade, cpf, rg, cep, funcao, salario, apartamentoId, representante, exame, atribuido, visitante };
       enviarDados(data);
       console.log(data)
     }
-    if (funcionario === true && valid) {
+    if (tipo === "funcionario" && valid) {
       const data = { nome, idade, cpf, rg, cep, funcao, salario, horaEntrada, horaSaida, condominioId };
       enviarDados(data);
       console.log(data)
@@ -144,7 +154,7 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
 
   const enviarDados = async (data) => {
     try {
-      if (morador === true) {
+      if (tipo === "morador") {
         const response = await fetch(`${linkfetch}/salvar?id=${apartamentoId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -157,13 +167,14 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
           setCpf('');
           setRg('');
           setCep('');
-          setTipo('');
+          setTipoMorador('');
           setExame(false);
           setAtribuido(false);
           setRepresentante(false);
           setVisitante(false);
+          setApartamento("");
         }
-      } else if (funcionario === true) {
+      } else if (tipo === "funcionario") {
         const response = await fetch(`${linkfetch}/salvar?id=${condominioId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -179,13 +190,14 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
           setCep('');
           setFuncao('');
           setSalario('');
+          setCondominio("");
         }
       }
       else {
-        if (funcionario === true) {
+        if (tipo === "funcionario") {
           console.error('Erro ao adicionar funcionário');
           enqueueSnackbar('Erro ao adicionar funcionário', { variant: 'error' });
-        } else if (morador === true) {
+        } else if (tipo === "morador") {
           console.error('Erro ao adicionar morador');
           enqueueSnackbar('Erro ao adicionar morador', { variant: 'error' });
         }
@@ -201,14 +213,12 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
   } 
 
   const handleRadioChange = (event) => {
-    setTipo(event.target.value);
+    setTipoMorador(event.target.value);
     setRepresentante(event.target.value === 'rep');
     setAtribuido(event.target.value === 'atr');
     setVisitante(event.target.value === 'vis');
   };
-
-  console.log(funcionario)
-  console.log(morador)
+  console.log(tipo)
   return (
     <>
        <Container style={styles.Container}>
@@ -246,7 +256,7 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
             { () => <TextField style={styles.TextField} id="cep" label="CEP" variant="outlined" fullWidth required error={!!cepError} helperText={cepError}/> }
           </ReactInputMask>
 
-          {funcionario && (
+          {tipo === "funcionario" && (
           <TextField style={styles.TextField} 
             id="funcao" variant="outlined" 
             type="text" label="Função" value={funcao} 
@@ -254,7 +264,7 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
             fullWidth required error={!!funcaoError} helperText={funcaoError} />
             )}
 
-          {funcionario && (
+          {tipo === "funcionario" && (
           <TextField style={styles.TextField}
             id="salario" variant="outlined" 
             type="number" label="Salário" value={salario} 
@@ -262,7 +272,7 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
             fullWidth required error={!!salarioError} helperText={salarioError} />
           )}
 
-          {funcionario && (    
+          {tipo === "funcionario" && (    
           <TextField style={styles.TextField}
             type="time"
             id="horaEntrada"
@@ -272,7 +282,7 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
             fullWidth required error={!!horaEntradaError} helperText={horaEntradaError} />
             )}
             
-          {funcionario && (   
+          {tipo === "funcionario" && (   
           <TextField style={styles.TextField}
             type="time"
             id="horaSaide"
@@ -282,7 +292,7 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
             fullWidth required error={!!horaSaidaError} helperText={horaSaidaError} />
             )}
 
-          {funcionario && (   
+          {tipo === "funcionario" && (   
           <MenuItemCondominio
             onCondominioChange={(selectedCondominio, selectedCondominioId) => {
               setCondominio(selectedCondominio);
@@ -290,21 +300,21 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
             }}
             onError={(error) => setCondominioError(error)}
           />
-          )}
+          )} 
 
-          {morador && (
-<FormLabel id="demo-radio-buttons-group-label">Tipo</FormLabel>
+          {tipo === "morador" && (
+            <FormLabel id="demo-radio-buttons-group-label">Tipo</FormLabel>
           )}
-          {morador && (
+          {tipo === "morador" && (
           <RadioGroup
             style={{
               ...styles.RadioGroup,
-              border: tipoError ? '1px solid red' : styles.RadioGroup.border,
+              border: tipoMoradorError ? '1px solid red' : styles.RadioGroup.border,
             }}
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
             name="row-radio-buttons-group"
-            value={tipo}
+            value={tipoMorador}
             onChange={handleRadioChange}
           > 
             <FormControlLabel
@@ -327,9 +337,19 @@ export default function FormCadastro(linkfetch, morador, funcionario) {
             />
           </RadioGroup>
             )}
-          {morador && (
-          <FormHelperText style={{ margin:'3 14 16px ' }} error={!!tipoError}>{tipoError}</FormHelperText>
+          {tipo === "morador" && (
+          <FormHelperText style={{ margin:'3 14 16px ' }} error={!!tipoMoradorError}>{tipoMoradorError}</FormHelperText>
           )}
+
+          {tipo === "morador" && (   
+          <MenuItemApartamento
+            onApartamentoChange={(selectedApartamento, selectedApartamentoId) => {
+              setApartamento(selectedApartamento);
+              setApartamentoId(selectedApartamentoId);
+            }}
+            onError={(error) => setApartamentoError(error)}
+          />
+          )} 
 
           <CustomButton onClick={handleClick} />
         </Paper>

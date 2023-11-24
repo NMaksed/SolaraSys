@@ -8,7 +8,7 @@ const ConsultaFuncionario = () => {
   return (
    <>
    <Dashboard
-    linkFetch='http://localhost:8080/funcionario/getFuncionario'
+    linkFetch='http://localhost:8080/funcionario/consultar'
     pageTitle='Funcionarios'
     deleteFetch={deleteFetch}
     create={true}/>

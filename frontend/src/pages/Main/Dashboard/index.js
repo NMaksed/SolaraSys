@@ -53,7 +53,7 @@ const MyComponent = () => {
         <Header/>
         <Grid className='solara' style={styles.solara}>
         <h1>
-        Solara
+        Solara                                                                                        
         </h1>
       </Grid>
       <Grid className="texto" style={styles.texto}>

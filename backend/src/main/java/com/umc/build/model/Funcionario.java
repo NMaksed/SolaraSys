@@ -23,9 +23,11 @@ public class Funcionario {
     private LocalDate dataRegistro;
     private String horaEntrada;
     private String horaSaida;
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pessoa_funcionario_codigo")
     private AbstractPessoa pessoa;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "empresa_funcionario_codigo")
     private Empresa empresa;
