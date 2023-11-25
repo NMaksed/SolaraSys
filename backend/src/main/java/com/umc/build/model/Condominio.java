@@ -1,7 +1,9 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jdk.jfr.Event;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +21,7 @@ public class Condominio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     private LocalDate dataRegistro;
     private Boolean piscina;
     private Boolean churrasqueira;
@@ -32,6 +35,9 @@ public class Condominio {
     @JsonIgnore
     @OneToMany(mappedBy = "condominio")
     private List<Funcionario> funcionarios;
+    @JsonIgnore
+    @OneToMany(mappedBy = "condominio")
+    private List<Evento> eventos;
 
     @PrePersist
     public void setDataRegistro() {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Animated, Text, Image } from 'react-native';
-import logo1 from '../../../components/Styles/logo1.svg';
+import { View, Animated, Text } from 'react-native';
 import Header from '../../../components/Header';
 import lottie from 'lottie-web';
 import { Grid } from '@mui/material';
@@ -8,6 +7,12 @@ import styles from './styles';
 
 const FadeInView = (props) => {
   const [fadeAnim] = useState(new Animated.Value(0)); // Inicia o valor de opacidade em 0
+
+  const userInfo = localStorage.getItem("jwtToken")
+
+  const userInfoParsed = JSON.parse(userInfo)
+
+  console.log(userInfoParsed.user.empresa.id)
 
   useEffect(() => {
     Animated.timing(

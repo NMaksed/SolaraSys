@@ -33,8 +33,8 @@ public class FuncionarioServiceImpl {
         funcionarioRepository.save(funcionario);
     }
 
-    public List<Funcionario> getFuncionario() {
-        return funcionarioRepository.findAll();
+    public List<Funcionario> getFuncionario(Integer empresa) {
+        return funcionarioRepository.findByEmpresa(empresa);
     }
 
     public void validatePessoaFuncionario(Integer id) throws Exception {
@@ -62,6 +62,15 @@ public class FuncionarioServiceImpl {
     }
 
 
+    public Integer numeroFuncionarios(Integer empresa) {
+        return funcionarioRepository.numeroFuncionarios(empresa);
+    }
+
+    public String nomeCondominio(Integer empresa) {
+        return funcionarioRepository.nomeCondominio(empresa);
+    }
+
+
     public void builderPessoaFuncionario(FuncionarioDTO funcionarioDTO, Integer condminioId) {
         AbstractPessoa pessoa = new AbstractPessoa();
         pessoa.setNome(funcionarioDTO.getNome());
@@ -85,9 +94,10 @@ public class FuncionarioServiceImpl {
         salvarFuncionario(funcionario);
     }
 
-    public void deletar(Integer funcionario) throws Exception{
+    public void deletar(Integer funcionario, Integer empresa) throws Exception{
         if (funcionario != null) {
             funcionarioRepository.deleteById(funcionario);
+            funcionarioRepository.findByEmpresa(empresa);
         }
         else {
             throw new Exception("Funcionario não pode ser apagado!" );

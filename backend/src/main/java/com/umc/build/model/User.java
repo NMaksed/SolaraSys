@@ -1,5 +1,6 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class User {
     private String email;
     private String senha;
     private boolean administrador = false;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     private LocalDate dataRegistro;
     @OneToOne
     @JoinColumn(name = "funcionario_usuario_codigo")

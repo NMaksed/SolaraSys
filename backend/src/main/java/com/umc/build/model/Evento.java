@@ -1,5 +1,7 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +21,16 @@ public class Evento {
     private String evento;
     private String espaco;
     private String date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     private LocalDate dataRegistro;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "evento_empresa_codigo")
+    private Empresa empresa;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "evento_condominio_codigo")
+    private Condominio condominio;
 
     @PrePersist
     public void setDataRegistro() {

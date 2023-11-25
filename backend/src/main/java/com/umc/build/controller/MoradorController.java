@@ -1,5 +1,6 @@
 package com.umc.build.controller;
 
+import com.umc.build.dto.MoradorDTO;
 import com.umc.build.model.AbstractPessoa;
 import com.umc.build.model.Morador;
 import com.umc.build.serviceImpl.AbstractPessoaServiceImpl;
@@ -22,14 +23,10 @@ public class MoradorController {
     public AbstractPessoaServiceImpl pessoaService;
 
     @PostMapping("/salvar{id}")
-    public ResponseEntity<String> add(@RequestBody Morador moradorDTO, @RequestParam("id") Integer apartamentoId) {
+    public ResponseEntity<String> add(@RequestBody MoradorDTO moradorDTO, @RequestParam("id") Integer apartamentoId) {
         try {
             moradorService.validateApartamentoMorador(apartamentoId);
-            if (moradorDTO.getPessoa().getId() == null) {
-                moradorService.builderPessoaMorador(moradorDTO);
-            }
-            moradorService.validatePessoaMorador(moradorDTO.getPessoa().getId());
-            moradorService.salvarMorador(moradorDTO);
+            moradorService.builderPessoaMorador(moradorDTO, apartamentoId);
             return ResponseEntity.ok("Novo morador adicionado!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -37,16 +34,16 @@ public class MoradorController {
         }
     }
 
-    @GetMapping("/consultar")
-    public List<Morador> getMorador() {
+    @GetMapping("/consultar/{empresa}")
+    public List<Morador> getMorador(@PathVariable Integer empresa) {
        return moradorService.getMorador();
     }
 
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deletarMorador(@PathVariable Integer id) {
+    @DeleteMapping("/delete/{id}/{empresa}")
+    public ResponseEntity<String> deletarMorador(@PathVariable Integer id, @PathVariable Integer empresa) {
         try {
-            moradorService.deletar(id);
+            moradorService.deletar(id, empresa);
             return ResponseEntity.ok("Morador Apagado!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -1,7 +1,9 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jdk.jfr.Event;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +30,7 @@ public class Empresa {
     private String cnpj;
     private String cep;
     private String uf;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     private LocalDate dataRegistro;
     @JsonIgnore
     @OneToMany(mappedBy = "empresa")
@@ -47,6 +50,10 @@ public class Empresa {
     @JsonIgnore
     @OneToMany(mappedBy = "empresa")
     private List<Apartamento> apartamento;
+    @JsonIgnore
+    @OneToMany(mappedBy = "empresa")
+    private List<Evento> eventos;
+
     public String getEnderecoCompleto() {
         if (getRua() != null && getNumero() != null && getCidade() != null &&
             getUf() != null && getCep() != null) {

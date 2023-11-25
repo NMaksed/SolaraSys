@@ -4,10 +4,9 @@ import com.umc.build.model.Evento;
 import com.umc.build.serviceImpl.EventoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/eventos")
@@ -20,6 +19,11 @@ public class EventoController {
     public ResponseEntity<String> evento(@RequestBody Evento evento) {
         evento = eventoService.agendarEspaco(evento);
         return ResponseEntity.ok("Agendamento realizado com sucesso");
+    }
+
+    @GetMapping("/consultar/{empresa}")
+    public List<Evento> getEvento(@PathVariable Integer empresa) {
+        return eventoService.getEventos(empresa);
     }
 
 }

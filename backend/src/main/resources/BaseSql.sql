@@ -117,6 +117,8 @@ emailmorador varchar(255) NOT NULL,
 evento varchar(45) NOT NULL,
 espaco varchar(45) NOT NULL,
 date datetime NOT NULL,
+evento_condominio_codigo NOT NULL,
+evento_empresa_codigo NOT NULL,
 data_registro DATE NOT NULL
 )
     ENGINE = InnoDB;
@@ -158,6 +160,10 @@ FOREIGN KEY (empresa_apartamento_codigo) REFERENCES empresa(id);
 /*----------------------------------------------------------*/
 ALTER TABLE evento ADD CONSTRAINT emailmorador
 FOREIGN KEY (emailmorador) REFERENCES morador(email);
+ALTER TABLE evento ADD CONSTRAINT evento_condominio_codigo
+FOREIGN KEY (evento_condominio_codigo) REFERENCES condominio(id);
+ALTER TABLE evento ADD CONSTRAINT evento_empresa_codigo
+FOREIGN KEY (evento_empresa_codigo) REFERENCES empresa(id);
 /*----------------------------------------------------------*/
 
 

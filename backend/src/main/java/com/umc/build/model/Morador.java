@@ -1,5 +1,6 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Morador {
     private Boolean atribuido;
     private Boolean exame;
     private Boolean visitante;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     private LocalDate dataRegistro;
     @JsonIgnore
     @OneToOne

@@ -1,5 +1,6 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class Predio {
     private Integer numero;
     private Integer andar;
     private String referencia;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     private LocalDate dataRegistro;
     @ManyToOne
     @JoinColumn(name = "condominio_predio_codigo")

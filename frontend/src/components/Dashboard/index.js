@@ -6,7 +6,6 @@ import {
   IconButton, Button,
   TextField,
   Typography,
-  Paper,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DataTable from "../DataTable/index";
@@ -115,7 +114,7 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Button
-            style={{ borderRadius: 20, backgroundColor: "darkblue", padding: "0 30px" }}
+            style={{ borderRadius: 20, backgroundColor: "#06002C", padding: "0 30px" }}
             variant="contained"
             size="small"
             onClick={handleBusca}

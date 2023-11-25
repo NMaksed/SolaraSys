@@ -38,4 +38,8 @@ public class PredioServiceImpl {
             throw new Exception("Predio não pode ser apagado!" );
         }
     }
+
+    public Integer numeroPredio(Integer empresa) {
+        return predioRepository.numeroPredios(empresa);
+    }
 }

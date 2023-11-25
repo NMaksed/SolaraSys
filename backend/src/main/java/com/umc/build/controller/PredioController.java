@@ -42,4 +42,15 @@ public class PredioController {
                     .body("Erro ao criar Empresa: " + e.getMessage());
         }
     }
+
+    @GetMapping("/numeroPredio/{empresa}")
+    public ResponseEntity<String> numeroPredio(@PathVariable Integer empresa) {
+        try {
+            Integer numero = predioService.numeroPredio(empresa);
+            return ResponseEntity.ok("Número de prédios: " + numero);
+        }  catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Empresa: " + e.getMessage());
+        }
+    }
 }

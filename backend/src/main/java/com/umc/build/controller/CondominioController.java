@@ -50,9 +50,9 @@ public class CondominioController {
         }
     }
 
-    @GetMapping("getCondominio")
-    public List<Condominio> getAllCondominio() {
-        return condominioService.getCondominio();
+    @GetMapping("getCondominio/{empresa}")
+    public List<Condominio> getAllCondominio(@PathVariable Integer empresa) {
+        return condominioService.getCondominio(empresa);
     }
 
     @DeleteMapping("/delete/{id}")
