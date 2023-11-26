@@ -7,7 +7,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { enqueueSnackbar, useSnackbar } from 'notistack';
 import styled from 'styled-components';
 
-const DataTable = ({ data, selectedRow, deleteFetch }) => {
+const DataTable = ({ data, selectedRow, deleteFetch, onDataUpdate }) => {
 
   const userInfo = localStorage.getItem("jwtToken")
   const userInfoParsed = JSON.parse(userInfo)
@@ -60,11 +60,12 @@ const DataTable = ({ data, selectedRow, deleteFetch }) => {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
-        }); 
+        });
+        onDataUpdate(); 
         if (response.ok) {
-          enqueueSnackbar('Empresa Apagada', { variant: 'success' });
+          enqueueSnackbar('Dado Apagado', { variant: 'success' });
       } else {
-        enqueueSnackbar('Erro ao apagar empresa', { variant: 'error' });
+        enqueueSnackbar('Erro ao apagar dado', { variant: 'error' });
       }
     } catch (error) {
       console.error('Erro ao fazer a solicitação:', error);

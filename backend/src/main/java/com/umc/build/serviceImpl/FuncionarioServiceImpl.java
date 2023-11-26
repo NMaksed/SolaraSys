@@ -92,6 +92,7 @@ public class FuncionarioServiceImpl {
         funcionario.setPessoa(pessoa);
         pessoaService.salvarPessoa(pessoa);
         salvarFuncionario(funcionario);
+        getFuncionario(condominio.getEmpresa().getId());
     }
 
     public void deletar(Integer funcionario, Integer empresa) throws Exception{

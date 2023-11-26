@@ -5,6 +5,7 @@ import DashboardScreen from '../../pages/Main/Dashboard/index';
 import ConsultaMorador from '../../pages/Morador/Dashboard';
 import ConsultaFuncionario from '../../pages/Funcionario/Dashboard';
 import ConsultaCondominio from '../../pages/Condominio/Dashboard';
+import Evento from '../../pages/Eventos/Dashboard';
 function Routes() {
   return (
     <div style={{height: '100vh'}}>
@@ -15,6 +16,7 @@ function Routes() {
         <Route path="/dashMorador" component={ConsultaMorador} />
         <Route path="/dashFuncionario" component={ConsultaFuncionario} />
         <Route path="/dashCondominio" component={ConsultaCondominio} />
+        <Route path="/eventos" component={Evento} />
       </Switch>
     </Router>
     </div>

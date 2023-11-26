@@ -28,9 +28,13 @@ public class ApartamentoController {
                     .body("Erro ao criar Condominio: " + e.getMessage());
         }
     }
-    @GetMapping("getApartamento")
-    public List<Apartamento> getApartamento() {
-       return apartamentoService.getApartamento();
+    @GetMapping("/getApartamento/{empresa}")
+    public List<Apartamento> getApartamento(@PathVariable Integer empresa) {
+        try {
+            return apartamentoService.getApartamento(empresa);
+        }   catch (Exception e) {
+            throw e;
+        }
     }
 
     @DeleteMapping("/delete/{id}")

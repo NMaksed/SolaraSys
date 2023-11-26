@@ -22,8 +22,8 @@ public class MoradorController {
     @Autowired
     public AbstractPessoaServiceImpl pessoaService;
 
-    @PostMapping("/salvar{id}")
-    public ResponseEntity<String> add(@RequestBody MoradorDTO moradorDTO, @RequestParam("id") Integer apartamentoId) {
+    @PostMapping("/salvar/{id}")
+    public ResponseEntity<String> add(@RequestBody MoradorDTO moradorDTO, @PathVariable("id") Integer apartamentoId) {
         try {
             moradorService.validateApartamentoMorador(apartamentoId);
             moradorService.builderPessoaMorador(moradorDTO, apartamentoId);
@@ -36,7 +36,7 @@ public class MoradorController {
 
     @GetMapping("/consultar/{empresa}")
     public List<Morador> getMorador(@PathVariable Integer empresa) {
-       return moradorService.getMorador();
+       return moradorService.getMorador(empresa);
     }
 
 

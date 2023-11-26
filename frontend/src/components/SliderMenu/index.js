@@ -81,9 +81,9 @@ const SlideMenu = (props) => {
           <HolidayVillageIcon />
             <ListItemText primary=" Condominio" />
           </ListItemButton>
-          <ListItemButton href="/login">
+          <ListItemButton href="/eventos">
             <AssignmentIcon />
-            <ListItemText primary=" Agendamentos" />
+            <ListItemText primary=" Eventos" />
           </ListItemButton>
         </List>
       </div>

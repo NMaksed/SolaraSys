@@ -21,7 +21,10 @@ public class PredioServiceImpl {
     private CondominioRepository condominioRepository;
 
     public void salvarPredio(Predio predio) { predioRepository.save(predio); }
-    public List<Predio> getPredio() { return predioRepository.findAll(); }
+    public List<Predio> getPredio(Integer empresa) {
+      List<Predio> lista = predioRepository.findByEmpresa(empresa);
+      return lista;
+    }
     public void validatePredioCondominiobyId(Integer id) throws Exception{
         Optional<Condominio> condominioOptional = condominioRepository.findById(id);
 

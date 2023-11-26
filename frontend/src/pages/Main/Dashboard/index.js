@@ -9,7 +9,6 @@ const FadeInView = (props) => {
   const [fadeAnim] = useState(new Animated.Value(0)); // Inicia o valor de opacidade em 0
 
   const userInfo = localStorage.getItem("jwtToken")
-
   const userInfoParsed = JSON.parse(userInfo)
 
   console.log(userInfoParsed.user.empresa.id)

@@ -19,6 +19,7 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
   const [searchTerm, setSearchTerm] = useState("");
   const tipoMorador = "morador";
   const tipoFuncionario = "funcionario";
+  const [tableData, setTableData] = useState([]); 
 
   const [createdComponent, setCreatedComponent] = useState(null);
 
@@ -83,6 +84,27 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
     }
   };
 
+
+  const fetchTableData = async () => {
+    try {
+      const response = await fetch(linkFetch);
+      if (response.ok) {
+        const data = await response.json();
+        setTableData(data); // Atualize o estado com os dados obtidos
+      }
+    } catch (error) {
+      console.error('Erro ao buscar dados:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTableData(); 
+  }, []);
+
+  const handleDataUpdate = () => {
+    fetchTableData(); 
+  };
+
   return (
     <>
       <Header />
@@ -132,6 +154,7 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
               selectedRow={selectedRow}
               linkfetch={linkFetch}
               deleteFetch={deleteFetch}
+              onDataUpdate={handleDataUpdate}
               setSelectedRow={setSelectedRow}
             />
           )}

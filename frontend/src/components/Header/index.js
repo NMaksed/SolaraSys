@@ -18,7 +18,9 @@ function Header({ userIconSrc }) {
   return (
     <Box sx={styles.header}>
       <SlideMenu />
-      <img style={styles.logo} src={logo2} alt="Logo" />
+      <a href='/dashboard'>
+      <img style={styles.logo} src={logo2} alt="Logo"/>
+      </a>
       <Box sx={styles.userIcon}>{userIcon}</Box>
     </Box>
   );
