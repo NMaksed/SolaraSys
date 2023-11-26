@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, Dimensions } from 'react-native';
 import { Button, FormControl, TextField } from '@mui/material';
 import styles from './styles';
@@ -15,6 +15,32 @@ const Login = () => {
   const [senha, setSenha] = useState('');
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
+  const [width, setWidth] = useState(window.innerWidth);
+  
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    // Adicionando um listener para o evento 'resize' na janela
+    window.addEventListener("resize", handleWindowSizeChange);
+    
+    // Removendo o listener quando o componente é desmontado
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []); // [] garante que o useEffect é executado apenas uma vez, equivalente ao componentDidMount
+
+  const celular = width <= 768;
+
+  useEffect(() => {
+    // Verificar o tipo de dispositivo ao carregar a tela de login
+    if (!celular) {
+      // Se não for um dispositivo móvel, exiba uma mensagem
+      history.push("/erro")
+    }
+  }, [celular]); // Executar quando a variável isMobile mudar
+
 
 
   //Verificacao de campo
@@ -44,11 +70,12 @@ const Login = () => {
         body: JSON.stringify(data),
       });
 
-      if (response.ok) {
+      if (response.ok && !celular) {
         const token = await response.text();
         localStorage.setItem("jwtToken", token);
         history.push("/dashboard")
       } else {
+        alert("Parece que você está em um computador, porfavor, entre em um celular para poder usar o site!")
         enqueueSnackbar('Email de usuário ou senha incorreta', { variant: 'error' });
       }
 
