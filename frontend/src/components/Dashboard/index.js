@@ -11,6 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DataTable from "../DataTable/index";
 import Header from "../Header";
 import FormCadastro from "../FormCadastro";
+import styles from "./styles";
 
 export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', deleteFetch, create }) => {
   const [data, setData] = useState([]);
@@ -106,7 +107,7 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
   };
 
   return (
-    <>
+    <div style={styles.page}>
       <Header />
       <Container style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
         <Grid container alignItems="center" justifyContent="space-between" padding={1}>
@@ -160,6 +161,6 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
           )}
         </Box>
       </Container>
-    </>
+    </div>
   );
 };

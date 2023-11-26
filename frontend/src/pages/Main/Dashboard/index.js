@@ -1,75 +1,73 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Animated, Text } from 'react-native';
 import Header from '../../../components/Header';
 import lottie from 'lottie-web';
-import { Grid } from '@mui/material';
+import { Container, Grid, Paper } from '@mui/material';
 import styles from './styles';
-
-const FadeInView = (props) => {
-  const [fadeAnim] = useState(new Animated.Value(0)); // Inicia o valor de opacidade em 0
-
-  const userInfo = localStorage.getItem("jwtToken")
-  const userInfoParsed = JSON.parse(userInfo)
-
-  console.log(userInfoParsed.user.empresa.id)
-
-  useEffect(() => {
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: 1, 
-        duration: 2000, 
-        useNativeDriver: true, 
-      }
-    ).start(); 
-  }, []);
-
-  return (
-    <Animated.View
-      style={{
-        ...props.style,
-        opacity: fadeAnim,
-      }}
-    >
-      {props.children}
-    </Animated.View>
-  );
-};
 
 // Exemplo de uso:
 const MyComponent = () => {
 
-  const container = useRef(null)
+  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    lottie.loadAnimation ({
-      container: container.current,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      animationData: require('../../../components/Animations/powerBI.json')
-    })
-  }, [])
+const userInfo = localStorage.getItem("jwtToken")
+const userInfoParsed = JSON.parse(userInfo)
+
+
+
+
+const fetchFuncionarioNum = async () => {
+  try {
+    const response = await fetch(`http://localhost:8080/funcionario/numeroFuncionario/${userInfoParsed.user.empresa.id}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      });
+    if (!response.ok) {
+      throw new Error("Não foi possível obter os dados da empresa.");
+    }
+    const result = await response.json();
+    setData(result);
+  } catch (error) {
+    console.error('Erro ao buscar dados:', error);
+  }
+}
+
+useEffect(() => {
+  fetchFuncionarioNum();
+}, []);
+console.log(data)
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <FadeInView style={{ width: '100%', height: 10, backgroundColor: 'powderblue' }}>
+    <div style={styles.page}>
         <Header/>
-        <Grid className='solara' style={styles.solara}>
-        <h1>
-        Solara                                                                                        
-        </h1>
-      </Grid>
-      <Grid className="texto" style={styles.texto}>
-      <Text className="cabecalho" style={styles.cabecalho}><h2>O sistema Solara é uma abrangente e inovadora aplicação web desenvolvida para otimizar a gestão de condomínios e prédios residenciais.</h2></Text>
-      <Text className="paragrafo" style={styles.paragrafo}><h3>
-      O Solara é uma plataforma abrangente para gestão condominial, oferecendo controle total desde a administração dos edifícios até o gerenciamento de apartamentos, moradores e funcionários. 
-      Sua interface permite aos administradores gerenciar facilmente despesas, manutenções, reservas de espaços comuns e comunicações com os residentes. 
-      Destaca-se por sua versão mobile projetada para os moradores, permitindo agendar atividades, eventos e reservar espaços comuns diretamente pelo aplicativo, promovendo maior interação comunitária.</h3></Text>
-      </Grid>
-      <div className='container' ref={container}></div>
-      </FadeInView>
-    </View>
+      <Container style={{marginTop: "50px"}}>
+        <div className='teste' style={{height: "257px", width: "1100px", display: "flex"}}>
+        <Paper style={styles.boxStyle}>
+        <p>{data}</p>
+        </Paper>
+        <Paper style={{height: "565px", width: "330px", background: "snow", marginLeft: "20px"}}>
+          <div style={{marginLeft: "22px", marginTop: "50px"}}>
+          <Paper className="nome" style={styles.nome}>
+
+          </Paper>
+          <Paper className='funcionario' style={styles.funcionario}>
+
+          </Paper>
+          <Paper style={styles.funcionario}>
+
+          </Paper>
+          </div>
+        </Paper>
+        </div>
+        <div className='teste1' style={{display: "flex", marginTop: "20px", width: "100%"}}>
+        <Paper style={{height: "285px", width: "228px", background: "snow"}}>
+        </Paper>
+        <Paper style={{height: "285px", width: "484px", background: "snow", marginLeft: "30px"}}>
+        </Paper>
+        </div>
+      </Container>
+      </div>
   );
 };
 
