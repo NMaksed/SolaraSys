@@ -30,7 +30,10 @@ public class PredioController {
         }
     }
 
-    public List<Predio> getAllPredio(Predio predio) { return predioService.getPredio(); }
+    @GetMapping("/getPredio/{empresa}")
+    public List<Predio> getPredio(@PathVariable Integer empresa) {
+        return predioService.getPredio(empresa);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletarPredio(@PathVariable Integer id) {

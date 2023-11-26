@@ -6,6 +6,8 @@ import ConsultaMorador from '../../pages/Morador/Dashboard';
 import ConsultaFuncionario from '../../pages/Funcionario/Dashboard';
 import ConsultaCondominio from '../../pages/Condominio/Dashboard';
 import Erro from '../../pages/Erro';
+import Evento from '../../pages/Eventos/Dashboard';
+
 function Routes() {
   return (
     <div style={{height: '100vh'}}>
@@ -17,6 +19,7 @@ function Routes() {
         <Route path="/dashFuncionario" component={ConsultaFuncionario} />
         <Route path="/dashCondominio" component={ConsultaCondominio} />
         <Route path="/erro" component={Erro} />
+        <Route path="/eventos" component={Evento} />
       </Switch>
     </Router>
     </div>

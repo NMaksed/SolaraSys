@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Container, FormHelperText, Paper } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
-import { useSnackbar } from 'notistack';import Radio from '@mui/material/Radio';
+import { useSnackbar } from 'notistack';
+import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
@@ -46,6 +47,8 @@ export default function FormCadastro({linkfetch, tipo}) {
   const [horaEntradaError, setHoraEntradaError] = useState(null);
   const [horaSaidaError, setHoraSaidaError] = useState(null);
   const [tipoMoradorError, setTipoMoradorError] = useState('');
+  const [email, setEmail] = useState("");
+  const [emailErro, setEmailErro] = useState("");
 
   const [camposExtras, setCamposExtras] = useState('');
 
@@ -132,7 +135,7 @@ export default function FormCadastro({linkfetch, tipo}) {
         setTipoMoradorError('');
       }
 
-      if (apartamento.trim() === '') {
+      if (!apartamento) {
         setApartamentoError('Campo obrigatório');
         valid = false;
       } else {
@@ -140,8 +143,13 @@ export default function FormCadastro({linkfetch, tipo}) {
       }
     }
 
+    if (email.trim() === '') { setEmailErro("Nome Obrigatorio")
+  } else {
+    setEmailErro('');
+  }
+
     if (tipo === "morador" && valid) {
-      const data = { nome, idade, cpf, rg, cep, funcao, salario, apartamentoId, representante, exame, atribuido, visitante };
+      const data = { nome, idade, cpf, rg, cep, apartamentoId, email, representante, exame, atribuido, visitante };
       enviarDados(data);
       console.log(data)
     }
@@ -155,7 +163,7 @@ export default function FormCadastro({linkfetch, tipo}) {
   const enviarDados = async (data) => {
     try {
       if (tipo === "morador") {
-        const response = await fetch(`${linkfetch}/salvar?id=${apartamentoId}`, {
+        const response = await fetch(`${linkfetch}/salvar/${apartamentoId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
@@ -175,7 +183,7 @@ export default function FormCadastro({linkfetch, tipo}) {
           setApartamento("");
         }
       } else if (tipo === "funcionario") {
-        const response = await fetch(`${linkfetch}/salvar?id=${condominioId}`, {
+        const response = await fetch(`${linkfetch}/salvar/${condominioId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
@@ -218,7 +226,9 @@ export default function FormCadastro({linkfetch, tipo}) {
     setAtribuido(event.target.value === 'atr');
     setVisitante(event.target.value === 'vis');
   };
-  console.log(tipo)
+
+
+
   return (
     <>
        <Container style={styles.Container}>
@@ -301,6 +311,13 @@ export default function FormCadastro({linkfetch, tipo}) {
             onError={(error) => setCondominioError(error)}
           />
           )} 
+          {tipo === "morador" && (
+            <TextField style={styles.TextField} 
+            id="email" variant="outlined" 
+            type="email" label="Email" value={email}
+            onChange={(e) => setEmail(e.target.value)} 
+            fullWidth required error={!!emailErro} helperText={emailErro} />
+          )}
 
           {tipo === "morador" && (
             <FormLabel id="demo-radio-buttons-group-label">Tipo</FormLabel>

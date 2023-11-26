@@ -31,8 +31,8 @@ public class MoradorServiceImpl{
          moradorRepository.save(morador);
     }
 
-    public List<Morador> getMorador() {
-        return moradorRepository.findAll();
+    public List<Morador> getMorador(Integer empresa) {
+        return moradorRepository.findByEmpresa(empresa);
     }
 
     public void validatePessoaMorador(Integer id) throws Exception {
@@ -66,9 +66,11 @@ public class MoradorServiceImpl{
         Apartamento apartamento = apartamentoRepository.idApartamento(idApartamento);
         morador.setApartamento(apartamento);
         morador.setEmpresa(apartamento.getEmpresa());
+        morador.setEmail(moradorDTO.getEmail());
         morador.setPessoa(pessoa);
         pessoaService.salvarPessoa(pessoa);
         salvarMorador(morador);
+        getMorador(apartamento.getEmpresa().getId());
     }
 
     public void deletar(Integer morador, Integer empresa) throws Exception{

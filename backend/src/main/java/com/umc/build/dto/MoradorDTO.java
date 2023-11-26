@@ -20,10 +20,5 @@ public class MoradorDTO {
     private Boolean atribuido;
     private Boolean exame;
     private Boolean visitante;
-    private Apartamento apartamento;
-    private Empresa empresa;
 
-    public Empresa getEmpresa() {
-       return apartamento.getEmpresa();
-    }
 }

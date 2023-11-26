@@ -6,11 +6,14 @@ const MenuItemCondominio = ({ onCondominioChange, onError }) => {
   const [condominioSelecionado, setCondominioSelecionado] = useState('');
   const [fetchSucesso, setFetchSucesso] = useState(true);
   const [erroMensagem, setErroMensagem] = useState('');
+
+  const userInfo = localStorage.getItem("jwtToken")
+  const userInfoParsed = JSON.parse(userInfo)
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/condominio/getCondominio');
+        const response = await fetch(`http://localhost:8080/condominio/getCondominio/${userInfoParsed.user.empresa.id}`);
         if (!response.ok) {
           throw new Error('Não foi possível obter a lista de condomínios.');
         }

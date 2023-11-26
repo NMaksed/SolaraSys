@@ -11,6 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DataTable from "../DataTable/index";
 import Header from "../Header";
 import FormCadastro from "../FormCadastro";
+import styles from "./styles";
 
 export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', deleteFetch, create }) => {
   const [data, setData] = useState([]);
@@ -19,6 +20,7 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
   const [searchTerm, setSearchTerm] = useState("");
   const tipoMorador = "morador";
   const tipoFuncionario = "funcionario";
+  const [tableData, setTableData] = useState([]); 
 
   const [createdComponent, setCreatedComponent] = useState(null);
 
@@ -83,8 +85,29 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
     }
   };
 
+
+  const fetchTableData = async () => {
+    try {
+      const response = await fetch(linkFetch);
+      if (response.ok) {
+        const data = await response.json();
+        setTableData(data); // Atualize o estado com os dados obtidos
+      }
+    } catch (error) {
+      console.error('Erro ao buscar dados:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTableData(); 
+  }, []);
+
+  const handleDataUpdate = () => {
+    fetchTableData(); 
+  };
+
   return (
-    <>
+    <div style={styles.page}>
       <Header />
       <Container style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
         <Grid container alignItems="center" justifyContent="space-between" padding={1}>
@@ -132,11 +155,12 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
               selectedRow={selectedRow}
               linkfetch={linkFetch}
               deleteFetch={deleteFetch}
+              onDataUpdate={handleDataUpdate}
               setSelectedRow={setSelectedRow}
             />
           )}
         </Box>
       </Container>
-    </>
+    </div>
   );
 };

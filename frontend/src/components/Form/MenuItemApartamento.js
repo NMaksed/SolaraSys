@@ -6,11 +6,14 @@ const MenuItemApartamento = ({ onApartamentoChange, onError }) => {
   const [apartamentoSelecionado, setApartamentoSelecionado] = useState('');
   const [fetchSucesso, setFetchSucesso] = useState(true);
   const [erroMensagem, setErroMensagem] = useState('');
+
+  const userInfo = localStorage.getItem("jwtToken")
+  const userInfoParsed = JSON.parse(userInfo)
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/apartamento/getApartamento');
+        const response = await fetch(`http://localhost:8080/apartamento/getApartamento/${userInfoParsed.user.empresa.id}`);
         if (!response.ok) {
           throw new Error('Não foi possível obter a lista de apartamento.');
         }
@@ -36,7 +39,7 @@ const MenuItemApartamento = ({ onApartamentoChange, onError }) => {
 
   const handleApartamentoChange = (event) => {
     const selectedApartamento = event.target.value;
-    const selectedApartamentoId = apartamento.find((apartamento) => apartamento.nome === selectedApartamento)?.id;
+    const selectedApartamentoId = apartamento.find((apartamento) => apartamento.numero === selectedApartamento)?.id;
     setApartamentoSelecionado(selectedApartamento);
     if (onApartamentoChange) {
       onApartamentoChange(selectedApartamento, selectedApartamentoId);
@@ -54,8 +57,8 @@ const MenuItemApartamento = ({ onApartamentoChange, onError }) => {
             <em>Selecione um apartamento</em>
           </MenuItem>
           {apartamento.map((apartamento) => (
-            <MenuItem key={apartamento.id} value={apartamento.nome}>
-              {apartamento.nome}
+            <MenuItem key={apartamento.id} value={apartamento.numero}>
+              {apartamento.numero}
             </MenuItem>
           ))}
         </Select>

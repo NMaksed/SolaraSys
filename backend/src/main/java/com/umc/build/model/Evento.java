@@ -1,5 +1,6 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -27,6 +28,7 @@ public class Evento {
     @ManyToOne
     @JoinColumn(name = "evento_empresa_codigo")
     private Empresa empresa;
+    @JsonBackReference
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "evento_condominio_codigo")

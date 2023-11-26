@@ -1,25 +1,25 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    texto: {
-        textAlign: "justify",
-        fontSize: 18,
-        fontFamily: "Montserrat",
-        width: "80%",
-        margin: "0 auto", // Centraliza o texto horizontalmente
-        lineHeight: 1.5, // Espaçamento entre linhas
+    page: {
+        backgroundColor: "#F6EEEE",
+        height: "100vh",
     },
-    solara: {
-        fontFamily: "Montserrat",
-        textAlign: "center",
-        fontSize: 60,
-        color: 'black',
-        marginTop: 20, // Adiciona um espaço acima do título
+    boxStyle: {
+        height: '257px',
+        width: '744px',
+        backgroundImage: "linear-gradient(90deg, rgba(255,187,107,1) 0%, rgba(255,174,100,1) 0%, rgba(209,133,255,1) 100%)",
     },
-    paragrafo: {
-        marginLeft: 10,
-        marginBottom: 20, // Adiciona um espaço abaixo dos parágrafos
-        fontSize: 16,
+    nome: {
+        backgroundImage: "linear-gradient(180deg, rgb(219.64, 165.42, 252.88) 8.85%,rgb(197.26, 103.06, 255) 36.84%, rgb(220.68, 164.69, 255) 100%",
+        height: "120px",
+        width: "283px"
+    },
+    funcionario: {
+        backgroundImage: "linear-gradient(180deg, rgb(255, 198.79, 132.81) 8.85%,rgb(255, 187.06, 107.31) 36.84%,rgb(255, 230.07, 200.81) 100%",
+        height: "120px", 
+        width: "283px", 
+        marginTop: "50px"
     },
     cabecalho: {
         marginLeft: 10,

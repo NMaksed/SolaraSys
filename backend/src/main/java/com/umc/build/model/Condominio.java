@@ -1,7 +1,9 @@
 package com.umc.build.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jdk.jfr.Event;
 import lombok.AccessLevel;
@@ -28,13 +30,18 @@ public class Condominio {
     private Boolean salao;
     @JsonIgnore
     private String avisos;
+    @JsonBackReference
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "empresa_condominio_codigo")
     private Empresa empresa;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "condominio")
+    private List<Predio> predios;
     @JsonIgnore
     @OneToMany(mappedBy = "condominio")
     private List<Funcionario> funcionarios;
+    @JsonManagedReference
     @JsonIgnore
     @OneToMany(mappedBy = "condominio")
     private List<Evento> eventos;

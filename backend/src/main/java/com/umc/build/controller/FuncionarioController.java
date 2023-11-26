@@ -22,8 +22,8 @@ public class FuncionarioController {
     @Autowired
     public AbstractPessoaServiceImpl pessoaService;
 
-    @PostMapping("/salvar{id}")
-    public ResponseEntity<String> add(@RequestBody FuncionarioDTO funcionarioDTO, @RequestParam("id") Integer condominioId) {
+    @PostMapping("/salvar/{id}")
+    public ResponseEntity<String> add(@RequestBody FuncionarioDTO funcionarioDTO, @PathVariable("id") Integer condominioId) {
         try {
             funcionarioService.validateCondominioFuncionario(condominioId);
             funcionarioService.builderPessoaFuncionario(funcionarioDTO, condominioId);

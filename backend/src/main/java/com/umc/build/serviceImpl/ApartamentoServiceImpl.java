@@ -25,8 +25,9 @@ public class ApartamentoServiceImpl {
         apartamentoRepository.save(apartamento);
     }
 
-    public List<Apartamento> getApartamento() {
-        return apartamentoRepository.findAll();
+    public List<Apartamento> getApartamento(Integer empresa) {
+        List<Apartamento> lista = apartamentoRepository.findByEmpresa(empresa);
+        return lista;
     }
 
     public void validateApartamentoPredio(Integer id) throws Exception{
