@@ -55,7 +55,7 @@ public class FuncionarioController {
     public ResponseEntity<String> numeroFuncionarios(@PathVariable Integer empresa) {
         try {
            Integer numero = funcionarioService.numeroFuncionarios(empresa);
-           return ResponseEntity.ok("O numero de funcionarios é:" + numero);
+           return ResponseEntity.ok(""+numero);
         }   catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro");
         }
@@ -65,7 +65,7 @@ public class FuncionarioController {
     public ResponseEntity<String> nomeCondominio(@PathVariable Integer empresa) {
         try {
             String nome = funcionarioService.nomeCondominio(empresa);
-            return ResponseEntity.ok("O Nome do condominio desse funcionário é: " + nome);
+            return ResponseEntity.ok(nome);
         }  catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro");
         }
