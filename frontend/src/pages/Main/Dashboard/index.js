@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, Animated, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import Header from '../../../components/Header';
-import lottie from 'lottie-web';
-import { Container, Grid, Paper } from '@mui/material';
+import { Container, Paper } from '@mui/material';
 import styles from './styles';
 
 // Exemplo de uso:
@@ -11,6 +9,7 @@ const MyComponent = () => {
   const [numeroFuncionarios, setNumeroFuncionarios] = useState(null);
   const [nomeCondominio, setNomeCondominio] = useState(null);
   const [numeroPredio, setNumeroPredio] = useState(null);
+  const [numeroMoradores, setNumeroMoradores] = useState(null);
 
   const userInfo = localStorage.getItem("jwtToken")
   const userInfoParsed = JSON.parse(userInfo)
@@ -68,6 +67,24 @@ const MyComponent = () => {
   }, []);
 
 
+  useEffect(() => {
+    const fetchNumeroMoradores = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/morador/numeroMoradores/${userInfoParsed.user.empresa.id}`);
+        if (!response.ok) {
+          throw new Error('Não foi possível obter o número de prédios.');
+        }
+        const data = await response.text();
+        setNumeroMoradores(data);
+      } catch (error) {
+        console.error('Erro ao obter número de prédios:', error);
+      }
+    };
+
+    fetchNumeroMoradores();
+  }, []);
+
+
 
 
   return (
@@ -76,7 +93,11 @@ const MyComponent = () => {
       <Container style={{ marginTop: "50px" }}>
         <div className='teste' style={{ height: "257px", width: "1100px", display: "flex" }}>
           <Paper style={styles.boxStyle}>
-            numeroMoradores
+          {numeroMoradores !== null ? (
+                    <p>{numeroMoradores}</p>
+                  ) : (
+                    <p>Carregando...</p>
+                  )}
           </Paper>
           <Paper style={{ height: "565px", width: "330px", background: "snow", marginLeft: "20px" }}>
             <div style={{ marginLeft: "22px", marginTop: "50px" }}>
