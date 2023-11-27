@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../../components/Header';
 import { Container, Paper } from '@mui/material';
 import styles from './styles';
+import fone from '../../../components/Styles/fone.png';
+import predi from '../../../components/Styles/predi.png';
+import calenda from '../../../components/Styles/calenda.png';
 
 // Exemplo de uso:
 const MyComponent = () => {
@@ -93,49 +96,69 @@ const MyComponent = () => {
       <Container style={{ marginTop: "50px" }}>
         <div className='teste' style={{ height: "257px", width: "1100px", display: "flex" }}>
           <Paper style={styles.boxStyle}>
-          {numeroMoradores !== null ? (
-                    <p>{numeroMoradores}</p>
-                  ) : (
-                    <p>Carregando...</p>
-                  )}
+            <div style ={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+              {numeroMoradores !== null ? (
+                <h2>{numeroMoradores}</h2>
+              ) : (
+                <p style={{ margin: '10px'}}>Carregando...</p>
+              )}
+              <p style={{ fontSize: '30px',margin: '10px' }}>Moradores Cadastrados</p>
+            </div>
+            <div >
+              <img src={predi} alt="predi"></img>
+            </div>
           </Paper>
-          <Paper style={{ height: "565px", width: "330px", background: "snow", marginLeft: "20px" }}>
+          <Paper style={{ height: "565px", width: "330px", background: "snow", marginLeft: "20px", borderRadius: '30px', }}>
             <div style={{ marginLeft: "22px", marginTop: "50px" }}>
               <Paper className="nome" style={styles.nome}>
-                <h2>Nome do Condomínio:</h2>
+                <p style={{ fontSize: '30px', margin: '4px' }}>Condominio</p>
                 {nomeCondominio !== null ? (
-                  <p>{nomeCondominio}</p>
+                  <h2 style={{fontSize: '30px', margin: '3px' }}>{nomeCondominio}</h2>
                 ) : (
                   <p>Carregando...</p>
                 )}
               </Paper>
               <Paper className='funcionario' style={styles.funcionario}>
-                <h2>Número de Funcionários:</h2>
                 {numeroFuncionarios !== null ? (
-                  <p>{numeroFuncionarios}</p>
+                  <h1>{numeroFuncionarios}</h1>
                 ) : (
                   <p>Carregando...</p>
                 )}
+                <h2>Funcionários</h2>
               </Paper>
               <Paper style={styles.funcionario}>
-                <div>
-                  <h2>Número de Prédios:</h2>
-                  {numeroPredio !== null ? (
-                    <p>{numeroPredio}</p>
-                  ) : (
-                    <p>Carregando...</p>
-                  )}
-                </div>
+                {numeroPredio !== null ? (
+                  <h1>{numeroPredio}</h1>
+                ) : (
+                  <p>Carregando...</p>
+                )}
+                <h2>Blocos</h2>
               </Paper>
             </div>
           </Paper>
         </div>
         <div className='teste1' style={{ display: "flex", marginTop: "20px", width: "100%" }}>
-          <Paper style={{ height: "285px", width: "228px", background: "snow" }}>
-            <h2>SUGOIII</h2>
+          <Paper style={{ height: "285px", width: "228px", background: "snow", borderRadius: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <img src={fone} alt="fone"></img>
+            <h2>Assistência</h2>
           </Paper>
-          <Paper style={{ height: "285px", width: "484px", background: "snow", marginLeft: "30px" }}>
-            <h2>receba</h2>
+          <Paper style={{ height: "285px", width: "484px", background: "snow", marginLeft: "30px", borderRadius: '30px', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <div >
+              <img src={calenda} alt="agenda"></img>
+            </div>
+            <div style={{ paddingLeft: '20px' }}>
+              <h2 style={{ marginTop: '5px' }}>Agendamentos</h2>
+              <div style={{ display: 'flex' }}>
+                <div>
+                  <p style={{ margin: '4px' }}>Churrasqueira</p>
+                  <p style={{ margin: '4px' }}>Salão de Festas</p>
+                </div>
+                {/* <div>
+                  <h4 style={{ margin: '4px' }}>SIM</h4>
+                  <h4 style={{ margin: '4px' }}>NAO</h4>
+                </div> */}
+              </div>
+            </div>
           </Paper>
         </div>
       </Container>
