@@ -18,20 +18,26 @@ const userInfoParsed = JSON.parse(userInfo)
 
 const fetchFuncionarioNum = async () => {
   try {
-    const response = await fetch(`http://localhost:8080/funcionario/numeroFuncionario/${userInfoParsed.user.empresa.id}`, {
+    const url = `http://localhost:8080/funcionario/numeroFuncionario/${userInfoParsed.user.empresa.id}`;
+
+    const response = await fetch(url, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-      });
+      headers: {
+        'Content-Type': 'application/json',
+        // Adicione headers adicionais, se necessário
+      },
+    });
+
     if (!response.ok) {
-      throw new Error("Não foi possível obter os dados da empresa.");
+      throw new Error("Não foi possível obter os dados do funcionário.");
     }
+
     const result = await response.json();
-    setData(result);
+    console.log('Dados do funcionário:', result);
   } catch (error) {
     console.error('Erro ao buscar dados:', error);
   }
-}
+};
 
 useEffect(() => {
   fetchFuncionarioNum();
