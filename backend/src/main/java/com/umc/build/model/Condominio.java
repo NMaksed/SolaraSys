@@ -35,6 +35,7 @@ public class Condominio {
     @ManyToOne
     @JoinColumn(name = "empresa_condominio_codigo")
     private Empresa empresa;
+    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "condominio")
     private List<Predio> predios;

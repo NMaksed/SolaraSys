@@ -3,7 +3,7 @@ import { View, Text, Image, Dimensions } from 'react-native';
 import { Button, FormControl, TextField } from '@mui/material';
 import styles from './styles';
 import { useHistory } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 import logo1 from '../../../components/Styles/logo1.svg';
 import "@fontsource/montserrat"; // Defaults to weight 400
 import "@fontsource/montserrat/400.css"; // Specify weight
@@ -68,7 +68,7 @@ const Login = () => {
       background: 'linear-gradient(140deg, rgb(255,187,107) 12%, rgb(122,119,255) 68%)',
       height: '100vh',
     }}>
-      
+            <SnackbarProvider/>
       <View style={isMobile ? styles.mobileContainer : styles.container}>
 
       <View style={isMobile ? styles.containerFormMobile : styles.containerForm}>

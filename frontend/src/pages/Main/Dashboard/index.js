@@ -5,6 +5,7 @@ import styles from './styles';
 import fone from '../../../components/Styles/fone.png';
 import predi from '../../../components/Styles/predi.png';
 import calenda from '../../../components/Styles/calenda.png';
+import { SnackbarProvider } from 'notistack';
 
 // Exemplo de uso:
 const MyComponent = () => {
@@ -92,6 +93,7 @@ const MyComponent = () => {
 
   return (
     <div style={styles.page}>
+      <SnackbarProvider/>
       <Header />
       <Container style={{ marginTop: "50px" }}>
         <div className='teste' style={{ height: "257px", width: "1100px", display: "flex" }}>

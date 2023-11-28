@@ -12,6 +12,7 @@ import DataTable from "../DataTable/index";
 import Header from "../Header";
 import FormCadastro from "../FormCadastro";
 import styles from "./styles";
+import { SnackbarProvider } from "notistack";
 
 export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', deleteFetch, create }) => {
   const [data, setData] = useState([]);
@@ -25,6 +26,8 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
   const [createdComponent, setCreatedComponent] = useState(null);
 
   const fetchData = useCallback(async () => {
+  
+
     if (!linkFetch) {
       setError("A URL de solicitação está vazia. Por favor, forneça uma URL válida.");
       return;
@@ -108,6 +111,7 @@ export const Dashboard = ({ linkFetch, pageTitle = 'Título Modificável', delet
 
   return (
     <div style={styles.page}>
+            <SnackbarProvider/>
       <Header />
       <Container style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
         <Grid container alignItems="center" justifyContent="space-between" padding={1}>
