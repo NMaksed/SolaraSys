@@ -50,4 +50,15 @@ public class MoradorController {
                     .body("Erro ao deletar Morador: " + e.getMessage());
         }
     }
+
+    @GetMapping("/numeroMoradores/{empresa}")
+    public ResponseEntity<String> numeroMoradores(@PathVariable Integer empresa) {
+        try {
+            Integer numero = moradorService.numeroMoradores(empresa);
+            return ResponseEntity.ok(""+numero);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao deletar Morador: " + e.getMessage());
+        }
+    }
 }

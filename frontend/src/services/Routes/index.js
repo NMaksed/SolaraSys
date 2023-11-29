@@ -10,7 +10,7 @@ import Evento from '../../pages/Eventos/Dashboard';
 
 function Routes() {
   return (
-    <div style={{height: '100vh'}}>
+    <div style={{height: '100%', overflow: "auto"}}>
     <Router >
       <Switch >
         <Route path="/login" component={Login} />

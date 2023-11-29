@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Container, FormHelperText, Paper } from '@mui/material';
 import ReactInputMask from 'react-input-mask';
-import { useSnackbar } from 'notistack';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -230,7 +230,8 @@ export default function FormCadastro({linkfetch, tipo}) {
 
 
   return (
-    <>
+    <div style={{boxSizing: "border-box"}}>
+          <SnackbarProvider/>
        <Container style={styles.Container}>
         <Paper elevation={3} style={styles.Paper} >
           <TextField style={styles.TextField} 
@@ -372,7 +373,7 @@ export default function FormCadastro({linkfetch, tipo}) {
         </Paper>
       </Container>
     
-    </>
+    </div>
    )
 
 };

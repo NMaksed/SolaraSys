@@ -112,7 +112,7 @@ empresa_usuario_codigo INT(11) NOT NULL
 
 /* ------------- EVENTO ---------------*/
 CREATE TABLE `evento`(
-idevento INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 emailmorador varchar(255) NOT NULL,
 evento varchar(45) NOT NULL,
 espaco varchar(45) NOT NULL,

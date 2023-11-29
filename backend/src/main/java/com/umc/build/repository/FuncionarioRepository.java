@@ -18,7 +18,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
     @Query(value = "SELECT count(*) FROM funcionario where empresa_funcionario_codigo = :empresa", nativeQuery = true)
     Integer numeroFuncionarios(@Param("empresa") Integer empresa);
 
-    @Query(value = "SELECT c.nome FROM condominio c LEFT JOIN funcionario f on f.condominio_funcionario_codigo = c.id WHERE f.empresa_funcionario_codigo = :empresa", nativeQuery = true)
+    @Query(value = "SELECT c.nome FROM condominio c LEFT JOIN funcionario f on f.condominio_funcionario_codigo = c.id WHERE f.empresa_funcionario_codigo = :empresa limit 1", nativeQuery = true)
     String nomeCondominio(@Param("empresa") Integer empresa);
 
     @Query(value = "SELECT * FROM funcionario WHERE empresa_funcionario_codigo = :empresa", nativeQuery = true)

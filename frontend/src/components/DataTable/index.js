@@ -12,7 +12,6 @@ const DataTable = ({ data, selectedRow, deleteFetch, onDataUpdate }) => {
   const userInfo = localStorage.getItem("jwtToken")
   const userInfoParsed = JSON.parse(userInfo)
 
-  const { enqueueSnackbar } = useSnackbar();
 
   // Verifique se há dados para evitar erros
   if (data.length === 0) {
