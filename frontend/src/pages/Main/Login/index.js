@@ -3,7 +3,7 @@ import { View, Text, Image, Dimensions } from 'react-native';
 import { Button, FormControl, TextField } from '@mui/material';
 import styles from './styles';
 import { useHistory } from 'react-router-dom';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { SnackbarProvider, enqueueSnackbar } from 'notistack';
 import logo1 from '../../../components/Styles/logo1.svg';
 import "@fontsource/montserrat"; // Defaults to weight 400
 import "@fontsource/montserrat/400.css"; // Specify weight
@@ -14,7 +14,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const history = useHistory();
-  const { enqueueSnackbar } = useSnackbar();
 
 
   //Verificacao de campo

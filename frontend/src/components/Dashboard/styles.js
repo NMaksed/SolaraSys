@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
     page: {
         backgroundColor: "#F6EEEE",
         height: "100%",
+        overflow: "auto"
     },
 })
 

@@ -7,7 +7,6 @@ const styles = {
       backgroundColor: '#06002C',
       color: 'white',
       zIndex: 999,
-
     },
     logo: {
       width: 'auto',
