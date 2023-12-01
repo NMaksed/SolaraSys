@@ -193,65 +193,65 @@ VALUES ('Empresa J', '444', 'Belém', 'Praça dos Testes da Empresa J', '56.789.
 
 /*=========================== CONDOMINIO ======================*/
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio A', b'1', b'1', b'1', 'Aviso 1', '2', '2023-11-27');
+VALUES ('Condomínio A', b'1', b'1', b'1', 'Aviso 1', '1', '2023-11-27');
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio B', b'1', b'0', b'1', 'Aviso 2', '3', '2023-11-28');
+VALUES ('Condomínio B', b'1', b'0', b'1', 'Aviso 2', '1', '2023-11-28');
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio C', b'0', b'1', b'0', 'Aviso 3', '4', '2023-11-29');
+VALUES ('Condomínio C', b'0', b'1', b'0', 'Aviso 3', '1', '2023-11-29');
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio D', b'1', b'1', b'1', 'Aviso 4', '5', '2023-11-30');
+VALUES ('Condomínio D', b'1', b'1', b'1', 'Aviso 4', '1', '2023-11-30');
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio E', b'0', b'0', b'1', 'Aviso 5', '6', '2023-12-01');
+VALUES ('Condomínio E', b'0', b'0', b'1', 'Aviso 5', '1', '2023-12-01');
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio F', b'1', b'1', b'0', 'Aviso 6', '7', '2023-12-02');
+VALUES ('Condomínio F', b'1', b'1', b'0', 'Aviso 6', '1', '2023-12-02');
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio G', b'1', b'0', b'1', 'Aviso 7', '8', '2023-12-03');
+VALUES ('Condomínio G', b'1', b'0', b'1', 'Aviso 7', '1', '2023-12-03');
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio H', b'0', b'1', b'0', 'Aviso 8', '9', '2023-12-04');
+VALUES ('Condomínio H', b'0', b'1', b'0', 'Aviso 8', '1', '2023-12-04');
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio I', b'1', b'0', b'1', 'Aviso 9', '10', '2023-12-05');
+VALUES ('Condomínio I', b'1', b'0', b'1', 'Aviso 9', '1', '2023-12-05');
 INSERT INTO `condominio` (`nome`, `piscina`, `churrasqueira`, `salao`, `avisos`, `empresa_condominio_codigo`, `data_registro`)
-VALUES ('Condomínio J', b'1', b'1', b'1', 'Aviso 10', '11', '2023-12-06');
+VALUES ('Condomínio J', b'1', b'1', b'1', 'Aviso 10', '1', '2023-12-06');
 /* ============================= PREDIO ============================ */
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('120', '25', 'Bloco A', '2023-11-27', '2', '2');
+VALUES ('120', '25', 'Bloco A', '2023-11-27', '1', '1');
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('150', '20', 'Edifício Central', '2023-11-28', '3', '3');
+VALUES ('150', '20', 'Edifício Central', '2023-11-28', '1', '1');
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('110', '35', 'Torre 1', '2023-11-29', '4', '4');
+VALUES ('110', '35', 'Torre 1', '2023-11-29', '1', '1');
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('130', '15', 'Prédio 2', '2023-11-30', '5', '5');
+VALUES ('130', '15', 'Prédio 2', '2023-11-30', '1', '1');
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('160', '28', 'Torre Norte', '2023-12-01', '6', '6');
+VALUES ('160', '28', 'Torre Norte', '2023-12-01', '1', '1');
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('118', '22', 'Bloco 4', '2023-12-02', '7', '7');
+VALUES ('118', '22', 'Bloco 4', '2023-12-02', '1', '1');
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('145', '18', 'Edifício Sul', '2023-12-03', '8', '8');
+VALUES ('145', '18', 'Edifício Sul', '2023-12-03', '1', '1');
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('125', '31', 'Bloco 5', '2023-12-04', '9', '9');
+VALUES ('125', '31', 'Bloco 5', '2023-12-04', '1', '1');
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('170', '12', 'Torre Oeste', '2023-12-05', '10', '10');
+VALUES ('170', '12', 'Torre Oeste', '2023-12-05', '1', '1');
 INSERT INTO `predio` (`numero`, `andar`, `referencia`, `data_registro`, `condominio_predio_codigo`, `empresa_predio_codigo`)
-VALUES ('155', '21', 'Prédio Leste', '2023-12-06', '11', '11');
+VALUES ('155', '21', 'Prédio Leste', '2023-12-06', '1', '1');
 /* =========================== apartamento ========================= */
 INSERT INTO `apartamento` (`numero`, `predio_apartamento_codigo`, `empresa_apartamento_codigo`)
-VALUES ('20', '3', '3');
+VALUES ('20', '1', '1');
 INSERT INTO `apartamento` (`numero`, `predio_apartamento_codigo`, `empresa_apartamento_codigo`)
-VALUES ('18', '4', '4');
+VALUES ('18', '1', '1');
 INSERT INTO `apartamento` (`numero`, `predio_apartamento_codigo`, `empresa_apartamento_codigo`)
-VALUES ('25', '5', '5');
+VALUES ('25', '1', '1');
 INSERT INTO `apartamento` (`numero`, `predio_apartamento_codigo`, `empresa_apartamento_codigo`)
-VALUES ('22', '6', '6');
+VALUES ('22', '1', '1');
 INSERT INTO `apartamento` (`numero`, `predio_apartamento_codigo`, `empresa_apartamento_codigo`)
-VALUES ('28', '7', '7');
+VALUES ('28', '1', '1');
 INSERT INTO `apartamento` (`numero`, `predio_apartamento_codigo`, `empresa_apartamento_codigo`)
-VALUES ('30', '8', '8');
+VALUES ('30', '1', '1');
 INSERT INTO `apartamento` (`numero`, `predio_apartamento_codigo`, `empresa_apartamento_codigo`)
-VALUES ('32', '9', '9');
+VALUES ('32', '1', '1');
 INSERT INTO `apartamento` (`numero`, `predio_apartamento_codigo`, `empresa_apartamento_codigo`)
-VALUES ('35', '10', '10');
+VALUES ('35', '1', '1');
 INSERT INTO `apartamento` (`numero`, `predio_apartamento_codigo`, `empresa_apartamento_codigo`)
-VALUES ('38', '11', '11');
+VALUES ('38', '1', '1');
 /* =========================== PESSOA ==============================*/
 INSERT INTO `pessoa` (`nome`, `idade`, `cpf`, `rg`, `cep`) VALUES ('Maria', '30', '58473829011', '702533344', '08550-120');
 INSERT INTO `pessoa` (`nome`, `idade`, `cpf`, `rg`, `cep`) VALUES ('João', '28', '39485010255', '82198977', '08765-210');
