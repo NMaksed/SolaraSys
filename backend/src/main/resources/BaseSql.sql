@@ -274,13 +274,13 @@ VALUES ('Supervisor', '3200', '11:00', '20:00', '2023-11-26', '6', '1', '1');
 INSERT INTO `usuario` (`id`, `email`, `senha`, `administrador`, `data_registro`, `funcionario_usuario_codigo`, `empresa_usuario_codigo`)
 VALUES ('1', 'suporte@teste.com', 'admin', b'1', '2023-11-26', '1', '1');
 /* =============================== Morador ============*/
-INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES ('1','suporte@teste.com','0','1','0','2023-11-26','2','1','1');
-INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES ('1','suporte2@teste.com','0','1','0','2023-11-26','3','1','1');
-INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES ('1','suporte3@teste.com','0','1','0','2023-11-26','4','1','1');
-INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES ('1','suporte4@teste.com','0','1','0','2023-11-26','5','1','1');
-INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES ('1','suporte@teste.com','0','1','0','2023-11-26','6','1','1');
+INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES (true,'suporte@teste.com',0,1,0,'2023-11-26','2','1','1');
+INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES (true,'suporte2@teste.com',0,1,0,'2023-11-26','3','1','1');
+INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES (true,'suporte3@teste.com',0,1,0,'2023-11-26','4','1','1');
+INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES (true,'suporte4@teste.com',0,1,0,'2023-11-26','5','1','1');
+INSERT INTO `morador`(`representante`, `email`, `atribuido`, `exame`, `visitante`, `data_registro`, `pessoa_morador_codigo`, `apartamento_morador_codigo`, `empresa_morador_codigo`) VALUES (true,'suporte@teste.com',0,1,0,'2023-11-26','6','1','1');
 /* ================== Eventos =================== */
+INSERT INTO `evento` (`emailmorador`, `evento`, `espaco`, `date`, `evento_condominio_codigo`, `evento_empresa_codigo`, `data_registro`)
+VALUES ('suporte@teste.com', 'Festa Do Joaquin', 'Salão - B', '2023-11-29 23:34:43.000000', '1', '1', '2023-06-11');
 
-    INSERT INTO `evento` (`emailmorador`, `evento`, `espaco`, `date`, `evento_condominio_codigo`, `evento_empresa_codigo`, `data_registro`)
-    VALUES ('suporte@teste.com', 'Festa Do Joaquin', 'Salão - B', '2023-11-29 23:34:43.000000', '1', '1', '2023-06-11');
 
