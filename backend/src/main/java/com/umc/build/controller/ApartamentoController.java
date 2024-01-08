@@ -28,8 +28,23 @@ public class ApartamentoController {
                     .body("Erro ao criar Condominio: " + e.getMessage());
         }
     }
-    @GetMapping("getApartamento")
-    public List<Apartamento> getApartamento() {
-       return apartamentoService.getApartamento();
+    @GetMapping("/getApartamento/{empresa}")
+    public List<Apartamento> getApartamento(@PathVariable Integer empresa) {
+        try {
+            return apartamentoService.getApartamento(empresa);
+        }   catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletarApartamento(@PathVariable Integer id) {
+        try {
+            apartamentoService.deletar(id);
+            return ResponseEntity.ok("Apartamento Apagado!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Empresa: " + e.getMessage());
+        }
     }
 }

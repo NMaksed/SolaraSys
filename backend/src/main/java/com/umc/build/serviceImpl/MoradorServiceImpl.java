@@ -1,10 +1,13 @@
 package com.umc.build.serviceImpl;
 
+import com.umc.build.dto.MoradorDTO;
 import com.umc.build.model.AbstractPessoa;
 import com.umc.build.model.Apartamento;
+import com.umc.build.model.Condominio;
 import com.umc.build.model.Morador;
 import com.umc.build.repository.AbstractPessoaRepository;
 import com.umc.build.repository.ApartamentoRepository;
+import com.umc.build.repository.CondominioRepository;
 import com.umc.build.repository.MoradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +31,8 @@ public class MoradorServiceImpl{
          moradorRepository.save(morador);
     }
 
-    public List<Morador> getMorador() {
-        return moradorRepository.findAll();
+    public List<Morador> getMorador(Integer empresa) {
+        return moradorRepository.findByEmpresa(empresa);
     }
 
     public void validatePessoaMorador(Integer id) throws Exception {
@@ -47,21 +50,40 @@ public class MoradorServiceImpl{
         }
     }
 
-    public void builderPessoaMorador(Morador moradorDTO) {
+    public void builderPessoaMorador(MoradorDTO moradorDTO, Integer idApartamento) {
         AbstractPessoa pessoa = new AbstractPessoa();
-        pessoa.setNome(moradorDTO.getPessoa().getNome());
-        pessoa.setIdade(moradorDTO.getPessoa().getIdade());
-        pessoa.setCep(moradorDTO.getPessoa().getCep());
-        pessoa.setRg(moradorDTO.getPessoa().getRg());
-        pessoa.setCpf(moradorDTO.getPessoa().getCpf());
-
-        pessoa = pessoaService.salvarPessoa(moradorDTO.getPessoa());
+        pessoa.setNome(moradorDTO.getNome());
+        pessoa.setIdade(moradorDTO.getIdade());
+        pessoa.setCep(moradorDTO.getCep());
+        pessoa.setRg(moradorDTO.getRg());
+        pessoa.setCpf(moradorDTO.getCpf());
 
         Morador morador = new Morador();
+
         morador.setRepresentante(moradorDTO.getRepresentante());
         morador.setAtribuido(moradorDTO.getAtribuido());
         morador.setExame(moradorDTO.getExame());
+        Apartamento apartamento = apartamentoRepository.idApartamento(idApartamento);
+        morador.setApartamento(apartamento);
+        morador.setEmpresa(apartamento.getEmpresa());
+        morador.setEmail(moradorDTO.getEmail());
         morador.setPessoa(pessoa);
+        pessoaService.salvarPessoa(pessoa);
+        salvarMorador(morador);
+        getMorador(apartamento.getEmpresa().getId());
     }
 
+    public void deletar(Integer morador, Integer empresa) throws Exception{
+        if (morador != null) {
+            moradorRepository.deleteById(morador);
+            moradorRepository.findByEmpresa(empresa);
+        }
+        else {
+            throw new Exception("Morador não pode ser apagado!" );
+        }
+    }
+
+    public Integer numeroMoradores(Integer empresa) {
+        return moradorRepository.numeroMoradores(empresa);
+    }
 }

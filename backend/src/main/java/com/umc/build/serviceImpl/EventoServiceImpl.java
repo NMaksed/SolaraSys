@@ -5,6 +5,8 @@ import com.umc.build.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EventoServiceImpl {
 
@@ -13,5 +15,9 @@ public class EventoServiceImpl {
 
     public Evento agendarEspaco(Evento agendaEspaco) { eventoRepository.save(agendaEspaco);
         return agendaEspaco;
+    }
+
+    public List<Evento> getEventos(Integer empresa) {
+        return eventoRepository.findByEmpresa(empresa);
     }
 }

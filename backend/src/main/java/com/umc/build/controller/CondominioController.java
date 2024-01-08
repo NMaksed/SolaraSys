@@ -50,8 +50,19 @@ public class CondominioController {
         }
     }
 
-    @GetMapping("getCondominio")
-    public List<Condominio> getAllCondominio() {
-        return condominioService.getCondominio();
+    @GetMapping("getCondominio/{empresa}")
+    public List<Condominio> getAllCondominio(@PathVariable Integer empresa) {
+        return condominioService.getCondominio(empresa);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletarCondominio(@PathVariable Integer id) {
+        try {
+            condominioService.deletarCondominio(id);
+            return ResponseEntity.ok("Condominio Apagado!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar Empresa: " + e.getMessage());
+        }
     }
 }

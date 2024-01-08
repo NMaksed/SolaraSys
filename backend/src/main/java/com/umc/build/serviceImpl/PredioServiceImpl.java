@@ -21,12 +21,28 @@ public class PredioServiceImpl {
     private CondominioRepository condominioRepository;
 
     public void salvarPredio(Predio predio) { predioRepository.save(predio); }
-    public List<Predio> getPredio() { return predioRepository.findAll(); }
+    public List<Predio> getPredio(Integer empresa) {
+      List<Predio> lista = predioRepository.findByEmpresa(empresa);
+      return lista;
+    }
     public void validatePredioCondominiobyId(Integer id) throws Exception{
         Optional<Condominio> condominioOptional = condominioRepository.findById(id);
 
         if (condominioOptional.isEmpty()) {
             throw new Exception("Condominio: " + id + " não existe!");
         }
+    }
+
+    public void deletar(Integer predio) throws Exception{
+        if (predio != null) {
+            predioRepository.deleteById(predio);
+        }
+        else {
+            throw new Exception("Predio não pode ser apagado!" );
+        }
+    }
+
+    public Integer numeroPredio(Integer empresa) {
+        return predioRepository.numeroPredios(empresa);
     }
 }

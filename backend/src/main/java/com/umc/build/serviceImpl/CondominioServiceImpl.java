@@ -23,8 +23,8 @@ public class CondominioServiceImpl{
         condominioRepository.save(condominio);
     }
 
-    public List<Condominio> getCondominio() {
-        return condominioRepository.findAll();
+    public List<Condominio> getCondominio(Integer empresa) {
+        return condominioRepository.findByEmpresa(empresa);
     }
     public void validateEmpresaCondominiobyId(Integer id) throws Exception {
         Optional<Empresa> empresaOptional = empresaRepository.findById(id);
@@ -44,5 +44,14 @@ public class CondominioServiceImpl{
         condominio.setSalao(dto.getSalao());
         condominio.setSalao(dto.getSalao());
         salvarCondominio(condominio);
+    }
+
+    public void deletarCondominio(Integer condominio) throws Exception{
+        if (condominio != null) {
+            condominioRepository.deleteById(condominio);
+        }
+        else {
+            throw new Exception("Condominio não pode ser apagado!" );
+        }
     }
 }
